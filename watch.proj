@@ -1,0 +1,21 @@
+<!-- watch.proj -->
+<Project ToolsVersion="15.0">
+
+    <Target Name="WatchAndTest">
+        <ItemGroup>
+            <TestProjects Include="*.*Test*\*.csproj"/>
+         </ItemGroup>
+        <MSBuild Targets="VSTest" Projects="@(TestProjects)" />
+    </Target>
+
+  <ItemGroup>
+    <Watch Include="**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0-msbuild2-final" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft.Common.targets"/>
+
+</Project>

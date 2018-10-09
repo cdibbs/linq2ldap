@@ -1,0 +1,30 @@
+{
+  "name": "linq2ldap",
+  "version": "0.1.0",
+  "description": "LINQ-to-LDAP transpiler and helper classes.",
+  "main": "ldapMock.js",
+  "scripts": {
+    "serve": "ts-node index.ts -- 389",
+    "test": "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../TestResults/Coverage/ Linq2Ldap/Linq2Ldap.sln",
+    "cover": "cd Linq2Ldap/Linq2Ldap.Tests/; dotnet reportgenerator -reports:/TestResults/Coverage/coverage.cobertura.xml -targetdir:/TestResults/Coverage/Reports -reportTypes:htmlInline",
+    "search": "ldapjs-search -i --scope=sub --url ldap://localhost:389 --binddn cn=neoman,ou=users,o=example -w testtest -b o=example mail=*"
+  },
+  "keywords": [
+    "LINQ",
+    "LDAP",
+    "transpiler",
+    "compiler",
+    ".NET",
+    "dotnet",
+    "C#",
+    "csharp"
+  ],
+  "author": "Chris Dibbern <chris.dibbern@gmail.com> (https://github.com/cdibbs)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/ldapjs": "^1.0.3",
+    "ldapjs": "^1.0.2",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.1"
+  }
+}

@@ -1,0 +1,1124 @@
+SF:C:\git\linq2ldap\Linq2Ldap\Specification.cs
+FN:19,System.Object Specifications.Specification`1::get_Metadata()
+FNDA:0,System.Object Specifications.Specification`1::get_Metadata()
+DA:20,0
+FN:21,Specifications.ISpecification`1<T> Specifications.Specification`1::All()
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::All()
+DA:22,0
+FN:22,Specifications.ISpecification`1<T> Specifications.Specification`1::get_True()
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::get_True()
+DA:23,0
+FN:23,Specifications.ISpecification`1<T> Specifications.Specification`1::None()
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::None()
+DA:24,0
+FN:24,Specifications.ISpecification`1<T> Specifications.Specification`1::get_False()
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::get_False()
+DA:25,0
+FN:27,Specifications.ISpecification`1<T> Specifications.Specification`1::Start(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>,System.Object)
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::Start(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>,System.Object)
+DA:28,0
+DA:29,0
+DA:30,0
+FN:32,System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>> Specifications.Specification`1::AsExpression()
+FNDA:0,System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>> Specifications.Specification`1::AsExpression()
+DA:33,0
+DA:34,0
+DA:35,0
+FN:37,Specifications.ISpecification`1<T> Specifications.Specification`1::And(Specifications.ISpecification`1<T>)
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::And(Specifications.ISpecification`1<T>)
+DA:38,0
+DA:39,0
+DA:40,0
+FN:42,Specifications.ISpecification`1<T> Specifications.Specification`1::And(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::And(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+FN:59,Specifications.ISpecification`1<T> Specifications.Specification`1::Or(Specifications.ISpecification`1<T>)
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::Or(Specifications.ISpecification`1<T>)
+DA:60,0
+DA:61,0
+DA:62,0
+FN:64,Specifications.ISpecification`1<T> Specifications.Specification`1::Or(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
+FNDA:0,Specifications.ISpecification`1<T> Specifications.Specification`1::Or(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+FN:80,System.Int32 Specifications.Specification`1::GetHashCode()
+FNDA:0,System.Int32 Specifications.Specification`1::GetHashCode()
+DA:81,0
+DA:82,0
+DA:83,0
+FN:85,System.Boolean Specifications.Specification`1::Equals(System.Object)
+FNDA:0,System.Boolean Specifications.Specification`1::Equals(System.Object)
+DA:86,0
+DA:87,0
+DA:88,0
+FN:90,System.Boolean Specifications.Specification`1::Equals(Specifications.ISpecification`1<T>)
+FNDA:0,System.Boolean Specifications.Specification`1::Equals(Specifications.ISpecification`1<T>)
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+BRDA:92,7,0,0
+BRDA:92,7,1,0
+BRDA:96,22,0,0
+BRDA:96,22,1,0
+LF:46
+LH:0
+BRF:4
+BRH:0
+FNF:14
+FNH:0
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\DirectorySearcherProxy.cs
+FN:10,System.Void LDAPData.DirectorySearcherProxy::.ctor(System.DirectoryServices.DirectoryEntry)
+FNDA:0,System.Void LDAPData.DirectorySearcherProxy::.ctor(System.DirectoryServices.DirectoryEntry)
+DA:11,0
+DA:12,0
+DA:13,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\FilterCompiler\LDAPFilterCompiler.cs
+FN:8,LDAPData.FilterCompiler.CompilerCore LDAPData.LDAPFilterCompiler::get_Core()
+FNDA:47,LDAPData.FilterCompiler.CompilerCore LDAPData.LDAPFilterCompiler::get_Core()
+DA:9,47
+FN:23,System.String LDAPData.LDAPFilterCompiler::CompileFromLinq(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
+FNDA:47,System.String LDAPData.LDAPFilterCompiler::CompileFromLinq(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
+DA:24,47
+DA:25,47
+DA:26,39
+FN:10,System.Void LDAPData.LDAPFilterCompiler::.ctor(LDAPData.FilterCompiler.CompilerCore)
+FNDA:50,System.Void LDAPData.LDAPFilterCompiler::.ctor(LDAPData.FilterCompiler.CompilerCore)
+DA:11,50
+DA:12,50
+DA:13,50
+DA:14,50
+BRDA:13,11,0,50
+BRDA:13,11,1,50
+LF:8
+LH:8
+BRF:2
+BRH:2
+FNF:3
+FNH:3
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\LDAPRepository.cs
+FN:11,AutoMapper.IMapper LDAPData.LDAPRepository::get_Mapper()
+FNDA:0,AutoMapper.IMapper LDAPData.LDAPRepository::get_Mapper()
+DA:12,0
+FN:12,LDAPData.ILDAPFilterCompiler LDAPData.LDAPRepository::get_FilterCompiler()
+FNDA:0,LDAPData.ILDAPFilterCompiler LDAPData.LDAPRepository::get_FilterCompiler()
+DA:13,0
+FN:13,System.DirectoryServices.ActiveDirectory.Domain LDAPData.LDAPRepository::get_Domain()
+FNDA:0,System.DirectoryServices.ActiveDirectory.Domain LDAPData.LDAPRepository::get_Domain()
+DA:14,0
+FN:28,T LDAPData.LDAPRepository::FindOne(Specifications.ISpecification`1<T>)
+FNDA:0,T LDAPData.LDAPRepository::FindOne(Specifications.ISpecification`1<T>)
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:37,0
+DA:38,0
+FN:40,T[] LDAPData.LDAPRepository::FindAll(Specifications.ISpecification`1<T>)
+FNDA:0,T[] LDAPData.LDAPRepository::FindAll(Specifications.ISpecification`1<T>)
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:49,0
+DA:50,0
+FN:67,T[] LDAPData.LDAPRepository::Page(Specifications.ISpecification`1<T>,System.Int32,System.Int32,System.DirectoryServices.SortOption)
+FNDA:0,T[] LDAPData.LDAPRepository::Page(Specifications.ISpecification`1<T>,System.Int32,System.Int32,System.DirectoryServices.SortOption)
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:76,0
+DA:77,0
+DA:78,0
+BRDA:73,76,0,0
+BRDA:73,76,1,0
+FN:80,System.Void LDAPData.LDAPRepository::Add(T)
+FNDA:0,System.Void LDAPData.LDAPRepository::Add(T)
+DA:81,0
+DA:84,0
+FN:87,System.Void LDAPData.LDAPRepository::Update(T)
+FNDA:0,System.Void LDAPData.LDAPRepository::Update(T)
+DA:88,0
+DA:91,0
+FN:16,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILDAPFilterCompiler)
+FNDA:0,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILDAPFilterCompiler)
+DA:17,0
+DA:18,0
+DA:19,0
+FN:20,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILDAPFilterCompiler,System.DirectoryServices.ActiveDirectory.Domain)
+FNDA:0,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILDAPFilterCompiler,System.DirectoryServices.ActiveDirectory.Domain)
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+LF:40
+LH:0
+BRF:2
+BRH:0
+FNF:10
+FNH:0
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\LDAPRepositoryFactory.cs
+FN:12,AutoMapper.IMapper LDAPData.LDAPRepositoryFactory::get_Mapper()
+FNDA:0,AutoMapper.IMapper LDAPData.LDAPRepositoryFactory::get_Mapper()
+DA:13,0
+FN:23,LDAPData.LDAPRepository LDAPData.LDAPRepositoryFactory::Build()
+FNDA:0,LDAPData.LDAPRepository LDAPData.LDAPRepositoryFactory::Build()
+DA:24,0
+DA:25,0
+DA:26,0
+FN:13,System.Void LDAPData.LDAPRepositoryFactory::.ctor()
+FNDA:0,System.Void LDAPData.LDAPRepositoryFactory::.ctor()
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+BRDA:16,14,0,0
+BRDA:16,14,1,0
+LF:12
+LH:0
+BRF:2
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\MapperProfile.cs
+FN:28,System.Void LDAPData.MapperProfile::Convert(LDAPData.SearchResultProxy,T)
+FNDA:1,System.Void LDAPData.MapperProfile::Convert(LDAPData.SearchResultProxy,T)
+DA:29,1
+DA:30,1
+DA:31,1
+DA:32,1
+DA:33,19
+DA:34,8
+DA:35,8
+DA:36,8
+DA:37,1
+BRDA:30,24,0,0
+BRDA:30,24,1,1
+BRDA:33,98,1,8
+BRDA:33,98,0,1
+FN:39,System.Void LDAPData.MapperProfile::SetPropFromProperties(LDAPData.SearchResultProxy,T,System.Reflection.PropertyInfo)
+FNDA:8,System.Void LDAPData.MapperProfile::SetPropFromProperties(LDAPData.SearchResultProxy,T,System.Reflection.PropertyInfo)
+DA:40,8
+DA:41,8
+DA:42,8
+DA:43,8
+DA:44,4
+DA:45,4
+DA:48,4
+DA:49,4
+DA:50,4
+DA:51,4
+DA:52,4
+DA:53,4
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:60,8
+BRDA:43,16,0,4
+BRDA:43,16,1,4
+BRDA:43,29,0,4
+BRDA:43,29,1,4
+BRDA:48,38,0,0
+BRDA:48,38,1,4
+BRDA:48,50,0,0
+BRDA:48,50,1,4
+BRDA:50,83,0,4
+BRDA:50,83,1,0
+FN:66,System.Void LDAPData.MapperProfile::ValidateTypeConvertAndSet(T,LDAPData.ResultPropertyValueCollectionProxy,System.Reflection.PropertyInfo,System.String)
+FNDA:4,System.Void LDAPData.MapperProfile::ValidateTypeConvertAndSet(T,LDAPData.ResultPropertyValueCollectionProxy,System.Reflection.PropertyInfo,System.String)
+DA:67,4
+DA:68,4
+DA:69,4
+DA:70,2
+DA:71,2
+DA:72,2
+DA:73,0
+DA:74,0
+DA:75,0
+DA:79,2
+DA:80,2
+DA:81,2
+DA:82,2
+DA:85,2
+DA:86,2
+DA:88,2
+DA:89,2
+DA:92,0
+DA:93,0
+DA:94,4
+BRDA:69,26,0,2
+BRDA:72,62,0,0
+BRDA:72,62,1,2
+BRDA:69,26,1,2
+BRDA:85,151,0,2
+BRDA:85,151,1,0
+FN:96,System.Void LDAPData.MapperProfile::AssertValidCast(System.Type,System.Object,System.String,System.String)
+FNDA:0,System.Void LDAPData.MapperProfile::AssertValidCast(System.Type,System.Object,System.String,System.String)
+DA:97,0
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:103,0
+BRDA:98,13,0,0
+BRDA:98,13,1,0
+FN:15,System.Void LDAPData.MapperProfile::.ctor()
+FNDA:1,System.Void LDAPData.MapperProfile::.ctor()
+DA:16,1
+DA:17,1
+DA:18,1
+DA:19,2
+DA:20,2
+DA:21,1
+DA:23,1
+DA:24,1
+DA:25,1
+BRDA:19,79,0,1
+BRDA:19,79,1,1
+BRDA:20,174,0,1
+BRDA:20,174,1,1
+LF:61
+LH:46
+BRF:26
+BRH:18
+FNF:5
+FNH:4
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\ResultPropertyCollectionProxy.cs
+FN:26,LDAPData.ResultPropertyValueCollectionProxy LDAPData.ResultPropertyCollectionProxy::get_Item(System.String)
+FNDA:7,LDAPData.ResultPropertyValueCollectionProxy LDAPData.ResultPropertyCollectionProxy::get_Item(System.String)
+DA:27,7
+DA:28,7
+DA:29,7
+DA:30,7
+DA:31,7
+BRDA:28,7,0,7
+BRDA:28,7,1,0
+FN:38,System.Int32 LDAPData.ResultPropertyCollectionProxy::get_Count()
+FNDA:0,System.Int32 LDAPData.ResultPropertyCollectionProxy::get_Count()
+DA:39,0
+DA:40,0
+DA:41,0
+BRDA:40,8,0,0
+BRDA:40,8,1,0
+FN:13,System.Void LDAPData.ResultPropertyCollectionProxy::.ctor(System.Collections.Generic.Dictionary`2<System.String,LDAPData.ResultPropertyValueCollectionProxy>)
+FNDA:1,System.Void LDAPData.ResultPropertyCollectionProxy::.ctor(System.Collections.Generic.Dictionary`2<System.String,LDAPData.ResultPropertyValueCollectionProxy>)
+DA:14,1
+DA:15,1
+DA:16,1
+DA:17,1
+FN:18,System.Void LDAPData.ResultPropertyCollectionProxy::.ctor(System.DirectoryServices.ResultPropertyCollection)
+FNDA:0,System.Void LDAPData.ResultPropertyCollectionProxy::.ctor(System.DirectoryServices.ResultPropertyCollection)
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+LF:16
+LH:9
+BRF:4
+BRH:1
+FNF:4
+FNH:2
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\ResultPropertyValueCollectionProxy.cs
+FN:11,System.DirectoryServices.ResultPropertyValueCollection LDAPData.ResultPropertyValueCollectionProxy::get_ProxyValues()
+FNDA:0,System.DirectoryServices.ResultPropertyValueCollection LDAPData.ResultPropertyValueCollectionProxy::get_ProxyValues()
+DA:12,0
+FN:12,System.Collections.Generic.List`1<System.Object> LDAPData.ResultPropertyValueCollectionProxy::get_Values()
+FNDA:28,System.Collections.Generic.List`1<System.Object> LDAPData.ResultPropertyValueCollectionProxy::get_Values()
+DA:13,28
+FN:23,System.Int32 LDAPData.ResultPropertyValueCollectionProxy::get_Count()
+FNDA:10,System.Int32 LDAPData.ResultPropertyValueCollectionProxy::get_Count()
+DA:24,10
+BRDA:24,7,0,0
+BRDA:24,7,1,10
+FN:28,System.Object LDAPData.ResultPropertyValueCollectionProxy::get_Item(System.Int32)
+FNDA:9,System.Object LDAPData.ResultPropertyValueCollectionProxy::get_Item(System.Int32)
+DA:29,9
+DA:30,9
+DA:31,9
+DA:32,9
+DA:33,9
+BRDA:30,7,0,0
+BRDA:30,7,1,9
+FN:44,System.Collections.IEnumerator LDAPData.ResultPropertyValueCollectionProxy::System.Collections.IEnumerable.GetEnumerator()
+FNDA:0,System.Collections.IEnumerator LDAPData.ResultPropertyValueCollectionProxy::System.Collections.IEnumerable.GetEnumerator()
+DA:45,0
+DA:46,0
+DA:47,0
+FN:49,System.Int32 LDAPData.ResultPropertyValueCollectionProxy::CompareTo(System.String)
+FNDA:0,System.Int32 LDAPData.ResultPropertyValueCollectionProxy::CompareTo(System.String)
+DA:50,0
+DA:51,0
+DA:52,0
+BRDA:51,8,0,0
+BRDA:51,8,1,0
+FN:53,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::Equals(System.String)
+FNDA:0,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::Equals(System.String)
+DA:54,0
+FN:56,System.Int32 LDAPData.ResultPropertyValueCollectionProxy::GetHashCode()
+FNDA:0,System.Int32 LDAPData.ResultPropertyValueCollectionProxy::GetHashCode()
+DA:57,0
+DA:58,0
+DA:59,0
+BRDA:58,7,0,0
+BRDA:58,7,1,0
+FN:61,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_Equality(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+FNDA:0,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_Equality(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+DA:62,0
+BRDA:62,7,0,0
+BRDA:62,16,0,0
+BRDA:62,16,1,0
+BRDA:62,7,1,0
+FN:64,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_Inequality(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+FNDA:0,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_Inequality(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+DA:65,0
+FN:67,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_LessThan(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+FNDA:0,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_LessThan(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+DA:68,0
+BRDA:68,7,0,0
+BRDA:68,7,1,0
+FN:70,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_GreaterThanOrEqual(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+FNDA:0,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_GreaterThanOrEqual(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+DA:71,0
+FN:73,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_GreaterThan(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+FNDA:0,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_GreaterThan(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+DA:74,0
+BRDA:74,7,0,0
+BRDA:74,7,1,0
+FN:76,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_LessThanOrEqual(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+FNDA:0,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::op_LessThanOrEqual(LDAPData.ResultPropertyValueCollectionProxy,System.String)
+DA:77,0
+FN:79,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::Equals(System.Object)
+FNDA:0,System.Boolean LDAPData.ResultPropertyValueCollectionProxy::Equals(System.Object)
+DA:80,0
+DA:81,0
+DA:82,0
+FN:13,System.Void LDAPData.ResultPropertyValueCollectionProxy::.ctor(System.DirectoryServices.ResultPropertyValueCollection)
+FNDA:0,System.Void LDAPData.ResultPropertyValueCollectionProxy::.ctor(System.DirectoryServices.ResultPropertyValueCollection)
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+FN:18,System.Void LDAPData.ResultPropertyValueCollectionProxy::.ctor(System.Collections.Generic.List`1<System.Object>)
+FNDA:5,System.Void LDAPData.ResultPropertyValueCollectionProxy::.ctor(System.Collections.Generic.List`1<System.Object>)
+DA:19,5
+DA:20,5
+DA:21,5
+DA:22,5
+FN:36,System.Boolean LDAPData.ResultPropertyValueCollectionProxy/<GetEnumerator>d__12::MoveNext()
+FNDA:2,System.Boolean LDAPData.ResultPropertyValueCollectionProxy/<GetEnumerator>d__12::MoveNext()
+DA:37,2
+DA:38,8
+DA:39,2
+DA:40,2
+DA:41,2
+DA:42,2
+BRDA:37,14,0,0
+BRDA:38,119,1,2
+BRDA:37,14,1,2
+BRDA:38,119,0,2
+LF:41
+LH:17
+BRF:20
+BRH:5
+FNF:18
+FNH:5
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\SearchResultCollectionProxy.cs
+FN:25,System.Collections.IEnumerator LDAPData.SearchResultCollectionProxy::System.Collections.IEnumerable.GetEnumerator()
+FNDA:0,System.Collections.IEnumerator LDAPData.SearchResultCollectionProxy::System.Collections.IEnumerable.GetEnumerator()
+DA:26,0
+DA:27,0
+DA:28,0
+FN:11,System.Void LDAPData.SearchResultCollectionProxy::.ctor(System.DirectoryServices.SearchResultCollection)
+FNDA:0,System.Void LDAPData.SearchResultCollectionProxy::.ctor(System.DirectoryServices.SearchResultCollection)
+DA:12,0
+DA:13,0
+DA:14,0
+DA:15,0
+FN:17,System.Boolean LDAPData.SearchResultCollectionProxy/<GetEnumerator>d__2::MoveNext()
+FNDA:0,System.Boolean LDAPData.SearchResultCollectionProxy/<GetEnumerator>d__2::MoveNext()
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+BRDA:18,14,0,0
+BRDA:19,134,1,0
+BRDA:18,14,1,0
+BRDA:19,134,0,0
+LF:13
+LH:0
+BRF:4
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\SearchResultProxy.cs
+FN:22,System.String LDAPData.SearchResultProxy::get_Path()
+FNDA:3,System.String LDAPData.SearchResultProxy::get_Path()
+DA:23,3
+FN:24,LDAPData.ResultPropertyCollectionProxy LDAPData.SearchResultProxy::get_Properties()
+FNDA:10,LDAPData.ResultPropertyCollectionProxy LDAPData.SearchResultProxy::get_Properties()
+DA:25,10
+FN:11,System.Void LDAPData.SearchResultProxy::.ctor()
+FNDA:1,System.Void LDAPData.SearchResultProxy::.ctor()
+DA:12,1
+DA:13,1
+DA:14,1
+FN:15,System.Void LDAPData.SearchResultProxy::.ctor(System.DirectoryServices.SearchResult)
+FNDA:0,System.Void LDAPData.SearchResultProxy::.ctor(System.DirectoryServices.SearchResult)
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+LF:11
+LH:5
+BRF:0
+BRH:0
+FNF:4
+FNH:3
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\Types\LDAPStringList.cs
+FN:13,System.Boolean LDAPData.Types.LDAPStringList::op_Equality(LDAPData.Types.LDAPStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_Equality(LDAPData.Types.LDAPStringList,System.String)
+DA:14,0
+BRDA:14,7,0,0
+BRDA:14,16,0,0
+BRDA:14,16,1,0
+BRDA:14,7,1,0
+FN:16,System.Boolean LDAPData.Types.LDAPStringList::op_Inequality(LDAPData.Types.LDAPStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_Inequality(LDAPData.Types.LDAPStringList,System.String)
+DA:17,0
+FN:19,System.Boolean LDAPData.Types.LDAPStringList::op_LessThan(LDAPData.Types.LDAPStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_LessThan(LDAPData.Types.LDAPStringList,System.String)
+DA:20,0
+BRDA:20,7,0,0
+BRDA:20,7,1,0
+FN:22,System.Boolean LDAPData.Types.LDAPStringList::op_GreaterThanOrEqual(LDAPData.Types.LDAPStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_GreaterThanOrEqual(LDAPData.Types.LDAPStringList,System.String)
+DA:23,0
+FN:25,System.Boolean LDAPData.Types.LDAPStringList::op_GreaterThan(LDAPData.Types.LDAPStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_GreaterThan(LDAPData.Types.LDAPStringList,System.String)
+DA:26,0
+BRDA:26,7,0,0
+BRDA:26,7,1,0
+FN:28,System.Boolean LDAPData.Types.LDAPStringList::op_LessThanOrEqual(LDAPData.Types.LDAPStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_LessThanOrEqual(LDAPData.Types.LDAPStringList,System.String)
+DA:29,0
+FN:31,System.String LDAPData.Types.LDAPStringList::op_Implicit(LDAPData.Types.LDAPStringList)
+FNDA:0,System.String LDAPData.Types.LDAPStringList::op_Implicit(LDAPData.Types.LDAPStringList)
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+FN:37,System.Boolean LDAPData.Types.LDAPStringList::StartsWith(System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::StartsWith(System.String)
+DA:38,0
+FN:38,System.Boolean LDAPData.Types.LDAPStringList::EndsWith(System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::EndsWith(System.String)
+DA:39,0
+FN:39,System.Boolean LDAPData.Types.LDAPStringList::Contains(System.String)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::Contains(System.String)
+DA:40,0
+FN:40,System.Int32 LDAPData.Types.LDAPStringList::CompareTo(System.String)
+FNDA:0,System.Int32 LDAPData.Types.LDAPStringList::CompareTo(System.String)
+DA:41,0
+FN:43,System.Boolean LDAPData.Types.LDAPStringList::Equals(System.Object)
+FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::Equals(System.Object)
+DA:44,0
+DA:45,0
+DA:46,0
+FN:48,System.Int32 LDAPData.Types.LDAPStringList::GetHashCode()
+FNDA:0,System.Int32 LDAPData.Types.LDAPStringList::GetHashCode()
+DA:49,0
+DA:50,0
+DA:51,0
+FN:8,System.Void LDAPData.Types.LDAPStringList::.ctor(System.Collections.Generic.IEnumerable`1<System.String>)
+FNDA:2,System.Void LDAPData.Types.LDAPStringList::.ctor(System.Collections.Generic.IEnumerable`1<System.String>)
+DA:9,2
+DA:10,2
+DA:11,2
+LF:23
+LH:3
+BRF:8
+BRH:0
+FNF:14
+FNH:1
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\Models\BaseSAMAccount.cs
+FN:8,System.String LDAPData.Models.BaseSAMAccount::get_Path()
+FNDA:2,System.String LDAPData.Models.BaseSAMAccount::get_Path()
+DA:9,2
+FN:13,System.String LDAPData.Models.BaseSAMAccount::get_Id()
+FNDA:0,System.String LDAPData.Models.BaseSAMAccount::get_Id()
+DA:14,0
+FN:14,System.Void LDAPData.Models.BaseSAMAccount::set_Id(System.String)
+FNDA:0,System.Void LDAPData.Models.BaseSAMAccount::set_Id(System.String)
+DA:15,0
+FN:18,LDAPData.Types.LDAPStringList LDAPData.Models.BaseSAMAccount::get_ObjectClass()
+FNDA:1,LDAPData.Types.LDAPStringList LDAPData.Models.BaseSAMAccount::get_ObjectClass()
+DA:19,1
+FN:24,LDAPData.Types.LDAPStringList LDAPData.Models.BaseSAMAccount::get_CommonName()
+FNDA:1,LDAPData.Types.LDAPStringList LDAPData.Models.BaseSAMAccount::get_CommonName()
+DA:25,1
+FN:27,System.String LDAPData.Models.BaseSAMAccount::get_UserPrincipalName()
+FNDA:2,System.String LDAPData.Models.BaseSAMAccount::get_UserPrincipalName()
+DA:28,2
+FN:30,System.String LDAPData.Models.BaseSAMAccount::get_SamAccountName()
+FNDA:3,System.String LDAPData.Models.BaseSAMAccount::get_SamAccountName()
+DA:31,3
+FN:33,System.Int64[] LDAPData.Models.BaseSAMAccount::get_SIdHistory()
+FNDA:0,System.Int64[] LDAPData.Models.BaseSAMAccount::get_SIdHistory()
+DA:34,0
+FN:36,LDAPData.ResultPropertyCollectionProxy LDAPData.Models.BaseSAMAccount::get_Properties()
+FNDA:2,LDAPData.ResultPropertyCollectionProxy LDAPData.Models.BaseSAMAccount::get_Properties()
+DA:37,2
+LF:9
+LH:6
+BRF:0
+BRH:0
+FNF:9
+FNH:6
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\Models\User.cs
+FN:6,System.String LDAPData.Models.User::get_Url()
+FNDA:0,System.String LDAPData.Models.User::get_Url()
+DA:7,0
+FN:9,System.String LDAPData.Models.User::get_Email()
+FNDA:0,System.String LDAPData.Models.User::get_Email()
+DA:10,0
+FN:12,System.String LDAPData.Models.User::get_GivenName()
+FNDA:0,System.String LDAPData.Models.User::get_GivenName()
+DA:13,0
+FN:15,System.String LDAPData.Models.User::get_Surname()
+FNDA:0,System.String LDAPData.Models.User::get_Surname()
+DA:16,0
+FN:18,System.String LDAPData.Models.User::get_UserId()
+FNDA:0,System.String LDAPData.Models.User::get_UserId()
+DA:19,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\FilterCompiler\BooleanAlgebra.cs
+FN:9,LDAPData.FilterCompiler.CompilerCore LDAPData.FilterCompiler.BooleanAlgebra::get_Core()
+FNDA:66,LDAPData.FilterCompiler.CompilerCore LDAPData.FilterCompiler.BooleanAlgebra::get_Core()
+DA:10,66
+FN:17,System.String LDAPData.FilterCompiler.BooleanAlgebra::AndOrExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String)
+FNDA:4,System.String LDAPData.FilterCompiler.BooleanAlgebra::AndOrExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String)
+DA:18,4
+DA:19,4
+DA:20,4
+DA:21,4
+DA:22,4
+DA:23,4
+FN:26,System.String LDAPData.FilterCompiler.BooleanAlgebra::NotExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+FNDA:1,System.String LDAPData.FilterCompiler.BooleanAlgebra::NotExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+DA:27,1
+DA:28,1
+DA:29,1
+DA:30,1
+DA:31,1
+FN:10,System.Void LDAPData.FilterCompiler.BooleanAlgebra::.ctor(LDAPData.FilterCompiler.CompilerCore)
+FNDA:57,System.Void LDAPData.FilterCompiler.BooleanAlgebra::.ctor(LDAPData.FilterCompiler.CompilerCore)
+DA:11,57
+DA:12,57
+DA:13,57
+DA:14,57
+LF:16
+LH:16
+BRF:0
+BRH:0
+FNF:4
+FNH:4
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\FilterCompiler\CompilerCore.cs
+FN:12,LDAPData.FilterCompiler.StringComparisons LDAPData.FilterCompiler.CompilerCore::get_StringComparisons()
+FNDA:107,LDAPData.FilterCompiler.StringComparisons LDAPData.FilterCompiler.CompilerCore::get_StringComparisons()
+DA:13,107
+FN:13,LDAPData.FilterCompiler.SubstringOperations LDAPData.FilterCompiler.CompilerCore::get_SubstringOperations()
+FNDA:76,LDAPData.FilterCompiler.SubstringOperations LDAPData.FilterCompiler.CompilerCore::get_SubstringOperations()
+DA:14,76
+FN:14,LDAPData.FilterCompiler.BooleanAlgebra LDAPData.FilterCompiler.CompilerCore::get_BooleanAlgebra()
+FNDA:62,LDAPData.FilterCompiler.BooleanAlgebra LDAPData.FilterCompiler.CompilerCore::get_BooleanAlgebra()
+DA:15,62
+FN:36,System.String LDAPData.FilterCompiler.CompilerCore::ExpressionToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+FNDA:85,System.String LDAPData.FilterCompiler.CompilerCore::ExpressionToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+DA:37,85
+DA:38,85
+DA:41,24
+DA:43,1
+DA:45,3
+DA:47,1
+DA:49,1
+DA:51,9
+DA:52,9
+DA:54,6
+DA:55,6
+DA:57,6
+DA:58,6
+DA:60,23
+DA:64,7
+DA:65,7
+DA:67,1
+DA:68,1
+DA:70,2
+DA:71,2
+DA:76,1
+DA:77,1
+DA:78,1
+DA:79,1
+DA:80,1
+DA:82,74
+BRDA:38,11,0,58
+BRDA:38,50,0,5
+BRDA:38,50,11,24
+BRDA:38,11,7,1
+BRDA:38,11,1,3
+BRDA:38,105,4,1
+BRDA:38,105,1,1
+BRDA:38,50,1,9
+BRDA:51,246,0,9
+BRDA:51,246,1,7
+BRDA:38,50,4,6
+BRDA:54,283,0,0
+BRDA:54,283,1,6
+BRDA:38,50,9,6
+BRDA:57,320,0,0
+BRDA:57,320,1,6
+BRDA:38,11,4,23
+BRDA:38,50,3,7
+BRDA:64,376,0,1
+BRDA:64,376,1,4
+BRDA:38,50,8,1
+BRDA:67,420,0,0
+BRDA:67,420,1,1
+BRDA:38,105,2,2
+BRDA:70,460,0,2
+BRDA:70,460,1,2
+BRDA:38,11,2,1
+BRDA:38,11,3,1
+BRDA:38,11,5,1
+BRDA:38,11,6,1
+BRDA:38,50,2,1
+BRDA:38,50,5,1
+BRDA:38,50,6,1
+BRDA:38,50,7,1
+BRDA:38,50,10,1
+BRDA:38,105,0,1
+BRDA:38,105,3,1
+FN:85,System.String LDAPData.FilterCompiler.CompilerCore::_CallExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+FNDA:23,System.String LDAPData.FilterCompiler.CompilerCore::_CallExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+DA:86,23
+DA:87,23
+DA:88,23
+DA:89,23
+DA:90,23
+DA:91,23
+DA:92,23
+DA:95,23
+DA:99,7
+DA:102,6
+DA:105,6
+DA:107,3
+DA:109,1
+DA:110,1
+DA:111,1
+DA:113,19
+BRDA:95,89,0,10
+BRDA:95,98,0,7
+BRDA:95,112,0,4
+BRDA:95,89,1,13
+BRDA:95,140,0,7
+BRDA:95,149,0,0
+BRDA:95,140,1,6
+BRDA:95,174,0,3
+BRDA:95,149,1,7
+BRDA:95,160,1,0
+BRDA:95,126,1,3
+BRDA:95,185,1,3
+BRDA:95,174,1,3
+BRDA:95,98,1,3
+BRDA:95,112,1,3
+BRDA:95,204,1,7
+BRDA:95,223,1,7
+BRDA:95,242,1,6
+BRDA:95,261,1,6
+BRDA:95,280,1,6
+BRDA:95,296,1,6
+BRDA:95,312,1,3
+BRDA:95,126,0,1
+BRDA:95,160,0,1
+BRDA:95,185,0,1
+BRDA:95,204,0,1
+BRDA:95,223,0,1
+BRDA:95,242,0,1
+BRDA:95,261,0,1
+BRDA:95,280,0,1
+BRDA:95,296,0,1
+BRDA:95,312,0,1
+FN:117,System.String LDAPData.FilterCompiler.CompilerCore::__PDictIndexToString(System.Linq.Expressions.MethodCallExpression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+FNDA:3,System.String LDAPData.FilterCompiler.CompilerCore::__PDictIndexToString(System.Linq.Expressions.MethodCallExpression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+DA:118,3
+DA:119,3
+DA:120,3
+DA:123,1
+DA:125,1
+DA:128,1
+DA:129,1
+DA:130,2
+BRDA:120,21,1,3
+BRDA:120,33,1,2
+BRDA:120,76,0,2
+BRDA:120,33,0,1
+BRDA:120,76,1,1
+BRDA:120,45,0,1
+BRDA:120,21,0,1
+BRDA:120,45,1,1
+BRDA:128,138,0,0
+BRDA:128,138,1,1
+FN:133,System.String LDAPData.FilterCompiler.CompilerCore::EvalExpr(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+FNDA:45,System.String LDAPData.FilterCompiler.CompilerCore::EvalExpr(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+DA:134,45
+DA:135,45
+DA:138,29
+DA:140,15
+DA:141,15
+DA:142,15
+DA:143,15
+DA:145,1
+DA:146,1
+DA:148,44
+BRDA:135,11,0,16
+BRDA:135,11,1,29
+BRDA:135,18,1,15
+BRDA:135,18,0,1
+FN:149,System.String LDAPData.FilterCompiler.CompilerCore::_Negate(System.String)
+FNDA:7,System.String LDAPData.FilterCompiler.CompilerCore::_Negate(System.String)
+DA:150,7
+FN:153,System.String LDAPData.FilterCompiler.CompilerCore::_ComparisonExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String)
+FNDA:12,System.String LDAPData.FilterCompiler.CompilerCore::_ComparisonExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String)
+DA:154,12
+DA:155,12
+DA:156,12
+DA:157,9
+DA:158,9
+DA:159,9
+FN:162,System.String LDAPData.FilterCompiler.CompilerCore::_MaybeStringCompareToExpr(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String,System.String)
+FNDA:31,System.String LDAPData.FilterCompiler.CompilerCore::_MaybeStringCompareToExpr(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String,System.String)
+DA:163,31
+DA:164,31
+DA:165,31
+DA:167,31
+DA:168,19
+DA:169,19
+DA:172,12
+DA:173,29
+BRDA:164,4,0,23
+BRDA:164,4,1,31
+BRDA:167,49,0,19
+BRDA:167,49,1,12
+FN:175,System.Linq.Expressions.MemberExpression LDAPData.FilterCompiler.CompilerCore::__IsParamModelAccess(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+FNDA:82,System.Linq.Expressions.MemberExpression LDAPData.FilterCompiler.CompilerCore::__IsParamModelAccess(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+DA:176,82
+DA:177,82
+DA:178,53
+DA:179,53
+DA:181,29
+DA:182,29
+DA:183,29
+DA:184,29
+DA:185,11
+DA:186,11
+DA:189,18
+DA:190,82
+BRDA:177,9,0,63
+BRDA:177,9,1,19
+BRDA:177,30,0,53
+BRDA:177,30,1,29
+BRDA:181,45,0,11
+BRDA:181,55,0,11
+BRDA:181,71,0,11
+BRDA:181,45,1,18
+BRDA:181,55,1,18
+BRDA:181,71,1,18
+BRDA:181,95,0,11
+BRDA:181,95,1,18
+FN:193,System.String LDAPData.FilterCompiler.CompilerCore::_ConstExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+FNDA:30,System.String LDAPData.FilterCompiler.CompilerCore::_ConstExprToString(System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+DA:194,30
+DA:195,30
+DA:196,30
+DA:197,1
+DA:198,1
+DA:199,1
+DA:202,29
+DA:203,29
+BRDA:196,29,0,2
+BRDA:196,29,1,28
+BRDA:196,57,0,1
+BRDA:196,57,1,29
+FN:206,System.String LDAPData.FilterCompiler.CompilerCore::_MemberToString(System.Linq.Expressions.MemberExpression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+FNDA:44,System.String LDAPData.FilterCompiler.CompilerCore::_MemberToString(System.Linq.Expressions.MemberExpression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>)
+DA:207,44
+DA:208,44
+DA:209,43
+DA:210,43
+DA:211,43
+DA:215,1
+DA:216,43
+BRDA:208,14,0,43
+BRDA:211,30,0,2
+BRDA:211,30,1,41
+BRDA:208,14,1,1
+FN:16,System.Void LDAPData.FilterCompiler.CompilerCore::.ctor(LDAPData.FilterCompiler.StringComparisons,LDAPData.FilterCompiler.BooleanAlgebra,LDAPData.FilterCompiler.SubstringOperations)
+FNDA:57,System.Void LDAPData.FilterCompiler.CompilerCore::.ctor(LDAPData.FilterCompiler.StringComparisons,LDAPData.FilterCompiler.BooleanAlgebra,LDAPData.FilterCompiler.SubstringOperations)
+DA:17,57
+DA:18,57
+DA:19,57
+DA:20,57
+DA:21,57
+DA:22,57
+DA:23,57
+DA:24,57
+DA:25,57
+DA:26,57
+BRDA:23,11,0,57
+BRDA:23,11,1,57
+BRDA:24,29,0,57
+BRDA:24,29,1,57
+BRDA:25,47,0,57
+BRDA:25,47,1,57
+LF:115
+LH:115
+BRF:113
+BRH:107
+FNF:14
+FNH:14
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\FilterCompiler\StringComparisons.cs
+FN:10,LDAPData.FilterCompiler.CompilerCore LDAPData.FilterCompiler.StringComparisons::get_Core()
+FNDA:72,LDAPData.FilterCompiler.CompilerCore LDAPData.FilterCompiler.StringComparisons::get_Core()
+DA:11,72
+FN:17,System.Linq.Expressions.MethodCallExpression[] LDAPData.FilterCompiler.StringComparisons::IsStringCompare(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)
+FNDA:31,System.Linq.Expressions.MethodCallExpression[] LDAPData.FilterCompiler.StringComparisons::IsStringCompare(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)
+DA:18,31
+DA:19,31
+DA:20,31
+DA:21,31
+DA:22,78
+DA:23,31
+DA:24,31
+DA:25,31
+BRDA:22,44,0,35
+BRDA:22,44,1,43
+FN:27,System.Boolean LDAPData.FilterCompiler.StringComparisons::__IsStrCmp(System.Linq.Expressions.MethodCallExpression)
+FNDA:42,System.Boolean LDAPData.FilterCompiler.StringComparisons::__IsStrCmp(System.Linq.Expressions.MethodCallExpression)
+DA:28,42
+DA:29,42
+DA:30,42
+BRDA:28,1,0,38
+BRDA:28,29,0,13
+BRDA:28,29,1,35
+BRDA:28,57,0,35
+BRDA:28,80,0,19
+BRDA:28,80,1,16
+BRDA:28,1,1,7
+BRDA:28,57,1,7
+FN:34,System.String LDAPData.FilterCompiler.StringComparisons::StringCompareToExpr(System.Linq.Expressions.MethodCallExpression[],System.Linq.Expressions.BinaryExpression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String,System.String)
+FNDA:19,System.String LDAPData.FilterCompiler.StringComparisons::StringCompareToExpr(System.Linq.Expressions.MethodCallExpression[],System.Linq.Expressions.BinaryExpression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String,System.String)
+DA:35,19
+DA:36,19
+DA:37,19
+DA:38,19
+DA:39,19
+DA:40,19
+DA:41,8
+DA:42,8
+DA:46,11
+DA:47,17
+BRDA:36,10,0,4
+BRDA:36,19,0,4
+BRDA:36,19,1,4
+BRDA:36,10,1,15
+BRDA:36,43,0,15
+BRDA:36,43,1,15
+BRDA:40,128,0,8
+BRDA:40,128,1,11
+FN:51,System.String LDAPData.FilterCompiler.StringComparisons::_NormalizeStringCompareAsString(System.Int32,System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String,System.String,System.Boolean)
+FNDA:19,System.String LDAPData.FilterCompiler.StringComparisons::_NormalizeStringCompareAsString(System.Int32,System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.String,System.String,System.Boolean)
+DA:52,19
+DA:53,38
+DA:54,19
+DA:55,19
+DA:56,19
+DA:57,11
+DA:58,11
+DA:59,11
+DA:60,11
+DA:61,11
+DA:62,8
+DA:63,6
+DA:64,6
+DA:65,6
+DA:66,6
+DA:67,6
+DA:69,2
+DA:70,2
+DA:73,17
+DA:74,17
+BRDA:56,36,0,11
+BRDA:56,36,1,8
+BRDA:56,49,0,11
+BRDA:56,49,1,8
+BRDA:62,101,0,8
+BRDA:62,101,1,0
+BRDA:62,114,0,6
+BRDA:62,114,1,2
+FN:77,System.String LDAPData.FilterCompiler.StringComparisons::_AdjustCompares(System.String,System.String,System.Int32,System.Boolean)
+FNDA:17,System.String LDAPData.FilterCompiler.StringComparisons::_AdjustCompares(System.String,System.String,System.Int32,System.Boolean)
+DA:78,17
+DA:79,17
+DA:80,17
+DA:81,17
+DA:82,17
+DA:83,17
+DA:84,17
+DA:85,17
+DA:88,17
+DA:89,17
+DA:90,17
+DA:91,17
+DA:92,17
+DA:93,17
+DA:94,17
+DA:95,17
+DA:96,17
+DA:97,17
+DA:99,17
+DA:100,17
+DA:101,17
+BRDA:100,367,0,11
+BRDA:100,367,1,6
+FN:11,System.Void LDAPData.FilterCompiler.StringComparisons::.ctor(LDAPData.FilterCompiler.CompilerCore)
+FNDA:57,System.Void LDAPData.FilterCompiler.StringComparisons::.ctor(LDAPData.FilterCompiler.CompilerCore)
+DA:12,57
+DA:13,57
+DA:14,57
+DA:15,57
+LF:67
+LH:67
+BRF:28
+BRH:27
+FNF:7
+FNH:7
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\FilterCompiler\SubstringOperations.cs
+FN:10,LDAPData.FilterCompiler.CompilerCore LDAPData.FilterCompiler.SubstringOperations::get_Core()
+FNDA:91,LDAPData.FilterCompiler.CompilerCore LDAPData.FilterCompiler.SubstringOperations::get_Core()
+DA:11,91
+FN:20,System.String LDAPData.FilterCompiler.SubstringOperations::OpToString(System.Linq.Expressions.MethodCallExpression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.Collections.Generic.List`1<System.Linq.Expressions.ExpressionType>,System.String)
+FNDA:19,System.String LDAPData.FilterCompiler.SubstringOperations::OpToString(System.Linq.Expressions.MethodCallExpression,System.Collections.Generic.IReadOnlyCollection`1<System.Linq.Expressions.ParameterExpression>,System.Collections.Generic.List`1<System.Linq.Expressions.ExpressionType>,System.String)
+DA:21,19
+DA:22,19
+DA:23,19
+DA:24,1
+DA:25,1
+DA:26,1
+DA:29,18
+DA:30,1
+DA:31,1
+DA:32,1
+DA:33,1
+DA:36,17
+DA:37,17
+DA:38,17
+DA:39,17
+BRDA:23,14,0,19
+BRDA:23,14,1,0
+BRDA:23,35,0,1
+BRDA:23,35,1,18
+BRDA:29,89,0,1
+BRDA:31,103,0,0
+BRDA:31,103,1,1
+BRDA:31,134,0,0
+BRDA:31,134,1,1
+BRDA:29,89,1,17
+FN:11,System.Void LDAPData.FilterCompiler.SubstringOperations::.ctor(LDAPData.FilterCompiler.CompilerCore)
+FNDA:57,System.Void LDAPData.FilterCompiler.SubstringOperations::.ctor(LDAPData.FilterCompiler.CompilerCore)
+DA:12,57
+DA:13,57
+DA:14,57
+DA:15,57
+LF:20
+LH:20
+BRF:10
+BRH:7
+FNF:3
+FNH:3
+end_of_record
+SF:C:\git\linq2ldap\Linq2Ldap\Attributes\LdapFieldAttribute.cs
+FN:8,System.String LDAPData.Attributes.LDAPFieldAttribute::get_Name()
+FNDA:102,System.String LDAPData.Attributes.LDAPFieldAttribute::get_Name()
+DA:9,102
+FN:10,System.Void LDAPData.Attributes.LDAPFieldAttribute::.ctor(System.String)
+FNDA:57,System.Void LDAPData.Attributes.LDAPFieldAttribute::.ctor(System.String)
+DA:11,57
+DA:12,57
+DA:13,57
+DA:14,57
+LF:5
+LH:5
+BRF:0
+BRH:0
+FNF:2
+FNH:2
+end_of_record
