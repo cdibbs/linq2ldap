@@ -56,17 +56,17 @@ namespace Linq2Ldap
         /// Caveat: sorting can only take one attribute, and that attribute
         /// must be indexed in LDAP, or the server-side sort will fail. 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="spec"></param>
-        /// <param name="offsetPage"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="sortFactory"></param>
+        /// <typeparam name="T">The mapped type.</typeparam>
+        /// <param name="spec">The filter specification.</param>
+        /// <param name="offsetPage">How many pages into the results. 0 = first page.</param>
+        /// <param name="pageSize">Size of a page. Default = 10.</param>
+        /// <param name="sortOpt">Sorting options.</param>
         /// <returns></returns>
         public T[] Page<T>(
             ISpecification<T> spec,
             int offsetPage = 0, int pageSize = 10,
             SortOption sortOpt = null)
-            where T : BaseSAMAccount
+            where T : BaseEntry
         {
             var searcher = new DirectorySearcherProxy(Entry);
             searcher.SearchScope = SearchScope.Subtree;
@@ -81,15 +81,18 @@ namespace Linq2Ldap
 
         public void Add<T>(T entity)
         {
-            //Domain.GetDirectoryEntry().;
-            //result.GetDirectoryEntry().Properties["thing"].Add("something");*/
-            throw new NotImplementedException();
+            var name = "o=example";
+            var schemaClassName = "top";
+            var newEntry = Entry.Children.Add(name, schemaClassName);
+            newEntry.Properties["mail"].Add("something@example.com");
+            newEntry.CommitChanges();            
         }
 
         public void Update<T>(T entity)
         {
             /*var result = Searcher.FindOne();
             result.GetDirectoryEntry().Properties["something"].Value = "something";*/
+
             throw new NotImplementedException();
         }
     }

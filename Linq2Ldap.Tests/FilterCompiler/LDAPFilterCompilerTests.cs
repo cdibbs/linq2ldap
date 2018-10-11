@@ -54,9 +54,9 @@ namespace Linq2Ldap.Tests.FilterCompiler
         public void CompileFromLinq_AndAlsoWithSubExpr_GeneratesValidLDAPFilterString()
         {
             Expression<Func<User, bool>> e
-                = (User u) => u.SamAccountName.Contains("test") && u.Id == "123";
+                = (User u) => u.SamAccountName.Contains("test") && u.CommonName == "123";
             var result = FilterCompiler.CompileFromLinq(e);
-            Assert.Equal("(&(samaccountname=*test*)(Id=123))", result);
+            Assert.Equal("(&(samaccountname=*test*)(cn=123))", result);
         }
 
         [Fact]

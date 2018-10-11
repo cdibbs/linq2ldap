@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Linq2Ldap.Types
 {
-    public class LDAPStringList: List<string>
+    public class LDAPStringList: List<string>, IAttribute
     {
         public LDAPStringList(IEnumerable<string> e) : base(e)
         {
@@ -17,13 +17,13 @@ namespace Linq2Ldap.Types
             => !(a == b);
 
         public static bool operator <(LDAPStringList a, string b)
-            => a.Count < 1 || string.CompareOrdinal(a[0] as string, b) < 0;
+            => a.Any(m => string.CompareOrdinal(m, b) < 0);
 
         public static bool operator >=(LDAPStringList a, string b)
             => !(a < b);
 
         public static bool operator >(LDAPStringList a, string b)
-            => !(a.Count < 1) && string.CompareOrdinal(a[0] as string, b) > 0;
+            => a.Any(m => string.CompareOrdinal(m, b) > 0);
 
         public static bool operator <=(LDAPStringList a, string b)
             => !(a > b);

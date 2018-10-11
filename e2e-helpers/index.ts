@@ -32,22 +32,27 @@ class MockLdapInstance {
             console.log("LDAP SERVER STOPPED LISTENING");
         });
         this.ldapServer.bind('o=example', function(req, res, next) {
-            console.log("heeere")
             if (fakeLatency == -1 ) return;
     
             setTimeout(function() {
                 this.bindHandler.call(this.ldapServer, this, req, res, next);
             }.bind(this), fakeLatency);
         }.bind(this));
+
+        this.ldapServer.add('ou=users, o=example', function(req, res, next) {
+            console.log('DN: ' + req.dn.toString());
+            console.log('Entry attributes: ' + req.toObject().attributes);
+            res.end();
+        });
     
         this.ldapServer.search('o=example', function(req, res, next) {
-            console.log("here2")
             if (fakeLatency == -1 ) return;
     
             setTimeout(function() {
                 this.searchHandler.call(this.ldapServer, this, req, res, next);
             }.bind(this), fakeLatency);
         }.bind(this));
+
         this.ldapServer.listen(port, '127.0.0.1', function() {
             this.ldapServer.emit("listening");
         }.bind(this));
@@ -75,7 +80,6 @@ class MockLdapInstance {
     }
 
     bindHandler(this: any, self: MockLdapInstance, req, res, next) {
-        console.log("here");
         var bindDN = req.dn.toString();
         var credentials = req.credentials;
         for(var i=0; i < self.directory.length; i++) {
@@ -104,9 +108,7 @@ class MockLdapInstance {
       }
     
       searchHandler(self: MockLdapInstance, req, res, next) {
-        console.log("hmm123");
         self.directory.forEach(function(user) {
-            console.log("hmm", user);
           // this test is pretty dumb, make sure in the directory
           // that things are spaced / cased exactly
     
@@ -125,7 +127,6 @@ class MockLdapInstance {
     
       // some middleware to make sure the user has a successfully bind
       authorize(this: any, self: MockLdapInstance, req, res, next) {
-        console.log("whattup");
         for(var i=0; i < self.directory.length; i++) {
           if (req.connection.ldap.bindDN.equals(self.directory[i].dn)) {
             this.emit('authorize', {

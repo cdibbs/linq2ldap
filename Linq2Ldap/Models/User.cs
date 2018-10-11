@@ -1,10 +1,11 @@
 ﻿using Linq2Ldap.Attributes;
+using Linq2Ldap.Types;
 
 namespace Linq2Ldap.Models
 {
-    public class User: BaseSAMAccount
+    public class User: BaseEntry
     {
-        public string Url { get; set; }
+        public LDAPString Url { get; set; }
 
         [LDAPField("mail")]
         public string Email { get; set; }
@@ -16,6 +17,9 @@ namespace Linq2Ldap.Models
         public string Surname { get; set; }
 
         [LDAPField("samaccountname")]
-        public string UserId { get; set; }
+        public string SamAccountName { get; set; }
+
+        [LDAPField("cn")]
+        public string CommonName { get; set; }
     }
 }

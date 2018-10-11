@@ -36,13 +36,11 @@ namespace Linq2Ldap.Tests
                     { "samaccountname", new ResultPropertyValueCollectionProxy(new List<object> { "testuser" }) }
                 }
             );
-            var b = Mapper.Map<BaseSAMAccount>(srp);
-
-            Assert.Equal(srp.Path, b.Path);
+            var b = Mapper.Map<BaseEntry>(srp);
             Assert.Equal(srp.Properties, b.Properties);
             //Assert.Equal(srp.Properties["objectsid"][0], b.ObjectSid);
-            Assert.Equal(srp.Properties["userprincipalname"][0], b.UserPrincipalName);
-            Assert.Equal(srp.Properties["samaccountname"][0], b.SamAccountName);
+            //Assert.Equal(srp.Properties["userprincipalname"][0], b.UserPrincipalName);
+            //Assert.Equal(srp.Properties["samaccountname"][0], b.SamAccountName);
         }
     }
 }

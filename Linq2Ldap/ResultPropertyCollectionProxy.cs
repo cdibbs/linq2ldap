@@ -21,6 +21,14 @@ namespace Linq2Ldap
             ProxyResults = proxyResults;
         }
 
+        public virtual bool Contains(string key) {
+            if (ProxyResults != null) {
+                return ProxyResults.Contains(key);
+            }
+
+            return this.Results.ContainsKey(key);
+        }
+
         public ResultPropertyValueCollectionProxy this[string name]
         {
             get

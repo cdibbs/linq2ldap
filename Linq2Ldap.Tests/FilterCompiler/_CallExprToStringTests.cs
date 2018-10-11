@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Linq2Ldap.Models;
 using Xunit;
+using Linq2Ldap.ExtensionMethods;
 
 namespace Linq2Ldap.Tests.FilterCompiler
 {
@@ -98,8 +99,8 @@ namespace Linq2Ldap.Tests.FilterCompiler
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => !String.IsNullOrEmpty(u.Email)),
-                    $"(mail=*)"
+                    (Expression<Func<User, bool>>) ((User u) => u.Has("key")),
+                    $"(key=*)"
                 },
                 new object[]
                 {
@@ -110,6 +111,10 @@ namespace Linq2Ldap.Tests.FilterCompiler
                 {
                     (Expression<Func<User, bool>>) ((User u) => u.Properties["samaccountname"] == "123"),
                     $"(samaccountname=123)"
+                },
+                new object[] {
+                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.Matches("univ*of*iowa")),
+                    $"(samaccountname=univ*of*iowa)"
                 }
             };
             return items;

@@ -10,18 +10,15 @@ namespace Linq2Ldap.FilterCompiler
 {
     public class CompilerCore
     {
-        internal StringComparisons StringComparisons { get; set; }
-        internal SubstringOperations SubstringOperations { get; set; }
+        internal Strings Strings { get; set; }
         internal BooleanAlgebra BooleanAlgebra { get; set; }
 
         public CompilerCore(
-            StringComparisons stringComparisons = null,
-            BooleanAlgebra booleanAlgebra = null,
-            SubstringOperations substringOperations = null
+            Strings strings = null,
+            BooleanAlgebra booleanAlgebra = null
         )
         {
-            StringComparisons = stringComparisons ?? new StringComparisons(this);
-            SubstringOperations = substringOperations ?? new SubstringOperations(this);
+            Strings = strings ?? new Strings(this);
             BooleanAlgebra = booleanAlgebra ?? new BooleanAlgebra(this);
         }
 
@@ -97,15 +94,21 @@ namespace Linq2Ldap.FilterCompiler
                 case "System.String.Contains":
                 case "Linq2Ldap.Types.LDAPStringList.Contains":
                 case "Linq2Ldap.ResultPropertyValueCollectionProxy.Contains":
-                    return SubstringOperations.OpToString(e, p, validSubExprs, "({0}=*{1}*)");
+                    return Strings.OpToString(e, p, validSubExprs, "({0}=*{1}*)");
                 case "Linq2Ldap.ResultPropertyValueCollectionProxy.StartsWith":
                 case "Linq2Ldap.Types.LDAPStringList.StartsWith":
                 case "System.String.StartsWith":
-                    return SubstringOperations.OpToString(e, p, validSubExprs, "({0}={1}*)");
+                    return Strings.OpToString(e, p, validSubExprs, "({0}={1}*)");
                 case "Linq2Ldap.ResultPropertyValueCollectionProxy.EndsWith":
                 case "Linq2Ldap.Types.LDAPStringList.EndsWith":
                 case "System.String.EndsWith":
-                    return SubstringOperations.OpToString(e, p, validSubExprs, "({0}=*{1})");
+                    return Strings.OpToString(e, p, validSubExprs, "({0}=*{1})");
+                case "Linq2Ldap.Models.BaseEntry.Has":
+                    return $"({EvalExpr(e.Arguments.First(), p)}=*)";
+                case "Linq2Ldap.ExtensionMethods.StringExtensions.Matches":
+                    return Strings.ExtensionOpToString(e, p, "=");
+                case "Linq2Ldap.ExtensionMethods.StringExtensions.Approx":
+                    return Strings.ExtensionOpToString(e, p, "~=");
                 case propertiesBagGetItem:
                     return __PDictIndexToString(e, p);
                 default:
@@ -167,9 +170,9 @@ namespace Linq2Ldap.FilterCompiler
             origOp = origOp ?? op;
             var e = expr as BinaryExpression;
             MethodCallExpression[] mces;
-            if ((mces = StringComparisons.IsStringCompare(e.Left, e.Right)).Any())
+            if ((mces = Strings.IsStringCompare(e.Left, e.Right)).Any())
             {
-                return StringComparisons.StringCompareToExpr(mces, e, p, op, origOp);
+                return Strings.StringCompareToExpr(mces, e, p, op, origOp);
             }
 
             return null;

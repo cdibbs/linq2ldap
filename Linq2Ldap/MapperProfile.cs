@@ -15,19 +15,19 @@ namespace Linq2Ldap
     {
         public MapperProfile()
         {
-            var bsa = CreateMap<SearchResultProxy, BaseSAMAccount>();
-            bsa.ForMember(b => b.Path, o => o.MapFrom(s => s.Path));
+            var bsa = CreateMap<SearchResultProxy, BaseEntry>();
+            bsa.ForMember(b => b.DN, o => o.MapFrom(s => s.Path));
             bsa.ForMember(b => b.Properties, o => o.MapFrom(s => s.Properties));
             bsa.AfterMap(this.Convert);
 
             var user = CreateMap<SearchResultProxy, User>();
-            user.IncludeBase<SearchResultProxy, BaseSAMAccount>();
+            user.IncludeBase<SearchResultProxy, BaseEntry>();
         }
 
         internal void Convert<T>(SearchResultProxy srp, T model)
-            where T: BaseSAMAccount
+            where T: BaseEntry
         {
-            model.SamAccountName = srp.Properties["samaccountname"]?[0] as string;
+            //model = srp.Properties["samaccountname"]?[0] as string;
             var t = typeof(T);
             var props = t.GetProperties();
             foreach (var prop in props)

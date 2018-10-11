@@ -78,7 +78,9 @@ namespace Linq2Ldap
 
         public bool StartsWith(string frag) => throw new NotImplementedException("This helper method exists only to facilitate Linq2Ldap Expressions.");
         public bool EndsWith(string frag) => throw new NotImplementedException("This helper method exists only to facilitate Linq2Ldap Expressions.");
-        public new bool Contains(string frag) => throw new NotImplementedException("This helper method exists only to facilitate Linq2Ldap Expressions.");
+        public bool Contains(string frag) => throw new NotImplementedException("This helper method exists only to facilitate Linq2Ldap Expressions.");
+
+        
 
         public override bool Equals(object obj)
         {
