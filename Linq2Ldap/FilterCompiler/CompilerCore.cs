@@ -12,14 +12,17 @@ namespace Linq2Ldap.FilterCompiler
     {
         internal Strings Strings { get; set; }
         internal BooleanAlgebra BooleanAlgebra { get; set; }
+        internal ValueUtil ValueUtil { get; set; }
 
         public CompilerCore(
             Strings strings = null,
-            BooleanAlgebra booleanAlgebra = null
+            BooleanAlgebra booleanAlgebra = null,
+            ValueUtil valueUtil = null
         )
         {
             Strings = strings ?? new Strings(this);
             BooleanAlgebra = booleanAlgebra ?? new BooleanAlgebra(this);
+            ValueUtil = valueUtil ?? new ValueUtil();
         }
 
         /// <summary>
@@ -136,6 +139,11 @@ namespace Linq2Ldap.FilterCompiler
         }
 
         public string EvalExpr(
+            Expression expr, IReadOnlyCollection<ParameterExpression> p)
+            => ValueUtil.EscapeFilterValue(RawEvalExpr(expr, p));
+
+
+        public string RawEvalExpr(
             Expression expr, IReadOnlyCollection<ParameterExpression> p)
         {
             switch (expr.NodeType)

@@ -7,6 +7,8 @@ namespace Linq2Ldap.Models
     {
         [LDAPIgnore]
         public ResultPropertyCollectionProxy Properties { get; set; }
+
+        [LDAPField("dn")]
         public string DN { get; set; }
 
         public virtual bool Has(string attrName) => this.Properties.Contains(attrName);

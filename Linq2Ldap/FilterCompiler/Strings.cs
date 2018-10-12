@@ -58,12 +58,12 @@ namespace Linq2Ldap.FilterCompiler
                     $"Linq-to-LDAP string comparisons must have two, non-null parameters.");
             }
 
-            return _NormalizeStringCompareAsString(0, pair.ElementAt(0), pair.ElementAt(1), p, op, op, false);
+            return _NormalizeStringCompareAsString(0, pair.ElementAt(0), pair.ElementAt(1), p, op, op, false, false);
         }
 
         internal string _NormalizeStringCompareAsString(
             int val, Expression leftExpr, Expression rightExpr,
-            IReadOnlyCollection<ParameterExpression> p, string op, string origOp, bool isReverse)
+            IReadOnlyCollection<ParameterExpression> p, string op, string origOp, bool isReverse, bool escape = true)
         {
             string left = null, right = null;
             var me = Core.__IsParamModelAccess(leftExpr, p);
@@ -71,13 +71,13 @@ namespace Linq2Ldap.FilterCompiler
             if (me2 == null && me != null)
             {
                 left = Core._MemberToString(me, p);
-                right = Core.EvalExpr(rightExpr, p);
+                right = escape ? Core.EvalExpr(rightExpr, p) : Core.RawEvalExpr(rightExpr, p);
                 op = _AdjustCompares(op, origOp, val, isReverse);
             }
             else if (me2 != null && me == null)
             {
                 left = Core._MemberToString(me2, p);
-                right = Core.EvalExpr(leftExpr, p);
+                right = escape ? Core.EvalExpr(leftExpr, p) : Core.RawEvalExpr(leftExpr, p);
                 op = _AdjustCompares(op, origOp, val, !isReverse);
             }
             else

@@ -83,6 +83,13 @@ namespace Linq2Ldap.Tests.FilterCompiler
             Expression<Func<User, bool>> e = (User u) => u.SamAccountName.Contains("asdf");
             Assert.Throws<NotImplementedException>(() => Core.EvalExpr(e.Body, e.Parameters));
         }
+
+        [Fact]
+        public void _EvalExpr_EscapesValues() {
+            Expression<Func<User, string>> e = (User u) => @"must*escape\this";
+            var result = Core.EvalExpr(e.Body, e.Parameters);
+            Assert.Equal(@"must\*escape\\this", result);
+        }
     }
 
     public class TestUser : User

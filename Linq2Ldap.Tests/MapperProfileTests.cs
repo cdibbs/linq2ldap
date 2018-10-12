@@ -29,6 +29,7 @@ namespace Linq2Ldap.Tests
             srp.Properties = new ResultPropertyCollectionProxy(
                 new Dictionary<string, ResultPropertyValueCollectionProxy>()
                 {
+                    { "dn", new ResultPropertyValueCollectionProxy(new List<object>{ "ou=some, ou=dn" }) },
                     { "cn", new ResultPropertyValueCollectionProxy(new List<object> { "example" }) },
                     { "objectclass", new ResultPropertyValueCollectionProxy(new List<object> { "testuser" }) },
                     { "objectsid", new ResultPropertyValueCollectionProxy(new List<object> { new byte[] { 0x31, 0x41} }) },
