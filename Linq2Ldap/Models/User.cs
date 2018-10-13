@@ -3,7 +3,7 @@ using Linq2Ldap.Types;
 
 namespace Linq2Ldap.Models
 {
-    public class User: BaseEntry
+    public class User: Entry
     {
         public LDAPString Url { get; set; }
 

@@ -109,9 +109,20 @@ namespace Linq2Ldap.Tests.FilterCompiler
                 },
                 new object[]
                 {
+                    (Expression<Func<User, bool>>) ((User u) => u["samaccountname"] == "123"),
+                    $"(samaccountname=123)"
+                },
+                new object[]
+                {
+                    (Expression<Func<User, bool>>) ((User u) => u[member] == "123"),
+                    $"(samaccountname=123)"
+                },
+                new object[]
+                {
                     (Expression<Func<User, bool>>) ((User u) => u.Properties["samaccountname"] == "123"),
                     $"(samaccountname=123)"
                 },
+
                 new object[] {
                     (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.Matches("univ*of*iowa")),
                     $"(samaccountname=univ*of*iowa)"

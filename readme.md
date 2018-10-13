@@ -3,7 +3,7 @@
 # Linq2Ldap
 
 This project centers around the ability to transpile C# Linq Expressions into RFC 1960 LDAP filter strings.
-It intends to facilitate using the Repository and Specification patterns with LDAP for easier integrations.
+It facilitates using the Repository and Specification patterns with LDAP.
 
 If you only want to use the filter transpiler, you can do this:
 
@@ -13,20 +13,45 @@ If you only want to use the filter transpiler, you can do this:
 
     // 
     searcher.Filter = new LDAPFilterCompiler().CompileFromLinq(
-        (User u) => u.SamAccountName.StartsWith("will") && u.Email.Contains("uiowa"));
+        (MyUser u) => u.SamAccountName.StartsWith("will")
+                    && u.Email.Contains("uiowa")
+                    && u["customprop"] != "123");
 
     var results = new SearchResultCollectionProxy(searcher.FindAll());
 ```
 
-Also supported:
+Also supported examples:
+
 ```c#
 (User u) => u.Title.Matches("univ*of*iowa"); // (title=univ*of*iowa)
 (User u) => u.Email.EndsWith("@gmail.com"); // (mail=*@gmail.com)
-(User u) => u.Properties["acustomproperty"] == "some val"; // (acustomproperty=some val)
-(User u) => u.Properties.Has("somekey"); // (somekey=*)
+(User u) => u["acustomproperty"].Contains("some val"); // (acustomproperty=some val)
+(User u) => u.Has("somekey"); // (somekey=*)
 ```
 
-However, this library also contains helpers for implementing better abstractions.
+## Expression reusability
+
+This library also contains an implementation of the Specification pattern to wrap your Expressions
+and improve code reuse and testability. It does so by facilitating the [otherwise abstruse][1] ability
+to glue your Expressions together with And and Or.
+
+```csharp
+public class MyBizSpecifications {
+    public virtual ISpecification<User> ActiveUsers() {
+        return Specification<User>.Start(u => u.Active && ! u.Suspended);
+    }
+
+    public virtual ISpecification<User> UsersInCountry(string country) {
+        return Specification<User>.Start(u => u.Country == country);
+    }
+
+    public virtual ISpecification<User> ActiveUsersInCountry(string country) {
+        return ActiveUsers().And(UsersInCountry(country));
+    }
+
+    // ...
+}
+```
 
 # Testability
 
@@ -43,9 +68,6 @@ To setup free code coverage analysis in VS Community, see this:
 https://medium.com/bluekiri/code-coverage-in-vsts-with-xunit-coverlet-and-reportgenerator-be2a64cd9c2f
 
 
-# Contributing
-
-This code is free, and most of the author's time on it is free, but if you feel like contributing financially
-to this open source project, please do so at ___.
 
 [banner]: https://github.com/cdibbs/linq2ldap/blob/master/resources/header.svg "The only way to discover the limits of the possible is to go beyond them into the impossible. - Arthur C. Clarke"
+[1]: https://github.com/cdibbs/linq2ldap/blob/master/Linq2Ldap/Specification.cs#L42

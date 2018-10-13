@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using Linq2Ldap.Attributes;
+using Linq2Ldap.Models;
+using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.FilterCompiler
 {
@@ -91,22 +93,30 @@ namespace Linq2Ldap.FilterCompiler
             var validSubExprs = new List<ExpressionType>()
                 { ExpressionType.Constant, ExpressionType.MemberAccess};
             const string propertiesBagGetItem
-                = nameof(Linq2Ldap) + "." + nameof(ResultPropertyCollectionProxy) + ".get_Item";
+                = "Linq2Ldap.Proxies." + nameof(ResultPropertyCollectionProxy) + ".get_Item";
+
+            if (name == "get_Item"
+                && (typeof(Entry).IsAssignableFrom(e.Method.DeclaringType)
+                 || typeof(ResultPropertyCollectionProxy).IsAssignableFrom(e.Method.DeclaringType)))
+            {
+                return __PDictIndexToString(e, p);
+            }
+
             switch (fullname)
             {
                 case "System.String.Contains":
                 case "Linq2Ldap.Types.LDAPStringList.Contains":
-                case "Linq2Ldap.ResultPropertyValueCollectionProxy.Contains":
+                case "Linq2Ldap.Proxies.ResultPropertyValueCollectionProxy.Contains":
                     return Strings.OpToString(e, p, validSubExprs, "({0}=*{1}*)");
-                case "Linq2Ldap.ResultPropertyValueCollectionProxy.StartsWith":
+                case "Linq2Ldap.Proxies.ResultPropertyValueCollectionProxy.StartsWith":
                 case "Linq2Ldap.Types.LDAPStringList.StartsWith":
                 case "System.String.StartsWith":
                     return Strings.OpToString(e, p, validSubExprs, "({0}={1}*)");
-                case "Linq2Ldap.ResultPropertyValueCollectionProxy.EndsWith":
+                case "Linq2Ldap.Proxies.ResultPropertyValueCollectionProxy.EndsWith":
                 case "Linq2Ldap.Types.LDAPStringList.EndsWith":
                 case "System.String.EndsWith":
                     return Strings.OpToString(e, p, validSubExprs, "({0}=*{1})");
-                case "Linq2Ldap.Models.BaseEntry.Has":
+                case "Linq2Ldap.Models.Entry.Has":
                     return $"({EvalExpr(e.Arguments.First(), p)}=*)";
                 case "Linq2Ldap.ExtensionMethods.StringExtensions.Matches":
                     return Strings.ExtensionOpToString(e, p, "=");

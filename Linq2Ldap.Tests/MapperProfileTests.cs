@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using AutoMapper;
 using Linq2Ldap.Models;
+using Linq2Ldap.Proxies;
+using Linq2Ldap.Repository;
 using Xunit;
 
 namespace Linq2Ldap.Tests
@@ -16,7 +18,7 @@ namespace Linq2Ldap.Tests
         {
             var config = new MapperConfiguration(c =>
             {
-                c.AddProfile<Linq2Ldap.MapperProfile>();
+                c.AddProfile<MapperProfile>();
             });
             Mapper = config.CreateMapper();
         }
@@ -37,7 +39,7 @@ namespace Linq2Ldap.Tests
                     { "samaccountname", new ResultPropertyValueCollectionProxy(new List<object> { "testuser" }) }
                 }
             );
-            var b = Mapper.Map<BaseEntry>(srp);
+            var b = Mapper.Map<Entry>(srp);
             Assert.Equal(srp.Properties, b.Properties);
             //Assert.Equal(srp.Properties["objectsid"][0], b.ObjectSid);
             //Assert.Equal(srp.Properties["userprincipalname"][0], b.UserPrincipalName);

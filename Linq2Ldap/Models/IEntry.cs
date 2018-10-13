@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Models
 {
@@ -11,5 +12,7 @@ namespace Linq2Ldap.Models
         ResultPropertyCollectionProxy Properties { get; set; }
 
         bool Has(string attrName);
+
+        ResultPropertyValueCollectionProxy this[string key] { get; }
     }
 }
