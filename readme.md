@@ -1,5 +1,7 @@
 ![LINQ2LDAP][banner]
 [![Build Status][travisimg]][travislink]
+[![Build status][appveyorimg]][appveyorlink]
+[![codecov][codecovimg]][codecovlink]
 
 # Linq2Ldap
 
@@ -74,3 +76,7 @@ https://medium.com/bluekiri/code-coverage-in-vsts-with-xunit-coverlet-and-report
 [1]: https://github.com/cdibbs/linq2ldap/blob/master/Linq2Ldap/Specification.cs#L42
 [travisimg]: https://travis-ci.org/cdibbs/linq2ldap.svg?branch=master
 [travislink]: https://travis-ci.org/cdibbs/linq2ldap
+[appveyorimg]: https://ci.appveyor.com/api/projects/status/i8u7bshsqw63wj7e?svg=true
+[appveyorlink]: https://ci.appveyor.com/project/cdibbs/linq2ldap
+[codecovimg]: https://codecov.io/gh/cdibbs/linq2ldap/branch/master/graph/badge.svg
+[codecovlink]: https://codecov.io/gh/cdibbs/linq2ldap
