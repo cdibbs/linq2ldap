@@ -36,6 +36,4 @@ API/API-doc.xml
 node_modules
 coverage.json
 report
-
-# Temporary
-.travis.yml
+coverage.opencover.xml

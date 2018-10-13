@@ -1,0 +1,26 @@
+# Should work under travis and appveyor.
+# https://github.com/joyent/node-ldapjs
+# https://github.com/mozilla-services/mozilla-idp/blob/master/server/lib/ldapMock.js
+# you asked...
+
+language: csharp
+sudo: false
+script:
+  - cd Linq2Ldap.Tests
+  - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ C:\git\linq2ldap/Linq2Ldap.sln
+  - codecov -f "coverage.opencover.xml"
+
+before_build:
+  - choco install codecov
+
+#addons:
+#  apt:
+#    packages:
+#      - ldap-utils
+
+# before_script:
+#  - mkdir /tmp/slapd
+#  - slapd -f LDAPData.IntegrationTest/slapd.conf -h ldap://localhost:3389 &
+#  - sleep 3
+#  - ldapadd -h localhost:3389 -D cn=admin,dc=example,dc=com -w test -f LDAPData.IntegrationTest/ldif_data/base.ldif
+#  - ldapadd -h localhost:3389 -D cn=admin,dc=example,dc=com -w test -f LDAPData.IntegrationTest/ldif_data/INITIAL_TESTDATA.ldif
