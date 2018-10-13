@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Linq2Ldap.ExtensionMethods;
 
 namespace Linq2Ldap.Types
 {
@@ -34,7 +35,16 @@ namespace Linq2Ldap.Types
         public bool StartsWith(string frag) => this.Any(s => s.StartsWith(frag));
         public bool EndsWith(string frag) => this.Any(s => s.EndsWith(frag));
         public new bool Contains(string frag) => this.Any(s => s.Contains(frag));
-        public int CompareTo(string b) => throw new NotImplementedException("This helper method exists only to facilitate Linq2Ldap Expressions.");
+
+        /// <summary>
+        /// Compares a multi-valued LDAP list with the given string.
+        /// Warning: by necessity, this is a little quirky (look at return value)
+        /// due to the use of implicit operators. Serialization should still work
+        /// fine, though.
+        /// </summary>
+        /// <param name="b">The string to compare with.</param>
+        /// <returns>An IntList of individual CompareTo results.</returns>
+        public IntList CompareTo(string b) => new IntList(this.Select(s => s.CompareTo(b)));
 
         public override bool Equals(object obj)
         {

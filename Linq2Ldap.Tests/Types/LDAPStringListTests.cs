@@ -119,5 +119,77 @@ namespace Linq2Ldap.Tests.Types {
             var actual = test > right;
             Assert.Equal(expected, actual);
         }
+
+        [InlineData(new [] { "abc", "cde" }, "ab", true)]
+        [InlineData(new [] { "abc", "cde" }, "c", true)]
+        [InlineData(new [] { "abc", "cde" }, "gf", false)]
+        [InlineData(new [] { "abc", "cde" }, "bc", false)]
+        [InlineData(new string[] { }, "efg", false)]
+        [Theory]
+        public void StartsWith_Any_True(string[] input, string toFind, bool expected) {
+            var test = new LDAPStringList(input);
+            var actual = test.StartsWith(toFind);
+            Assert.Equal(expected, actual);
+        }
+
+        [InlineData(new [] { "abc", "cde" }, "de", true)]
+        [InlineData(new [] { "abc", "cde" }, "bc", true)]
+        [InlineData(new [] { "abc", "cde" }, "gf", false)]
+        [InlineData(new [] { "abc", "cde" }, "ab", false)]
+        [InlineData(new string[] { }, "efg", false)]
+        [Theory]
+        public void EndsWith_Any_True(string[] input, string toFind, bool expected) {
+            var test = new LDAPStringList(input);
+            var actual = test.EndsWith(toFind);
+            Assert.Equal(expected, actual);
+        }
+
+        [InlineData(new [] { "abc", "cde" }, "de", true)]
+        [InlineData(new [] { "abc", "cde" }, "ab", true)]
+        [InlineData(new [] { "abc", "cde" }, "d", true)]
+        [InlineData(new [] { "abc", "cde" }, "ac", false)]
+        [InlineData(new string[] { }, "efg", false)]
+        [Theory]
+        public void Contains_Any_True(string[] input, string toFind, bool expected) {
+            var test = new LDAPStringList(input);
+            var actual = test.Contains(toFind);
+            Assert.Equal(expected, actual);
+        }
+
+        [InlineData(new [] { "abc", "cde" }, "abc", true)]
+        [InlineData(new [] { "abc", "cde" }, "ab", false)]
+        [InlineData(new [] { "abc", "cde" }, "cde", true)]
+        [InlineData(new [] { "abc", "cde" }, "efg", false)]
+        [InlineData(new string[] { }, "efg", false)]
+        [Theory]
+        public void CompareTo_Eq_Any_True(string[] input, string toFind, bool expected) {
+            var test = new LDAPStringList(input);
+            var actual = test.CompareTo(toFind) == 0;
+            Assert.Equal(expected, actual);
+        }
+
+        [InlineData(new [] { "abc", "cde" }, "abc", true)]
+        [InlineData(new [] { "abc", "cde" }, "ab", true)]
+        [InlineData(new [] { "abc", "cde" }, "cde", false)]
+        [InlineData(new [] { "abc", "cde" }, "efg", false)]
+        [InlineData(new string[] { }, "efg", false)]
+        [Theory]
+        public void CompareTo_GT_Any_True(string[] input, string toFind, bool expected) {
+            var test = new LDAPStringList(input);
+            var actual = test.CompareTo(toFind) > 0;
+            Assert.Equal(expected, actual);
+        }
+
+        [InlineData(new [] { "abc", "cde" }, "abc", false)]
+        [InlineData(new [] { "abc", "cde" }, "ab", false)]
+        [InlineData(new [] { "abc", "cde" }, "cde", true)]
+        [InlineData(new [] { "abc", "cde" }, "efg", true)]
+        [InlineData(new string[] { }, "efg", false)]
+        [Theory]
+        public void CompareTo_LT_Any_True(string[] input, string toFind, bool expected) {
+            var test = new LDAPStringList(input);
+            var actual = test.CompareTo(toFind) < 0;
+            Assert.Equal(expected, actual);
+        }
     }
 }
