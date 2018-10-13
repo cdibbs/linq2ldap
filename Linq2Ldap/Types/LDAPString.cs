@@ -13,5 +13,7 @@ namespace Linq2Ldap.Types
         public static implicit operator string(LDAPString ls) => ls.ToString();
 
         public static implicit operator LDAPString(string s) => new LDAPString(s);
+
+        public override string ToString() => S;
     }
 }

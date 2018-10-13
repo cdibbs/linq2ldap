@@ -77,7 +77,7 @@ public class MyBizSpecificationsTests {
         var users = new List<User>() {
             new User() { Id = 444, Status = "active", Suspended = "some reason" },
             new User() { Id = 314, Status = "active", Suspended = null }
-        };
+        }.AsQueryable();
         var spec = Specs.ActiveUsers();
 
         // Run

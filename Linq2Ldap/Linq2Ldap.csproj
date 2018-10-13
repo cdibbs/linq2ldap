@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>0.1.0-alpha001</PackageVersion>
+    <PackageId>Linq2Ldap.NETStandard</PackageId>
+    <Title>LINQ-to-LDAP filter transpiler</Title>
+    <Description>A library to transpile C# LINQ Expressions into RFC 1960 LDAP filter strings.</Description>
+    <PackageProjectUrl>https://github.com/cdibbs/linq2ldap</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cdibbs/linq2ldap</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/cdibbs/linq2ldap/blob/master/LICENSE</PackageLicenseUrl>
+    <Authors>Chris Dibbern</Authors>
+    <PackageReleaseNotes>Initial pre-release version.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,5 +20,4 @@
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="4.5.0" />
     <PackageReference Include="System.DirectoryServices.Protocols" Version="4.5.0" />
   </ItemGroup>
-
 </Project>

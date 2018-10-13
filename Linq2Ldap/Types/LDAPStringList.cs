@@ -11,29 +11,25 @@ namespace Linq2Ldap.Types
         }
 
         public static bool operator ==(LDAPStringList a, string b)
-            => a != null && (a.Count > 0 && a[0] as string == b);
+            => a?.Any(m => string.CompareOrdinal(m, b) == 0) ?? b == null;
 
         public static bool operator !=(LDAPStringList a, string b)
             => !(a == b);
 
         public static bool operator <(LDAPStringList a, string b)
-            => a.Any(m => string.CompareOrdinal(m, b) < 0);
-
-        public static bool operator >=(LDAPStringList a, string b)
-            => !(a < b);
+            => a?.Any(m => string.CompareOrdinal(m, b) < 0) ?? b == null;
 
         public static bool operator >(LDAPStringList a, string b)
-            => a.Any(m => string.CompareOrdinal(m, b) > 0);
+            => a?.Any(m => string.CompareOrdinal(m, b) > 0) ?? b == null;
 
         public static bool operator <=(LDAPStringList a, string b)
-            => !(a > b);
+            => a?.Any(m => string.CompareOrdinal(m, b) <= 0) ?? b == null;
 
-        public static implicit operator string(LDAPStringList list)
-        {
-            throw new NotImplementedException(
-                "This is a helper method that exists only to facilitate the specification of LDAP filters"
-                + " as Linq Expressions and cannot be directly invoked.");
-        }
+        public static bool operator >=(LDAPStringList a, string b)
+            => a?.Any(m => string.CompareOrdinal(m, b) >= 0) ?? b == null;
+
+        public static implicit operator LDAPStringList(string[] list)
+            => new LDAPStringList(list);
 
         public bool StartsWith(string frag) => this.Any(s => s.StartsWith(frag));
         public bool EndsWith(string frag) => this.Any(s => s.EndsWith(frag));
