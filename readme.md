@@ -1,4 +1,5 @@
 ![LINQ2LDAP][banner]
+[![Build Status][travisimg]][travislink]
 
 # Linq2Ldap
 
@@ -71,3 +72,5 @@ https://medium.com/bluekiri/code-coverage-in-vsts-with-xunit-coverlet-and-report
 
 [banner]: https://github.com/cdibbs/linq2ldap/blob/master/resources/header.svg "The only way to discover the limits of the possible is to go beyond them into the impossible. - Arthur C. Clarke"
 [1]: https://github.com/cdibbs/linq2ldap/blob/master/Linq2Ldap/Specification.cs#L42
+[travisimg]: https://travis-ci.org/cdibbs/linq2ldap.svg?branch=master
+[travislink]: https://travis-ci.org/cdibbs/linq2ldap
