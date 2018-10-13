@@ -1,0 +1,12 @@
+before_build:
+  - nuget restore
+
+test_script:
+  - cd Linq2Ldap.Tests
+  - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Tests.csproj
+
+after_test:
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.opencover.xml"
