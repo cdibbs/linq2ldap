@@ -18,7 +18,8 @@ env:
     - DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 script:
-  - ulimit -n 512; dotnet restore && ls *.Tests/*.csproj | xargs -L1 dotnet test -c Release
+  - cd Linq2Ldap.Tests
+  - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Tests.csproj
 
 
 #addons:
