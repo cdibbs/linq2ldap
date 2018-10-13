@@ -1,10 +1,28 @@
+version: '1.0.{build}'
+image: Visual Studio 2017
+# https://dotnetcore.gaprogman.com/2017/06/08/continuous-integration-and-appveyor/
+branches:
+  only:
+  - master
+init:
+  # Good practise, because Windows line endings are different from Unix/Linux ones
+  - cmd: git config --global core.autocrlf true
+
+before_build:
+  # Display .NET Core version
+  - cmd: dotnet --version
+  # Display minimal restore text
+  - cmd: dotnet restore ./Linq2Ldap.sln --verbosity m
+
+build_script:
+  # output will be in ./src/bin/debug/netcoreapp1.1/publish
+  - cmd: dotnet publish ./Linq2Ldap.sln
+
 test_script:
-  - ps: |
-      cd Linq2Ldap.Tests
-      dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Tests.csproj
+  - cmd: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Tests/Linq2Ldap.Tests.csproj
 
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "coverage.opencover.xml"
+      bash codecov.sh -f "Linq2Ldap.Tests/coverage.opencover.xml"
