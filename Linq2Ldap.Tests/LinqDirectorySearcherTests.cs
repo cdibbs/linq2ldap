@@ -4,6 +4,7 @@ using System.DirectoryServices;
 using AutoMapper;
 using Linq2Ldap.Proxies;
 using Linq2Ldap.Tests.FilterCompiler;
+using Linq2Ldap.TestUtil;
 using Moq;
 using Xunit;
 
@@ -19,7 +20,7 @@ namespace Linq2Ldap.Tests
             Searcher.Base = Mock.Of<IDirectorySearcherProxy>();
         }
 
-        [Fact]
+        [WindowsOnlyFact]
         public void FindAll_ReturnsMappedFromBase() {
             var data = new SearchResultCollectionProxy();
             Mock.Get(Searcher.Base)
@@ -29,7 +30,7 @@ namespace Linq2Ldap.Tests
             Mock.Get(Mapper).Verify(m => m.Map<IEnumerable<TestLdapModel>>(data), Times.Once);
         }
 
-        [Fact]
+        [WindowsOnlyFact]
         public void FindOne_ReturnsMappedFromBase() {
             var data = new SearchResultProxy();
             Mock.Get(Searcher.Base)
@@ -39,18 +40,18 @@ namespace Linq2Ldap.Tests
             Mock.Get(Mapper).Verify(m => m.Map<TestLdapModel>(data), Times.Once);
         }
 
-        [Fact]
+        [WindowsOnlyFact]
         public void Filter_GetThrows() {
             Assert.Throws<NotImplementedException>(() => Searcher.Filter);
         }
 
-        [Fact]
+        [WindowsOnlyFact]
         public void Filter_SetCompiles() {
             Searcher.Filter = (m) => m.CommonName == "something";
             Assert.Equal(Searcher.RawFilter, "(cn=something)");
         }
 
-        [Fact]
+        [WindowsOnlyFact]
         public void RawFilter_SetsWithoutError() {
             var val = "(cn=one)";
             Searcher.RawFilter = val;

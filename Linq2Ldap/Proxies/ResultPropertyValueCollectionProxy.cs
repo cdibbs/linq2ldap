@@ -100,7 +100,7 @@ namespace Linq2Ldap.Proxies
 
         public bool StartsWith(string frag) => this.Any(s => s.ToString().StartsWith(frag));
         public bool EndsWith(string frag) => this.Any(s => s.ToString().EndsWith(frag));
-        public new bool Contains(string frag) => this.Any(s => s.ToString().Contains(frag));
+        public bool Contains(string frag) => this.Any(s => s.ToString().Contains(frag));
 
         public override bool Equals(object obj)
         {
