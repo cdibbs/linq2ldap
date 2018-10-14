@@ -5,8 +5,8 @@ namespace Linq2Ldap.Proxies
 {
     public interface IDirectorySearcherProxy
     {
-        SearchResultCollection FindAll();
-        SearchResult FindOne();
+        SearchResultCollectionProxy FindAll();
+        SearchResultProxy FindOne();
         string Filter { get; set; }
         int PageSize { get; set; }
         StringCollection PropertiesToLoad { get; }

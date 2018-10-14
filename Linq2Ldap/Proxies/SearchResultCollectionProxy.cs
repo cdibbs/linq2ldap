@@ -9,6 +9,7 @@ namespace Linq2Ldap.Proxies
     public class SearchResultCollectionProxy: IEnumerable<SearchResultProxy>
     {
         protected SearchResultCollection Results;
+        public SearchResultCollectionProxy() {}
         public SearchResultCollectionProxy(SearchResultCollection results)
         {
             Results = results;
@@ -26,5 +27,8 @@ namespace Linq2Ldap.Proxies
         {
             return GetEnumerator();
         }
+
+        public static implicit operator SearchResultCollectionProxy(SearchResultCollection col)
+            => new SearchResultCollectionProxy(col);
     }
 }

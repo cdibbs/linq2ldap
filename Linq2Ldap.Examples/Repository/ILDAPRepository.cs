@@ -1,6 +1,6 @@
 ﻿using Specifications;
 
-namespace Linq2Ldap.Repository
+namespace Linq2Ldap.Examples.Repository
 {
     public interface ILDAPRepository
     {

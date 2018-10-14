@@ -3,7 +3,8 @@
 
     <Target Name="WatchAndTest">
         <ItemGroup>
-            <TestProjects Include="*.*Test*\*.csproj"/>
+            <TestProjects Include="*.*Tests\*.csproj"/>
+            <TestProjects Include="*.*IntegrationTest\*.csproj"/>
          </ItemGroup>
         <MSBuild Targets="VSTest" Projects="@(TestProjects)" />
     </Target>

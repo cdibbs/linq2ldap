@@ -11,7 +11,7 @@ using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
 using Linq2Ldap.Types;
 
-namespace Linq2Ldap.Repository
+namespace Linq2Ldap
 {
     public class MapperProfile: Profile
     {
@@ -21,9 +21,6 @@ namespace Linq2Ldap.Repository
             bsa.ForMember(b => b.DN, o => o.MapFrom(s => s.Path));
             bsa.ForMember(b => b.Properties, o => o.MapFrom(s => s.Properties));
             bsa.AfterMap(this.Convert);
-
-            var user = CreateMap<SearchResultProxy, User>();
-            user.IncludeBase<SearchResultProxy, Entry>();
         }
 
         internal void Convert<T>(SearchResultProxy srp, T model)

@@ -23,5 +23,8 @@ namespace Linq2Ldap.Proxies
         public string Path { get; set; }
 
         public ResultPropertyCollectionProxy Properties { get; set; }
+
+        public static implicit operator SearchResultProxy(SearchResult result)
+            => new SearchResultProxy(result);
     }
 }

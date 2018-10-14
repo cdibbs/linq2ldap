@@ -1,9 +1,10 @@
-﻿using Linq2Ldap.Attributes;
+using Linq2Ldap.Attributes;
+using Linq2Ldap.Models;
 using Linq2Ldap.Types;
 
-namespace Linq2Ldap.Models
+namespace Linq2Ldap.Tests.FilterCompiler
 {
-    public class User: Entry
+    public class TestLdapModel: Entry
     {
         public LDAPString Url { get; set; }
 

@@ -6,7 +6,7 @@ using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
 using Specifications;
 
-namespace Linq2Ldap.Repository
+namespace Linq2Ldap.Examples.Repository
 {
     public class LDAPRepository : ILDAPRepository
     {
@@ -31,7 +31,7 @@ namespace Linq2Ldap.Repository
             var searcher = new DirectorySearcherProxy(Entry);
             searcher.SearchScope = SearchScope.Subtree;
             searcher.Filter = FilterCompiler.CompileFromLinq(spec.AsExpression());
-            var result = new SearchResultProxy(searcher.FindOne());
+            var result = searcher.FindOne();
             /*var pnames = new string[results[0].Properties.PropertyNames.Count];
             results[0].Properties.PropertyNames.CopyTo(pnames, 0);
             var str = pnames.Join(",");*/
@@ -45,7 +45,7 @@ namespace Linq2Ldap.Repository
             searcher.Filter = FilterCompiler.CompileFromLinq(spec.AsExpression());
             searcher.PropertiesToLoad.Clear();
             searcher.PropertiesToLoad.Add("mail");
-            var results = new SearchResultCollectionProxy(searcher.FindAll());
+            var results = searcher.FindAll();
             /*var pnames = new string[results[0].Properties.PropertyNames.Count];
             results[0].Properties.PropertyNames.CopyTo(pnames, 0);
             var str = pnames.Join(",");*/

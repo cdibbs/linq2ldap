@@ -8,7 +8,7 @@ using System.Text;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using Linq2Ldap.Models;
-using Linq2Ldap.Repository;
+using Linq2Ldap.Examples.Repository;
 using Moq;
 using Specifications;
 using Xunit;

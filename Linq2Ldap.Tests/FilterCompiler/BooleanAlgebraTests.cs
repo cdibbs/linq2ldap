@@ -19,7 +19,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         [Fact]
         public void And_GeneratesValidFilterString()
         {
-            Expression<Func<User, bool>> expr = ((User u)
+            Expression<Func<TestLdapModel, bool>> expr = ((TestLdapModel u)
                 => u.CommonName.StartsWith("one") && u.CommonName.EndsWith("two"));
             var actual = FilterCompiler.CompileFromLinq(expr);
             Assert.Equal("(&(cn=one*)(cn=*two))", actual);
@@ -28,7 +28,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         [Fact]
         public void NotAnd_GeneratesValidFilterString()
         {
-            Expression<Func<User, bool>> expr = ((User u)
+            Expression<Func<TestLdapModel, bool>> expr = ((TestLdapModel u)
                 => !(u.CommonName.StartsWith("one") && u.CommonName.EndsWith("two")));
             var actual = FilterCompiler.CompileFromLinq(expr);
             Assert.Equal("(!(&(cn=one*)(cn=*two)))", actual);
@@ -37,7 +37,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         [Fact]
         public void Or_GeneratesValidFilterString()
         {
-            Expression<Func<User, bool>> expr = ((User u)
+            Expression<Func<TestLdapModel, bool>> expr = ((TestLdapModel u)
                 => u.CommonName.StartsWith("one") || u.CommonName.EndsWith("two"));
             var actual = FilterCompiler.CompileFromLinq(expr);
             Assert.Equal("(|(cn=one*)(cn=*two))", actual);

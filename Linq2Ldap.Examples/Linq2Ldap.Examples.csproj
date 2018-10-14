@@ -8,17 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Collection" Version="4.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
-    <PackageReference Include="Moq" Version="4.10.0" />
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
-    <PackageReference Include="xunit" Version="2.3.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Linq2Ldap\Linq2Ldap.csproj" />
-    <ProjectReference Include="..\Linq2Ldap.Examples\Linq2Ldap.Examples.csproj" />
   </ItemGroup>
 
 </Project>

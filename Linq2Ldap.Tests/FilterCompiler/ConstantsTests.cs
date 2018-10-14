@@ -21,7 +21,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         {
             const string c = "something";
 #pragma warning disable CS1718 // Comparison made to same variable
-            Expression<Func<User, bool>> expr = (User u) => c == c;
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => c == c;
 #pragma warning restore CS1718 // Comparison made to same variable
             Assert.Throws<NotImplementedException>(() => FilterCompiler.CompileFromLinq(expr));
         }
@@ -30,7 +30,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         [Fact]
         public void InlineConstant_CompilesToValue()
         {
-            Expression<Func<User, bool>> expr = (User u) => u.SamAccountName == "something";
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => u.SamAccountName == "something";
             var result = FilterCompiler.CompileFromLinq(expr);
             Assert.Equal("(samaccountname=something)", result);
         }
@@ -40,7 +40,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         public void Constant_CompilesToValue()
         {
             const string c = "something";
-            Expression<Func<User, bool>> expr = (User u) => u.SamAccountName == c;
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => u.SamAccountName == c;
             var result = FilterCompiler.CompileFromLinq(expr);
             Assert.Equal("(samaccountname=something)", result);
         }

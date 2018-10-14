@@ -19,7 +19,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         [Fact]
         public void CallStrOp_ThrowsOnUnrecognized()
         {
-            Expression<Func<User, bool>> expr = user => user.Email.LastIndexOf("asdf") > 1;
+            Expression<Func<TestLdapModel, bool>> expr = TestLdapModel => TestLdapModel.Email.LastIndexOf("asdf") > 1;
             Action lambda = () => FilterCompiler.CompileFromLinq(expr);
             Assert.Throws<NotImplementedException>(lambda);
         }
@@ -27,7 +27,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         [Fact]
         public void Contains_ThrowsOnExtraParams()
         {
-            Expression<Func<User, bool>> expr = user => user.Email.Contains("asdf", StringComparison.CurrentCulture);
+            Expression<Func<TestLdapModel, bool>> expr = TestLdapModel => TestLdapModel.Email.Contains("asdf", StringComparison.CurrentCulture);
             Action lambda = () => FilterCompiler.CompileFromLinq(expr);
             Assert.Throws<NotImplementedException>(lambda);
         }
@@ -35,7 +35,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         [MemberData(nameof(StringOpData))]
         [Theory]
         public void CallStrOp_GeneratesValidLDAPFilterString(
-            Expression<Func<User, bool>> expr, string expected)
+            Expression<Func<TestLdapModel, bool>> expr, string expected)
         {
             var actual = FilterCompiler.CompileFromLinq(expr);
             Assert.Equal(expected, actual);
@@ -49,82 +49,82 @@ namespace Linq2Ldap.Tests.FilterCompiler
             {
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.Contains('c')),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.Contains('c')),
                     "(samaccountname=*c*)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.Contains("test")),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.Contains("test")),
                     "(samaccountname=*test*)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.Contains("te" + "st")),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.Contains("te" + "st")),
                     "(samaccountname=*test*)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.Contains(testv)),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.Contains(testv)),
                     $"(samaccountname=*test123*)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.StartsWith("test")),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.StartsWith("test")),
                     "(samaccountname=test*)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.StartsWith("te" + "st")),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.StartsWith("te" + "st")),
                     "(samaccountname=test*)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.StartsWith(testv)),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.StartsWith(testv)),
                     $"(samaccountname=test123*)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.EndsWith("test")),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.EndsWith("test")),
                     "(samaccountname=*test)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.EndsWith("te" + "st")),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.EndsWith("te" + "st")),
                     "(samaccountname=*test)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.EndsWith(testv)),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.EndsWith(testv)),
                     $"(samaccountname=*test123)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.Has("key")),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.Has("key")),
                     $"(key=*)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.Properties[member] == "123"),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.Properties[member] == "123"),
                     $"(samaccountname=123)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u["samaccountname"] == "123"),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u["samaccountname"] == "123"),
                     $"(samaccountname=123)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u[member] == "123"),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u[member] == "123"),
                     $"(samaccountname=123)"
                 },
                 new object[]
                 {
-                    (Expression<Func<User, bool>>) ((User u) => u.Properties["samaccountname"] == "123"),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.Properties["samaccountname"] == "123"),
                     $"(samaccountname=123)"
                 },
 
                 new object[] {
-                    (Expression<Func<User, bool>>) ((User u) => u.SamAccountName.Matches("univ*of*iowa")),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.SamAccountName.Matches("univ*of*iowa")),
                     $"(samaccountname=univ*of*iowa)"
                 }
             };

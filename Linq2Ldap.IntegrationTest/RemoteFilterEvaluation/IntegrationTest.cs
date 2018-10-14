@@ -7,7 +7,6 @@ using System.Text;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using Linq2Ldap.Models;
-using Linq2Ldap.Repository;
 using Moq;
 using Specifications;
 using Xunit;
@@ -41,9 +40,10 @@ namespace Linq2Ldap.IntegrationTest
             // Setup
             //var domain = Domain.GetDomain(new DirectoryContext(DirectoryContextType.Domain));
             var entry = new DirectoryEntry("LDAP://localhost:389/o=example", "cn=neoman,ou=users,o=example", "testtest", AuthenticationTypes.None);
-            var ctx = new LDAPRepository(Mapper, FilterUtil, entry);
+            var ctx = new LinqDirectorySearcher<Entry>(entry);
+            ctx.Filter = u => u.Properties["mail"].StartsWith("user");
             //Assert.Null(new LDAPFilterCompiler().CompileFromLinq(Specification<BaseSAMAccount>.Start(u => u.Properties["mail"] == "*").AsExpression()));
-            var results = ctx.FindAll(Specification<Entry>.Start(u => u.Properties["mail"].StartsWith("user")));
+            var results = ctx.FindAll();
             //Assert.Contains(results, u => u.SamAccountName == "estestseven");
             //Assert.Contains(results, u => u.SamAccountName == "estestfive");
             //Assert.Contains(results, u => u.SamAccountName == "estestone");

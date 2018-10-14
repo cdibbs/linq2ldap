@@ -6,7 +6,6 @@ using System.Text;
 using AutoMapper;
 using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
-using Linq2Ldap.Repository;
 using Xunit;
 
 namespace Linq2Ldap.Tests
