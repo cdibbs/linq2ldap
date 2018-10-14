@@ -12,16 +12,18 @@ logic.
 If you only want to use the filter transpiler, you can do this:
 
 ```c#
-    var searcher = new DirectorySearcherProxy(Domain.GetDirectoryEntry());
-    searcher.SearchScope = SearchScope.Subtree;
-
     // CompileFromLinq returns an RFC1960 filter string
-    searcher.Filter = new LDAPFilterCompiler().CompileFromLinq(
-        (MyUser u) => u.SamAccountName.StartsWith("will")
+    string filter = new LDAPFilterCompiler().CompileFromLinq(
+        (MyUserModel u) => u.SamAccountName.StartsWith("will")
                     && u.Email.Contains("uiowa")
                     && u["customprop"] != "123");
 
-    var results = new SearchResultCollectionProxy(searcher.FindAll());
+    var searcher = new DirectorySearcher();
+    searcher.Filter = filter;
+
+    // -- or --
+
+    var searchReq = new SearchRequest(targetOu, filter, /* ... */);
 ```
 
 Also supported examples:
@@ -31,6 +33,29 @@ Also supported examples:
 (User u) => u.Email.EndsWith("@gmail.com"); // (mail=*@gmail.com)
 (User u) => u["acustomproperty"].Contains("some val"); // (acustomproperty=some val)
 (User u) => u.Has("somekey"); // (somekey=*)
+```
+
+## LinqDirectorySearcher
+
+If you don't mind another layer of abstraction, you can also use the included `LinqDirectorySearcher<T>`
+and implemented the Repository pattern:
+
+```c#
+public IEnumerable<T> Page<T>(
+    ISpecification<T> spec,
+    int offsetPage = 0, int pageSize = 10,
+    SortOption sortOpt = null)
+    where T : Entry
+{
+    var searcher = new LinqDirectorySearcher<T>(Entry);
+    searcher.SearchScope = SearchScope.Subtree;
+    searcher.Filter = spec.AsExpression();
+    searcher.VirtualListView = new DirectoryVirtualListView(0, pageSize - 1, pageSize * offsetPage);
+    if (sortOpt != null)
+        searcher.Sort = sortOpt;
+
+    return searcher.FindAll();
+}
 ```
 
 ## Expression reusability

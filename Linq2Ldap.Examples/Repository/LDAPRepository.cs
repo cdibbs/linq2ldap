@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using AutoMapper;
@@ -63,21 +64,20 @@ namespace Linq2Ldap.Examples.Repository
         /// <param name="pageSize">Size of a page. Default = 10.</param>
         /// <param name="sortOpt">Sorting options.</param>
         /// <returns></returns>
-        public T[] Page<T>(
+        public IEnumerable<T> Page<T>(
             ISpecification<T> spec,
             int offsetPage = 0, int pageSize = 10,
             SortOption sortOpt = null)
             where T : Entry
         {
-            var searcher = new DirectorySearcherProxy(Entry);
+            var searcher = new LinqDirectorySearcher<T>(Entry);
             searcher.SearchScope = SearchScope.Subtree;
-            searcher.Filter = FilterCompiler.CompileFromLinq(spec.AsExpression());
+            searcher.Filter = spec.AsExpression();
             searcher.VirtualListView = new DirectoryVirtualListView(0, pageSize - 1, pageSize * offsetPage);
             if (sortOpt != null)
                 searcher.Sort = sortOpt;
 
-            var results = searcher.FindAll();
-            return Mapper.Map<T[]>(results);
+            return searcher.FindAll();
         }
 
         public void Add<T>(T entity)
