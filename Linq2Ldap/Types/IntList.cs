@@ -7,6 +7,7 @@ namespace Linq2Ldap.Types {
     /// Facilitates CompareTo on LDAPStringLists.
     /// </summary>
     public class IntList: List<int> {
+        public IntList(): base() {}
 
         public IntList(IEnumerable<int> ints): base(ints) {}
 

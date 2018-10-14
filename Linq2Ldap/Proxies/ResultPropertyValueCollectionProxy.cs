@@ -2,26 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices;
+using System.Linq;
 using System.Text;
+using Linq2Ldap.Types;
 
 namespace Linq2Ldap.Proxies
 {
     public class ResultPropertyValueCollectionProxy
-        : IEnumerable<object>, IComparable<string>, IEquatable<string>
+        : IEnumerable<object>, IEquatable<string>, IManyComparable<string>
     {
         protected ResultPropertyValueCollection ProxyValues { get; }
         protected List<object> Values { get; }
         public ResultPropertyValueCollectionProxy(ResultPropertyValueCollection proxyValues)
         {
+            if (proxyValues == null) {
+                    throw new ArgumentException("Cannot be null.", nameof(proxyValues));
+            }
+
             ProxyValues = proxyValues;
         }
 
-        public ResultPropertyValueCollectionProxy(List<object> values)
+        public ResultPropertyValueCollectionProxy(List<object> mockValues)
         {
-            Values = values;
+            if (mockValues == null) {
+                    throw new ArgumentException("Cannot be null.", nameof(mockValues));
+            }
+
+            Values = mockValues;
         }
 
-        public int Count => Values?.Count ?? ProxyValues.Count;
+        public int Count => Values?.Count ?? ProxyValues?.Count ?? 0;
 
         public object this[int index]
         {
@@ -46,9 +56,13 @@ namespace Linq2Ldap.Proxies
             return GetEnumerator();
         }
 
-        public int CompareTo(string other)
+        public IntList CompareTo(string other)
         {
-            return Count < 1 ? -1 : string.CompareOrdinal(this[0] as string, other);
+            var results = new IntList();
+            foreach (var v in this) {
+                results.Add(string.CompareOrdinal(v.ToString(), other));
+            }
+            return results;
         }
 
         public bool Equals(string other) => this == other;
@@ -59,28 +73,34 @@ namespace Linq2Ldap.Proxies
         }
 
         public static bool operator ==(ResultPropertyValueCollectionProxy a, string b)
-            => a != null && (a.Count > 0 && a[0] as string == b);
+            => a?.Any(m => string.CompareOrdinal(m.ToString(), b) == 0)
+                ?? b == null;
 
         public static bool operator !=(ResultPropertyValueCollectionProxy a, string b)
             => !(a == b);
 
         public static bool operator <(ResultPropertyValueCollectionProxy a, string b)
-            => a.Count < 1 || string.CompareOrdinal(a[0] as string, b) < 0;
-
-        public static bool operator >=(ResultPropertyValueCollectionProxy a, string b)
-            => !(a < b);
+            => a?.Any(m => string.CompareOrdinal(m.ToString(), b) < 0)
+                ?? throw new ArgumentException("Arguments to < cannot be null.");
 
         public static bool operator >(ResultPropertyValueCollectionProxy a, string b)
-            => !(a.Count < 1) && string.CompareOrdinal(a[0] as string, b) > 0;
+            => a?.Any(m => string.CompareOrdinal(m.ToString(), b) > 0)
+                ?? throw new ArgumentException("Arguments to > cannot be null.");
 
         public static bool operator <=(ResultPropertyValueCollectionProxy a, string b)
-            => !(a > b);
+            => a?.Any(m => string.CompareOrdinal(m.ToString(), b) <= 0)
+                ?? throw new ArgumentException("Arguments to <= cannot be null.");
 
-        public bool StartsWith(string frag) => throw new NotImplementedException("This helper method exists only to facilitate Linq2Ldap Expressions.");
-        public bool EndsWith(string frag) => throw new NotImplementedException("This helper method exists only to facilitate Linq2Ldap Expressions.");
-        public bool Contains(string frag) => throw new NotImplementedException("This helper method exists only to facilitate Linq2Ldap Expressions.");
+        public static bool operator >=(ResultPropertyValueCollectionProxy a, string b)
+            => a?.Any(m => string.CompareOrdinal(m.ToString(), b) >= 0)
+                ?? throw new ArgumentException("Arguments to >= cannot be null.");
 
-        
+        public static implicit operator ResultPropertyValueCollectionProxy(string[] list)
+            => new ResultPropertyValueCollectionProxy(new List<object>(list));
+
+        public bool StartsWith(string frag) => this.Any(s => s.ToString().StartsWith(frag));
+        public bool EndsWith(string frag) => this.Any(s => s.ToString().EndsWith(frag));
+        public new bool Contains(string frag) => this.Any(s => s.ToString().Contains(frag));
 
         public override bool Equals(object obj)
         {

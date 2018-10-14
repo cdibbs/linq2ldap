@@ -5,7 +5,7 @@ using Linq2Ldap.ExtensionMethods;
 
 namespace Linq2Ldap.Types
 {
-    public class LDAPStringList: List<string>, IAttribute
+    public class LDAPStringList: List<string>, IAttribute, IManyComparable<string>
     {
         public LDAPStringList(IEnumerable<string> e) : base(e)
         {

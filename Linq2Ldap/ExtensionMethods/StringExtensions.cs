@@ -19,10 +19,16 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="pattern">The pattern to match (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
         public static bool Matches(this string source, string pattern) {
-            var pieces = Regex.Split(pattern, @"(?<!\\)\*"); // non-escaped asterisk
-            if (pieces.Length == 1 && pieces[0] == "*") {
-                return source != null /* existence check operator */;
+            if (source == null) {
+                return false;
             }
+
+            // existence check for single-valued. Multi-valued handled by LDAPStringList overload
+            if (pattern == "*") {
+                return true;
+            }
+
+            var pieces = Regex.Split(pattern, @"(?<!\\)\*"); // non-escaped asterisk
 
             int i = 0, p = 0;
             for (; i < pieces.Length && p != -1; p = source.IndexOf(pieces[i++], p));
@@ -35,9 +41,17 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="source">The multi-valued source.</param>
         /// <param name="pattern">The LDAP filter pattern (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
-        public static bool Matches(this LDAPStringList source, string pattern)
-            => source?.Any(e => Matches(e, pattern))
-                ?? source != null /* existence check operator */;
+        public static bool Matches(this LDAPStringList source, string pattern) {
+            if (source == null) {
+                return false;
+            }
+
+            if (pattern == "*") {
+                return true; // existence check operator
+            }
+
+            return source.Any(e => Matches(e, pattern));
+        }
 
         /// <summary>
         /// Checks whether the pattern approximately matches (~=) the source string.
@@ -60,7 +74,16 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="source">The multi-valued source to match against.</param>
         /// <param name="pattern">The pattern to match (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
-        public static bool Approx(this LDAPStringList source, string pattern)
-            => source?.Any(e => Approx(e, pattern)) ?? false;
+        public static bool Approx(this LDAPStringList source, string pattern) {
+            if (source == null) {
+                return false;
+            }
+
+            if (pattern == "*") {
+                return true; // existence check operator
+            }
+
+            return source.Any(e => Approx(e, pattern));
+        }
     }
 }
