@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Linq2Ldap\Linq2Ldap.csproj" />
+    <ProjectReference Include="..\Linq2Ldap.TestUtil\Linq2Ldap.TestUtil.csproj" />
   </ItemGroup>
 
   <ItemGroup>
