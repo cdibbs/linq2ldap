@@ -26,12 +26,12 @@ namespace Linq2Ldap.IntegrationTest
             Compiler = new LDAPFilterCompiler();
             var config = new MapperConfiguration(c =>
             {
-                c.AddProfile<MapperProfile>();
+                c.AddProfile<MapperProfile<Entry>>();
                 c.AddCollectionMappers();
             });
             Mapper = config.CreateMapper();
             Entry = new DirectoryEntry("LDAP://localhost:389/o=example", "cn=neoman,ou=users,o=example", "testtest", AuthenticationTypes.None);
-            Repo = new LDAPRepository(Mapper, Compiler, Entry);
+            Repo = new LDAPRepository(Entry);
 
         }
 

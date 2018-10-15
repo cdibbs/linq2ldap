@@ -17,7 +17,7 @@ namespace Linq2Ldap.Tests
         {
             var config = new MapperConfiguration(c =>
             {
-                c.AddProfile<MapperProfile>();
+                c.AddProfile<MapperProfile<Entry>>();
             });
             Mapper = config.CreateMapper();
         }

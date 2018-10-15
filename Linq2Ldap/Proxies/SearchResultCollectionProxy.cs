@@ -8,8 +8,10 @@ namespace Linq2Ldap.Proxies
 {
     public class SearchResultCollectionProxy: IEnumerable<SearchResultProxy>
     {
-        protected SearchResultCollection Results;
-        public SearchResultCollectionProxy() {}
+        protected IEnumerable Results;
+        public SearchResultCollectionProxy(List<SearchResultProxy> mockResults) {
+            Results = mockResults;
+        }
         public SearchResultCollectionProxy(SearchResultCollection results)
         {
             Results = results;
@@ -17,9 +19,11 @@ namespace Linq2Ldap.Proxies
 
         public IEnumerator<SearchResultProxy> GetEnumerator()
         {
-            for (var i = 0; i < Results.Count; i++)
-            {
-                yield return new SearchResultProxy(Results[i]);
+            foreach (var e in Results) {
+                if (e is SearchResult sr)
+                    yield return sr;
+                else if (e is SearchResultProxy p)
+                    yield return p;
             }
         }
 

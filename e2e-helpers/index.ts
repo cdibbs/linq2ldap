@@ -3,13 +3,31 @@ import ldap = require('ldapjs');
 interface DirectoryEntry {
     dn: string;
     samaccountname?: string;
-    attributes: any;
+    attributes: { objectclass: string, [key: string]: string };
+}
+
+function replacer(cache, key, value) {
+    if (typeof value === 'object' && value !== null) {
+        if (cache.indexOf(value) !== -1) {
+            // Duplicate reference found
+            try {
+                // If this value does not reference a parent it can be deduped
+                return JSON.parse(JSON.stringify(value));
+            } catch (error) {
+                // discard key if value cannot be deduped
+                return;
+            }
+        }
+        // Store value in our collection
+        cache.push(value);
+    }
+    return value;
 }
 
 class MockLdapInstance {
     directory: DirectoryEntry[];
     ldapServer: any;
-    readonly tld: string = "o=example";
+    readonly tld: string = "dc=example, dc=com";
     readonly user: string = "neoman";
     readonly mailDomain: string = "example.com";
 
@@ -31,7 +49,7 @@ class MockLdapInstance {
         this.ldapServer.on('close', function() { 
             console.log("LDAP SERVER STOPPED LISTENING");
         });
-        this.ldapServer.bind('o=example', function(req, res, next) {
+        this.ldapServer.bind('dc=example, dc=com', function(req, res, next) {
             if (fakeLatency == -1 ) return;
     
             setTimeout(function() {
@@ -39,15 +57,54 @@ class MockLdapInstance {
             }.bind(this), fakeLatency);
         }.bind(this));
 
-        this.ldapServer.add('ou=users, o=example', function(req, res, next) {
+        this.ldapServer.bind('', function(req, res, next) {
+            console.log("Invalid bind attempt.");
+            console.log(req.baseObject.toString(), req.scope.toString(), req.filter.toString());
+            res.end();
+            next();
+        });
+
+        this.ldapServer.add('dc=example, dc=com', function(req, res, next) {
             console.log('DN: ' + req.dn.toString());
             console.log('Entry attributes: ' + req.toObject().attributes);
             res.end();
         });
     
-        this.ldapServer.search('o=example', function(req, res, next) {
+        this.ldapServer.search('dc=example, dc=com', function(req, res, next) {
             if (fakeLatency == -1 ) return;
     
+            setTimeout(function() {
+                this.searchHandler.call(this.ldapServer, this, req, res, next);
+            }.bind(this), fakeLatency);
+        }.bind(this));
+
+        this.ldapServer.search('', function(req, res, next) {
+            if (req.scope.toString() === "base" && req.filter.toString() === "(objectclass=*)") {
+                console.log("Received root DSE request.");
+                // https://ldap.com/dit-and-the-ldap-root-dse/
+                var rootDSEEntry = {
+                    dn: 'dc=example, dc=com',
+                    attributes: {
+                        namingContexts: [
+                            'dc=example, dc=com',
+                            'ou=users, dc=example, dc=com',
+                        ],
+                        subschemaSubentry: 'ou=users, dc=example, dc=com',
+                        supportedLDAPVersion: "2",
+                        supportedControl: [],
+                        supportedSASLMechanisms: [],
+                        supportedFeatures: [],
+                        dn: `dc=example, dc=com`,
+                    }
+                };
+                console.log("Replying with root DSE...");
+                res.send(rootDSEEntry);
+                res.end();
+                next();
+                return;
+            }
+
+            console.log("\nIncoming search request\n", req.baseObject.toString(), req.scope.toString(), req.filter.toString());
             setTimeout(function() {
                 this.searchHandler.call(this.ldapServer, this, req, res, next);
             }.bind(this), fakeLatency);
@@ -60,8 +117,8 @@ class MockLdapInstance {
 
     buildDirectory(): DirectoryEntry[] {
         const dir: DirectoryEntry[] = [];
-        dir.push({ dn: `cn=${this.user}, ou=users, ${this.tld}`, attributes: { cn: this.user, password: "testtest" } });
-        dir.push({ dn: `mail=user@example.com, ou=users, ${this.tld}`, attributes: { mail: 'user@example.com' }})
+        dir.push({ dn: `cn=${this.user}, ou=users, ${this.tld}`, attributes: { cn: this.user, password: "testtest", objectclass: "user" } });
+        dir.push({ dn: `mail=user@example.com, ou=users, ${this.tld}`, attributes: { mail: 'user@example.com', objectclass: 'user' }})
         for (let i=0; i<10; i++) {
             dir.push({
                 dn: `mail=user${i}@${this.mailDomain}, ou=users, ${this.tld}`,
@@ -69,9 +126,10 @@ class MockLdapInstance {
                 attributes: {
                     samaccountname: `estestsomething${i}`,
                     mail: `user${i}@${this.mailDomain}`,
-                    customprop: Math.random(),
+                    customprop: `${Math.random()}`,
                     mailAlias: `user${i}-alias@${this.mailDomain}`,
-                    password: `testtest${i}`
+                    password: `testtest${i}`,
+                    objectclass: 'user'
                 }
             });
         }
@@ -83,6 +141,7 @@ class MockLdapInstance {
         var bindDN = req.dn.toString();
         var credentials = req.credentials;
         for(var i=0; i < self.directory.length; i++) {
+            console.log(self.directory[i].dn);
           if(self.directory[i].dn === bindDN && 
              credentials === self.directory[i].attributes.password &&
              self.directory[i].attributes.employeetype !== 'DISABLED') {
@@ -111,8 +170,8 @@ class MockLdapInstance {
         self.directory.forEach(function(user) {
           // this test is pretty dumb, make sure in the directory
           // that things are spaced / cased exactly
-    
-          if (user.dn.indexOf(req.dn.toString()) === -1) {
+            console.log(`search: ${req.baseObject} | ${user.dn} | ${user.dn.indexOf(req.baseObject.toString())}`);
+          if (user.dn.indexOf(req.baseObject.toString()) === -1) {
             return;
           }
     

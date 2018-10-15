@@ -5,6 +5,7 @@ using System.DirectoryServices;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
 
@@ -55,7 +56,8 @@ namespace Linq2Ldap {
             Base = this;
             Mapper = mapper ?? new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MapperProfile());
+                cfg.AddProfile(new MapperProfile<T>());
+                cfg.AddCollectionMappers();
             }).CreateMapper();
         }
     }

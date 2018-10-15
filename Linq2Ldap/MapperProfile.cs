@@ -13,18 +13,18 @@ using Linq2Ldap.Types;
 
 namespace Linq2Ldap
 {
-    public class MapperProfile: Profile
+    public class MapperProfile<T>: Profile
+        where T: IEntry
     {
         public MapperProfile()
         {
-            var bsa = CreateMap<SearchResultProxy, Entry>();
+            var bsa = CreateMap<SearchResultProxy, T>();
             bsa.ForMember(b => b.DN, o => o.MapFrom(s => s.Path));
             bsa.ForMember(b => b.Properties, o => o.MapFrom(s => s.Properties));
             bsa.AfterMap(this.Convert);
         }
 
-        internal void Convert<T>(SearchResultProxy srp, T model)
-            where T: Entry
+        internal void Convert(SearchResultProxy srp, T model)
         {
             //model = srp.Properties["samaccountname"]?[0] as string;
             var t = typeof(T);
@@ -35,7 +35,7 @@ namespace Linq2Ldap
             }
         }
 
-        private void SetPropFromProperties<T>(SearchResultProxy srp, T model, PropertyInfo prop)
+        private void SetPropFromProperties(SearchResultProxy srp, T model, PropertyInfo prop)
         {
             var attr = prop.GetCustomAttribute<LDAPFieldAttribute>();
             if (attr == null)
@@ -57,7 +57,7 @@ namespace Linq2Ldap
             }
         }
 
-        private void ValidateTypeConvertAndSet<T>(
+        private void ValidateTypeConvertAndSet(
             T model,
             ResultPropertyValueCollectionProxy ldapData,
             PropertyInfo prop,

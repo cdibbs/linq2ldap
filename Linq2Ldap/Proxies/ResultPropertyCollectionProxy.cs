@@ -48,5 +48,8 @@ namespace Linq2Ldap.Proxies
                 return ProxyResults?.Count ?? this.Results.Count;
             }
         }
+
+        public static implicit operator ResultPropertyCollectionProxy(ResultPropertyCollection col)
+            => new ResultPropertyCollectionProxy(col);
     }
 }

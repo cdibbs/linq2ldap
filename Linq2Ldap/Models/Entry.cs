@@ -6,7 +6,6 @@ namespace Linq2Ldap.Models
 {
     public class Entry: IEntry
     {
-        [LDAPField("dn")]
         public string DN { get; set; }
 
         public ResultPropertyCollectionProxy Properties { get; set; }

@@ -22,7 +22,7 @@ namespace Linq2Ldap.Tests
 
         [WindowsOnlyFact]
         public void FindAll_ReturnsMappedFromBase() {
-            var data = new SearchResultCollectionProxy();
+            var data = new SearchResultCollectionProxy(new List<SearchResultProxy>());
             Mock.Get(Searcher.Base)
                 .Setup(m => m.FindAll())
                 .Returns(data);

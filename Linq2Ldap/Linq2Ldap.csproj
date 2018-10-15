@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="AutoMapper.Collection" Version="4.0.0" />
     <PackageReference Include="LINQKit.Core" Version="1.1.15" />
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="4.5.0" />

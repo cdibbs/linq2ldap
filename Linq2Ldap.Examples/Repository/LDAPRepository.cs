@@ -12,28 +12,24 @@ namespace Linq2Ldap.Examples.Repository
 {
     public class LDAPRepository : ILDAPRepository
     {
-        protected IMapper Mapper { get; set; }
-        protected ILDAPFilterCompiler FilterCompiler { get; set; }
         protected DirectoryEntry Entry { get; set; }
 
-        public LDAPRepository(IMapper mapper, ILDAPFilterCompiler filterUtil)
-            : this(mapper, filterUtil, Domain.GetDomain(new DirectoryContext(DirectoryContextType.Domain)).GetDirectoryEntry())
+        public LDAPRepository()
+            : this(Domain.GetDomain(new DirectoryContext(DirectoryContextType.Domain)).GetDirectoryEntry())
         {
         }
 
-        public LDAPRepository(IMapper mapper, ILDAPFilterCompiler filterUtil, DirectoryEntry entry)
+        public LDAPRepository(DirectoryEntry entry)
         {
-            Mapper = mapper;
-            FilterCompiler = filterUtil;
             Entry = entry;
         }
 
         public T FindOne<T>(Specification<T> spec)
             where T: class, IEntry
         {
-            var searcher = new DirectorySearcherProxy(Entry);
+            var searcher = new LinqDirectorySearcher<T>(Entry);
             searcher.SearchScope = SearchScope.Subtree;
-            searcher.Filter = FilterCompiler.CompileFromLinq(spec.AsExpression());
+            searcher.Filter = spec;
             var result = searcher.FindOne();
             /*var pnames = new string[results[0].Properties.PropertyNames.Count];
             results[0].Properties.PropertyNames.CopyTo(pnames, 0);
@@ -44,9 +40,9 @@ namespace Linq2Ldap.Examples.Repository
         public T[] FindAll<T>(Specification<T> spec)
             where T: class, IEntry
         {
-            var searcher = new DirectorySearcherProxy(Entry);
+            var searcher = new LinqDirectorySearcher<T>(Entry);
             searcher.SearchScope = SearchScope.Subtree;
-            searcher.Filter = FilterCompiler.CompileFromLinq(spec.AsExpression());
+            searcher.Filter = spec;
             searcher.PropertiesToLoad.Clear();
             searcher.PropertiesToLoad.Add("mail");
             var results = searcher.FindAll();
@@ -75,7 +71,7 @@ namespace Linq2Ldap.Examples.Repository
         {
             var searcher = new LinqDirectorySearcher<T>(Entry);
             searcher.SearchScope = SearchScope.Subtree;
-            searcher.Filter = spec.AsExpression();
+            searcher.Filter = spec;
             searcher.VirtualListView = new DirectoryVirtualListView(0, pageSize - 1, pageSize * offsetPage);
             if (sortOpt != null)
                 searcher.Sort = sortOpt;

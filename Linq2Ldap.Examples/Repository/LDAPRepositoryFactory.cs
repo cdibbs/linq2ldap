@@ -10,24 +10,16 @@ namespace Linq2Ldap.Examples.Repository
 {
     public class LDAPRepositoryFactory
     {
-        public IMapper Mapper { get; set; }
-        public LDAPRepositoryFactory(MapperConfiguration mapperConfig = null)
-        {
-            mapperConfig = mapperConfig ?? new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new MapperProfile());
-            });
-            Mapper = mapperConfig.CreateMapper();
-        }
+        public LDAPRepositoryFactory() {}
 
         public LDAPRepository Build()
         {
-            return new LDAPRepository(Mapper, new LDAPFilterCompiler());
+            return new LDAPRepository();
         }
 
         public LDAPRepository Build(DirectoryEntry entry)
         {
-            return new LDAPRepository(Mapper, new LDAPFilterCompiler(), entry);
+            return new LDAPRepository(entry);
         }
     }
 }
