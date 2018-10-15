@@ -35,7 +35,7 @@ Also supported examples:
 (MyUserModel u) => u.Has("somekey"); // (somekey=*)
 ```
 
-For more information about models and properties, please visit the [Wiki](/cdibbs/linq2ldap/wiki).
+For more information about models and properties, please visit the [Wiki](https://github.com/cdibbs/linq2ldap/wiki).
 
 ## LinqDirectorySearcher
 
