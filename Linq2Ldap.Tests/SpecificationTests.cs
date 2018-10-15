@@ -18,7 +18,7 @@ namespace Linq2Ldap.Tests
                 new TestModel(),
                 new TestModel()
             };
-            var filtered = list.Where(Specification<TestModel>.None().AsExpression().Compile());
+            var filtered = list.Where(Specification<TestModel>.None());
             Assert.Equal(0, filtered.Count());
         }
 
@@ -30,7 +30,7 @@ namespace Linq2Ldap.Tests
                 new TestModel(),
                 new TestModel()
             };
-            var filtered = list.Where(Specification<TestModel>.All().AsExpression().Compile());
+            var filtered = list.Where(Specification<TestModel>.All());
             Assert.Equal(2, filtered.Count());
         }
 
@@ -42,7 +42,7 @@ namespace Linq2Ldap.Tests
                 new TestModel(),
                 new TestModel()
             };
-            var filtered = list.Where(Specification<TestModel>.True.AsExpression().Compile());
+            var filtered = list.Where(Specification<TestModel>.True);
             Assert.Equal(2, filtered.Count());
         }
 
@@ -54,7 +54,7 @@ namespace Linq2Ldap.Tests
                 new TestModel(),
                 new TestModel()
             };
-            var filtered = list.Where(Specification<TestModel>.False.AsExpression().Compile());
+            var filtered = list.Where(Specification<TestModel>.False);
             Assert.Equal(0, filtered.Count());
         }
 
@@ -70,7 +70,7 @@ namespace Linq2Ldap.Tests
             var expr1 = Specification<TestModel>.Start(t => t.Id > 1);
             var expr2 = Specification<TestModel>.Start(t => t.Id < 3);
             var andExpr = expr1.And(expr2);
-            var filtered = list.Where(andExpr.AsExpression().Compile());
+            var filtered = list.Where(andExpr);
             Assert.Equal(1, filtered.Count());
             Assert.Equal(2, filtered.First().Id);
         }
@@ -87,7 +87,7 @@ namespace Linq2Ldap.Tests
             var expr1 = Specification<TestModel>.Start(t => t.Id < 2);
             var expr2 = Specification<TestModel>.Start(t => t.Id >= 3);
             var orExpr = expr1.Or(expr2);
-            var filtered = list.Where(orExpr.AsExpression().Compile());
+            var filtered = list.Where(orExpr);
             Assert.Equal(2, filtered.Count());
             Assert.Equal(1, filtered.First().Id);
             Assert.Equal(3, filtered.Last().Id);
@@ -104,7 +104,7 @@ namespace Linq2Ldap.Tests
             };
             var expr1 = Specification<TestModel>.Start(t => t.Id > 1);
             var andExpr = expr1.And(t => t.Id < 3);
-            var filtered = list.Where(andExpr.AsExpression().Compile());
+            var filtered = list.Where(andExpr);
             Assert.Equal(1, filtered.Count());
             Assert.Equal(2, filtered.First().Id);
         }
@@ -120,7 +120,7 @@ namespace Linq2Ldap.Tests
             };
             var expr1 = Specification<TestModel>.Start(t => t.Id < 2);
             var orExpr = expr1.Or(t => t.Id >= 3);
-            var filtered = list.Where(orExpr.AsExpression().Compile());
+            var filtered = list.Where(orExpr);
             Assert.Equal(2, filtered.Count());
             Assert.Equal(1, filtered.First().Id);
             Assert.Equal(3, filtered.Last().Id);
@@ -146,6 +146,18 @@ namespace Linq2Ldap.Tests
         public void CanGetMetadata()
         {
             var meta = Specification<TestModel>.True.Metadata;
+        }
+
+        [Fact]
+        public void ImplicitConversion_Expr() {
+            var spec = Specification<TestModel>.Start(t => t.Id == 314);
+            Expression<Func<TestModel, bool>> e = spec;
+        }
+
+        [Fact]
+        public void ImplicitConversion_Spec() {
+            Expression<Func<TestModel, bool>> e = t => t.Id == 314;
+            Specification<TestModel> spec = e;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Specifications
     /// true if the object satisifies the expression and false otherwise.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Specification<T> : ISpecification<T>, IEquatable<ISpecification<T>>
+    public class Specification<T>: IEquatable<Specification<T>>
     {
         private Expression<Func<T, bool>> _expression;
 
@@ -19,12 +19,12 @@ namespace Specifications
         /// </summary>
         public object Metadata { get; set; }
 
-        public static ISpecification<T> All() => True;
-        public static ISpecification<T> True => Start(t => true, true);
-        public static ISpecification<T> None() => False;
-        public static ISpecification<T> False => Start(t => false, false);
+        public static Specification<T> All() => True;
+        public static Specification<T> True => Start(t => true, true);
+        public static Specification<T> None() => False;
+        public static Specification<T> False => Start(t => false, false);
 
-        public static ISpecification<T> Start(Expression<Func<T, bool>> expression, object Metadata = null)
+        public static Specification<T> Start(Expression<Func<T, bool>> expression, object Metadata = null)
         {
             return new Specification<T> { _expression = expression, Metadata = Metadata};
         }
@@ -34,12 +34,12 @@ namespace Specifications
             return _expression.Expand();
         }
 
-        public ISpecification<T> And(ISpecification<T> spec)
+        public virtual Specification<T> And(Specification<T> spec)
         {
             return And(spec.AsExpression());
         }
 
-        public ISpecification<T> And(Expression<Func<T, bool>> expression)
+        public virtual Specification<T> And(Expression<Func<T, bool>> expression)
         {
             var invokedExpr = Expression.Invoke(expression, _expression.Parameters.Cast<Expression>());
             _expression = Expression.Lambda<Func<T, bool>>(
@@ -47,35 +47,18 @@ namespace Specifications
             return this;
         }
 
-        // Not sure this is ever used. Removing until proved wrong. CRD 2017-09-08.
-        /*
-        public ISpecification<T> And(MethodCallExpression expression)
-        {
-            _expression = Expression.Lambda<Func<T, bool>>(Expression.AndAlso(_expression.Body, expression),
-                                                           _expression.Parameters);
-            return this;
-        }*/
-
-        public ISpecification<T> Or(ISpecification<T> spec)
+        public virtual Specification<T> Or(Specification<T> spec)
         {
             return Or(spec.AsExpression());
         }
 
-        public ISpecification<T> Or(Expression<Func<T, bool>> expression)
+        public virtual Specification<T> Or(Expression<Func<T, bool>> expression)
         {
             var invokedExpr = Expression.Invoke(expression, _expression.Parameters.Cast<Expression>());
             _expression = Expression.Lambda<Func<T, bool>>(Expression.OrElse(_expression.Body, invokedExpr),
                                                            _expression.Parameters);
             return this;
         }
-
-        // Not sure this is ever used. Removing until proved wrong. CRD 2017-09-08.
-        /*public ISpecification<T> Or(MethodCallExpression expression)
-        {
-            _expression = Expression.Lambda<Func<T, bool>>(Expression.OrElse(_expression.Body, expression),
-                                                           _expression.Parameters);
-            return this;
-        }*/
 
         public override int GetHashCode()
         {
@@ -84,10 +67,10 @@ namespace Specifications
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as ISpecification<T>);
+            return Equals(obj as Specification<T>);
         }
 
-        public bool Equals(ISpecification<T> other)
+        public bool Equals(Specification<T> other)
         {
             if (ReferenceEquals(this, other))
             {
@@ -101,5 +84,14 @@ namespace Specifications
             var otherExpression = other.AsExpression().Expand().ToString();
             return thisExpression == otherExpression;
         }
+
+        public static implicit operator Func<T, bool>(Specification<T> spec)
+            => spec.AsExpression().Compile();
+
+        public static implicit operator Expression<Func<T, bool>>(Specification<T> spec)
+            => spec.AsExpression();
+
+        public static implicit operator Specification<T>(Expression<Func<T, bool>> expr)
+            => Specification<T>.Start(expr) as Specification<T>;
     }
 }

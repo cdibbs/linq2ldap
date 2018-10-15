@@ -112,7 +112,7 @@ public class MyBizSpecificationsTests {
         var spec = Specs.ActiveUsers();
 
         // Run
-        var subset = users.Where(spec.AsExpression().Compile()).ToList();
+        var subset = users.Where(spec).ToList();
 
         // Inspect
         Assert.Equal(users.ElementAt(1), subset.FirstOrDefault());
