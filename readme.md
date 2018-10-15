@@ -29,22 +29,24 @@ If you only want to use the filter transpiler, you can do this:
 Also supported examples:
 
 ```c#
-(User u) => u.Title.Matches("univ*of*iowa"); // (title=univ*of*iowa)
-(User u) => u.Email.EndsWith("@gmail.com"); // (mail=*@gmail.com)
-(User u) => u["acustomproperty"].Contains("some val"); // (acustomproperty=some val)
-(User u) => u.Has("somekey"); // (somekey=*)
+(MyUserModel u) => u.Title.Matches("univ*of*iowa"); // (title=univ*of*iowa)
+(MyUserModel u) => u.Email.EndsWith("@gmail.com"); // (mail=*@gmail.com)
+(MyUserModel u) => u["acustomproperty"].Contains("some val"); // (acustomproperty=some val)
+(MyUserModel u) => u.Has("somekey"); // (somekey=*)
 ```
 
 ## LinqDirectorySearcher
 
-If you don't mind another layer of abstraction, you can also use the included `LinqDirectorySearcher<T>`
-and implemented the Repository pattern:
+If you don't mind another layer of abstraction, you can also use the included `LinqDirectorySearcher<T>`.
+Here is an example which uses it to implement a method, `Page`, on a Repository:
 
 ```c#
 public IEnumerable<T> Page<T>(
     ISpecification<T> spec,
-    int offsetPage = 0, int pageSize = 10,
-    SortOption sortOpt = null)
+    int offsetPage = 0,
+    int pageSize = 10,
+    SortOption sortOpt = null
+)
     where T : Entry
 {
     var searcher = new LinqDirectorySearcher<T>(Entry);
@@ -57,6 +59,10 @@ public IEnumerable<T> Page<T>(
     return searcher.FindAll();
 }
 ```
+
+Please note that, at the time of writing, the `System.DirectoryServices.*` libraries and, therefore, this
+library's abstraction layer, are not compatible with Mac/Linux. You should still be able to use the LINQ
+Transpiler with a non-Windows LDAP library, however, since RFC 1960 filters are cross-platform.
 
 ## Expression reusability
 
