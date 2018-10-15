@@ -5,6 +5,6 @@ namespace Linq2Ldap.IntegrationTest.RemoteFilterEvaluation {
     public class MyModel: Entry {
 
         [LDAPField("mail")]
-        public string Mail { get; set; }
+        public object Mail { get; set; }
     }
 }

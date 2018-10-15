@@ -35,6 +35,8 @@ Also supported examples:
 (MyUserModel u) => u.Has("somekey"); // (somekey=*)
 ```
 
+For more information about models and properties, please visit the [Wiki](wiki).
+
 ## LinqDirectorySearcher
 
 If you don't mind another layer of abstraction, you can also use the included `LinqDirectorySearcher<T>`.
