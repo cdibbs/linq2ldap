@@ -18,16 +18,16 @@ install:
   - ps: Install-Product node $env:nodejs_version
   # install modules
   - ps: | 
-    cd e2e-helpers
-    npm install
+      cd e2e-helpers
+      npm install
 
 before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Start LDAP test server
   - ps: |
-    cd e2e-helpers
-    $MyProcess = Start-Process npm -ArgumentList 'run serve'
+      cd e2e-helpers
+      $MyProcess = Start-Process npm -ArgumentList 'run serve'
   # Display minimal restore text
   - cmd: dotnet restore ./Linq2Ldap.sln --verbosity m
 
