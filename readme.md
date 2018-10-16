@@ -74,18 +74,18 @@ to wrap your Expressions and improve code reuse and testability. It does so by f
 
 ```csharp
 public class MyBizSpecifications {
-    public virtual ISpecification<User> ActiveUsers() {
+    public virtual Specification<User> ActiveUsers() {
         return Specification<User>.Start(
             u =>     u.Status == "active"
                 && ! u.Suspended.Matches("*") /* not exists */
         );
     }
 
-    public virtual ISpecification<User> UsersInCountry(string country) {
+    public virtual Specification<User> UsersInCountry(string country) {
         return Specification<User>.Start(u => u.Country == country);
     }
 
-    public virtual ISpecification<User> ActiveUsersInCountry(string country) {
+    public virtual Specification<User> ActiveUsersInCountry(string country) {
         return ActiveUsers().And(UsersInCountry(country));
     }
 
