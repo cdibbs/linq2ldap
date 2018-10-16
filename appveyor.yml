@@ -5,17 +5,11 @@ branches:
   only:
   - master
 
-# Test against the latest version of this Node.js version
-environment:
-  nodejs_version: "6"
-
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
 
 install:
-  # Get the latest stable version of Node.js or io.js
-  - ps: Install-Product node $env:nodejs_version
   # install modules
   - ps: | 
       cd e2e-helpers
