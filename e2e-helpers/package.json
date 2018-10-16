@@ -1,8 +1,9 @@
 {
   "name": "linq2ldap",
   "version": "0.1.0",
-  "description": "LINQ-to-LDAP transpiler and helper classes.",
-  "main": "ldapMock.js",
+  "description": "LINQ-to-LDAP transpiler e2e LDAP server.",
+  "main": "index.ts",
+  "repository": {},
   "scripts": {
     "serve": "ts-node index.ts -- 1389",
     "test": "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../TestResults/Coverage/ Linq2Ldap/Linq2Ldap.sln",
