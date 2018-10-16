@@ -11,6 +11,8 @@ init:
 before_build:
   # Display .NET Core version
   - cmd: dotnet --version
+  # Start LDAP test server
+  - ps: $MyProcess = Start-Process npm -ArgumentList 'run serve'
   # Display minimal restore text
   - cmd: dotnet restore ./Linq2Ldap.sln --verbosity m
 
@@ -19,7 +21,6 @@ build_script:
   - cmd: dotnet publish ./Linq2Ldap.sln
 
 test_script:
-  - ps: $MyProcess = Start-Process npm -ArgumentList 'run serve'
   - ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Tests/Linq2Ldap.Tests.csproj
   - ps: dotnet test Linq2Ldap.IntegrationTest
 
