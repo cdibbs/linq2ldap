@@ -19,9 +19,12 @@ build_script:
   - cmd: dotnet publish ./Linq2Ldap.sln
 
 test_script:
-  - cmd: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Tests/Linq2Ldap.Tests.csproj
+  - ps: $MyProcess = Start-Process npm -ArgumentList 'run serve'
+  - ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Tests/Linq2Ldap.Tests.csproj
+  - ps: dotnet test Linq2Ldap.IntegrationTest
 
 after_test:
+  - ps: Stop-Process -Id $MyProcess.Id
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
