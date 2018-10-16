@@ -31,7 +31,7 @@ Also supported examples:
 ```c#
 (MyUserModel u) => u.Title.Matches("univ*of*iowa"); // (title=univ*of*iowa)
 (MyUserModel u) => u.Email.EndsWith("@gmail.com"); // (mail=*@gmail.com)
-(MyUserModel u) => u["acustomproperty"].Contains("some val"); // (acustomproperty=some val)
+(MyUserModel u) => u["acustomproperty"].Contains("some val"); // (acustomproperty=*some val*)
 (MyUserModel u) => u.Has("somekey"); // (somekey=*)
 ```
 
