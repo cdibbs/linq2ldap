@@ -6,8 +6,8 @@
 # Linq2Ldap
 
 This project centers around the ability to transpile C# LINQ Expressions into RFC 1960 LDAP filter strings.
-It facilitates using the Repository and Specification patterns with LDAP, as well as unit testing your filter
-logic.
+It facilitates using the Repository and Specification patterns with LDAP, as well as
+[reusing][#expression-reusability] and [unit testing][#testability] your filter logic.
 
 If you only want to use the filter transpiler, you can do this:
 
