@@ -17,13 +17,17 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # install modules
-  - npm install
+  - ps: | 
+    cd e2e-helpers
+    npm install
 
 before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Start LDAP test server
-  - ps: $MyProcess = Start-Process npm -ArgumentList 'run serve'
+  - ps: |
+    cd e2e-helpers
+    $MyProcess = Start-Process npm -ArgumentList 'run serve'
   # Display minimal restore text
   - cmd: dotnet restore ./Linq2Ldap.sln --verbosity m
 
