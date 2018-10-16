@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
@@ -31,30 +32,49 @@ namespace Linq2Ldap.IntegrationTest.RemoteFilterEvaluation
         /// only if absolutely necessary. Thx youuus! :-)
         /// </summary>
         [Fact]
-        public void CheckKnownADMemberships()
+        public void DirectorySearcher_BasicSearch()
         {
-            // Setup
-            //var domain = Domain.GetDomain(new DirectoryContext(DirectoryContextType.Domain));
-            var entry = new DirectoryEntry("LDAP://127.0.0.1:1389", "cn=neoman,ou=users,dc=example,dc=com", "testtest", AuthenticationTypes.None);
-            /*var cred = new NetworkCredential() {
-                UserName = "cn=neoman,ou=users,dc=example,dc=com",
+            var entry = new DirectoryEntry(
+                "LDAP://127.0.0.1:1389", "cn=neoman,dc=example,dc=com",
+                "testtest", AuthenticationTypes.None);
+            var ctx = new LinqDirectorySearcher<MyModel>(entry);
+            ctx.Filter = u => u.Mail.StartsWith("user");
+            ctx.SearchScope = System.DirectoryServices.SearchScope.Subtree;
+            var results = ctx.FindAll();
+            Assert.Equal(11, results.Count());
+            Assert.Contains(results, r => r.Mail == "user6@example.com");
+        }
+
+        [Fact]
+        public void Protocols_BasicSearch() {
+            var cred = new NetworkCredential() {
+                UserName = "cn=neoman,dc=example,dc=com",
                 Password = "testtest"
             };
             var ldapId = new LdapDirectoryIdentifier("127.0.0.1:1389");
+            var filter = new LDAPFilterCompiler().CompileFromLinq(
+                (MyModel u) => u.Properties["mail"].StartsWith("user")
+            );
             var conn = new LdapConnection(ldapId, cred, AuthType.Basic);
-            var search = new SearchRequest("ou=users, dc=example, dc=com", "(mail=*)", ProtocolsSearchScope.Subtree);
+            var search = new SearchRequest("dc=example, dc=com", "(mail=user3*)", ProtocolsSearchScope.Subtree);
             var response = conn.SendRequest(search) as SearchResponse;
-            throw new Exception($"{response.Entries.Count}" + JsonConvert.SerializeObject(response.Entries[0]));*/
+            var user3 = response.Entries[0];
+            Assert.NotNull(user3);
+            Assert.Equal("mail=user3@example.com, dc=example, dc=com", user3.DistinguishedName);
+        }
 
-            //var ctx = new DirectorySearcher(entry);
+        [Fact]
+        public void DirectorySearcher_BasicSearchWithArrayAttributes() {
+            var entry = new DirectoryEntry(
+                "LDAP://127.0.0.1:1389", "cn=neoman,dc=example,dc=com",
+                "testtest", AuthenticationTypes.None);
             var ctx = new LinqDirectorySearcher<MyModel>(entry);
-            //ctx.Filter = "(mail=user*)";
-            ctx.Filter = u => u.Properties["mail"].StartsWith("user");
-            //ctx.SearchRoot = new DirectoryEntry() { Path = "ou=example" };
+            ctx.Filter = u => u.AltMails.StartsWith("user6"); // (alt-mails=user6*)
             ctx.SearchScope = System.DirectoryServices.SearchScope.Subtree;
-            //throw new Exception($"{ctx.SearchRoot.Path}");
             var results = ctx.FindAll();
-            throw new Exception(JsonConvert.SerializeObject(results));
+            Assert.Equal(1, results.Count());
+            //throw new Exception($"{string.Join(", ", results.First().AltMails)}");
+            Assert.Contains(results, r => r.AltMails == "user6-backup-two@example.com");
         }
     }
 }

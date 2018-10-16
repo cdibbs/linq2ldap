@@ -1,9 +1,13 @@
 import ldap = require('ldapjs');
 
+interface Attribute {
+    type: string;
+    val: any;
+}
 interface DirectoryEntry {
     dn: string;
     samaccountname?: string;
-    attributes: { objectclass: string, [key: string]: string };
+    attributes: { objectclass: string, [key: string]: string | string[] };
 }
 
 function replacer(cache, key, value) {
@@ -86,10 +90,9 @@ class MockLdapInstance {
                     dn: 'dc=example, dc=com',
                     attributes: {
                         namingContexts: [
-                            'dc=example, dc=com',
-                            'ou=users, dc=example, dc=com',
+                            'dc=example, dc=com'
                         ],
-                        subschemaSubentry: 'ou=users, dc=example, dc=com',
+                        subschemaSubentry: 'dc=example, dc=com',
                         supportedLDAPVersion: "2",
                         supportedControl: [],
                         supportedSASLMechanisms: [],
@@ -117,15 +120,18 @@ class MockLdapInstance {
 
     buildDirectory(): DirectoryEntry[] {
         const dir: DirectoryEntry[] = [];
-        dir.push({ dn: `cn=${this.user}, ou=users, ${this.tld}`, attributes: { cn: this.user, password: "testtest", objectclass: "user" } });
-        dir.push({ dn: `mail=user@example.com, ou=users, ${this.tld}`, attributes: { mail: 'user@example.com', objectclass: 'user' }})
+        dir.push({ dn: `cn=${this.user}, ${this.tld}`, attributes: { cn: this.user, password: "testtest", objectclass: "user" } });
+        dir.push({ dn: `mail=user@example.com, ${this.tld}`, attributes: { mail: 'user@example.com', objectclass: 'user' }})
         for (let i=0; i<10; i++) {
             dir.push({
-                dn: `mail=user${i}@${this.mailDomain}, ou=users, ${this.tld}`,
+                dn: `mail=user${i}@${this.mailDomain}, ${this.tld}`,
                 samaccountname: `estestsomething${i}`,
                 attributes: {
                     samaccountname: `estestsomething${i}`,
                     mail: `user${i}@${this.mailDomain}`,
+                    "alt-mails": [
+                        `user${i}-backup-one@example.com`,
+                        `user${i}-backup-two@example.com` ],
                     customprop: `${Math.random()}`,
                     mailAlias: `user${i}-alias@${this.mailDomain}`,
                     password: `testtest${i}`,

@@ -4,8 +4,10 @@ using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Linq2Ldap.Attributes;
 using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
+using Linq2Ldap.Types;
 using Xunit;
 
 namespace Linq2Ldap.Tests
@@ -17,7 +19,7 @@ namespace Linq2Ldap.Tests
         {
             var config = new MapperConfiguration(c =>
             {
-                c.AddProfile<MapperProfile<Entry>>();
+                c.AddProfile<MapperProfile<MyTestModel>>();
             });
             Mapper = config.CreateMapper();
         }
@@ -30,19 +32,30 @@ namespace Linq2Ldap.Tests
             srp.Properties = new ResultPropertyCollectionProxy(
                 new Dictionary<string, ResultPropertyValueCollectionProxy>()
                 {
-                    { "dn", new ResultPropertyValueCollectionProxy(new List<object>{ "ou=some, ou=dn" }) },
-                    { "cn", new ResultPropertyValueCollectionProxy(new List<object> { "example" }) },
-                    { "objectclass", new ResultPropertyValueCollectionProxy(new List<object> { "testuser" }) },
+                    { "dn", new string[]{ "ou=some, ou=dn" } },
+                    { "cn", new string[] { "example" } },
+                    { "objectclass", new string[] { "testuser" } },
                     { "objectsid", new ResultPropertyValueCollectionProxy(new List<object> { new byte[] { 0x31, 0x41} }) },
-                    { "userprincipalname", new ResultPropertyValueCollectionProxy(new List<object> { "testuser" }) },
-                    { "samaccountname", new ResultPropertyValueCollectionProxy(new List<object> { "testuser" }) }
+                    { "userprincipalname", new string[] { "testuser" } },
+                    { "samaccountname", new string[] { "testuser" } },
+                    { "mail", new string[] { "anemail@example.com" } },
+                    { "alt-mails", new string[] { "anemail@example.com", "mail2@example.com", "mail3@example.com" } }
                 }
             );
-            var b = Mapper.Map<Entry>(srp);
+            var b = Mapper.Map<MyTestModel>(srp);
             Assert.Equal(srp.Properties, b.Properties);
             //Assert.Equal(srp.Properties["objectsid"][0], b.ObjectSid);
             //Assert.Equal(srp.Properties["userprincipalname"][0], b.UserPrincipalName);
             //Assert.Equal(srp.Properties["samaccountname"][0], b.SamAccountName);
         }
+    }
+
+    public class MyTestModel: Entry {
+
+        [LDAPField("mail")]
+        public string Mail { get; set; }
+
+        [LDAPField("alt-mails")]
+        public LDAPStringList AltMails { get; set; }
     }
 }

@@ -66,16 +66,11 @@ namespace Linq2Ldap
             var ptype = prop.PropertyType;
             if (ptype == typeof(LDAPStringList))
             {
-                var vetype = ldapData[0].GetType();
-                if (vetype == typeof(LDAPStringList))
-                {
-                    prop.SetValue(model, ldapData[0]);
-                }
-
-                //var etype = ptype.GetElementType();
-                //AssertValidCast(etype, ldapData[0], ldapName, prop.Name);
-                var converted = new string[ldapData.Count];
-                Array.Copy(ldapData.ToArray(), converted, ldapData.Count);
+                var converted = ldapData
+                    .Select(e => e is Byte[] b
+                        ? System.Text.Encoding.UTF8.GetString(b, 0, b.Length)
+                        : e.ToString())
+                    .ToArray();
                 prop.SetValue(model, new LDAPStringList(converted));
                 return;
             }
@@ -89,15 +84,6 @@ namespace Linq2Ldap
 
             throw new FormatException(
                 $"Mapping to non-array type, but LDAP data is array: {ldapName} -> {prop.Name}.");
-        }
-
-        private void AssertValidCast(Type t, object o, string ldapName, string propName)
-        {
-            if (!t.IsInstanceOfType(o))
-            {
-                throw new InvalidCastException(
-                    $"Cannot cast {o.GetType()} to {t} when mapping {ldapName} -> {propName}");
-            }
         }
     }
 }
