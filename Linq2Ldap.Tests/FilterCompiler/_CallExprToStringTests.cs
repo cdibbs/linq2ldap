@@ -119,7 +119,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
                 },
                 new object[]
                 {
-                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u.Properties["samaccountname"] == "123"),
+                    (Expression<Func<TestLdapModel, bool>>) ((TestLdapModel u) => u["samaccountname"] == "123"),
                     $"(samaccountname=123)"
                 },
 

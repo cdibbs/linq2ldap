@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
+using Linq2Ldap.IntegrationTest.Models;
 using Linq2Ldap.IntegrationTest.RemoteFilterEvaluation;
 using Linq2Ldap.Models;
 using Moq;
@@ -53,7 +54,7 @@ namespace Linq2Ldap.IntegrationTest.RemoteFilterEvaluation
             };
             var ldapId = new LdapDirectoryIdentifier("127.0.0.1:1389");
             var filter = new LDAPFilterCompiler().CompileFromLinq(
-                (MyModel u) => u.Properties["mail"].StartsWith("user")
+                (MyModel u) => u["mail"].StartsWith("user")
             );
             var conn = new LdapConnection(ldapId, cred, AuthType.Basic);
             var search = new SearchRequest("dc=example, dc=com", "(mail=user3*)", ProtocolsSearchScope.Subtree);
@@ -72,7 +73,7 @@ namespace Linq2Ldap.IntegrationTest.RemoteFilterEvaluation
             ctx.Filter = u => u.AltMails.StartsWith("user6"); // (alt-mails=user6*)
             ctx.SearchScope = System.DirectoryServices.SearchScope.Subtree;
             var results = ctx.FindAll();
-            Assert.Equal(1, results.Count());
+            Assert.Single(results);
             //throw new Exception($"{string.Join(", ", results.First().AltMails)}");
             Assert.Contains(results, r => r.AltMails == "user6-backup-two@example.com");
         }

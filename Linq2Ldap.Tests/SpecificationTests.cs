@@ -19,7 +19,7 @@ namespace Linq2Ldap.Tests
                 new TestModel()
             };
             var filtered = list.Where(Specification<TestModel>.None());
-            Assert.Equal(0, filtered.Count());
+            Assert.Empty(filtered);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace Linq2Ldap.Tests
                 new TestModel()
             };
             var filtered = list.Where(Specification<TestModel>.False);
-            Assert.Equal(0, filtered.Count());
+            Assert.Empty(filtered);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace Linq2Ldap.Tests
             var expr2 = Specification<TestModel>.Start(t => t.Id < 3);
             var andExpr = expr1.And(expr2);
             var filtered = list.Where(andExpr);
-            Assert.Equal(1, filtered.Count());
+            Assert.Single(filtered);
             Assert.Equal(2, filtered.First().Id);
         }
 
@@ -105,7 +105,7 @@ namespace Linq2Ldap.Tests
             var expr1 = Specification<TestModel>.Start(t => t.Id > 1);
             var andExpr = expr1.And(t => t.Id < 3);
             var filtered = list.Where(andExpr);
-            Assert.Equal(1, filtered.Count());
+            Assert.Single(filtered);
             Assert.Equal(2, filtered.First().Id);
         }
 

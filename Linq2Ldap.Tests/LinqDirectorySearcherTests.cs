@@ -48,7 +48,7 @@ namespace Linq2Ldap.Tests
         [WindowsOnlyFact]
         public void Filter_SetCompiles() {
             Searcher.Filter = (m) => m.CommonName == "something";
-            Assert.Equal(Searcher.RawFilter, "(cn=something)");
+            Assert.Equal("(cn=something)", Searcher.RawFilter);
         }
 
         [WindowsOnlyFact]

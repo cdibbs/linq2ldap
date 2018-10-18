@@ -7,6 +7,7 @@ using System.Text;
 using Linq2Ldap.Attributes;
 using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
+using Linq2Ldap.Types;
 
 namespace Linq2Ldap.FilterCompiler
 {
@@ -102,25 +103,20 @@ namespace Linq2Ldap.FilterCompiler
                 return __PDictIndexToString(e, p);
             }
 
-            switch (fullname)
+            AssertValidUnderlyingType(type);
+            switch (name)
             {
-                case "System.String.Contains":
-                case "Linq2Ldap.Types.LDAPStringList.Contains":
-                case "Linq2Ldap.Proxies.ResultPropertyValueCollectionProxy.Contains":
+                case "Contains":
                     return Strings.OpToString(e, p, validSubExprs, "({0}=*{1}*)");
-                case "Linq2Ldap.Proxies.ResultPropertyValueCollectionProxy.StartsWith":
-                case "Linq2Ldap.Types.LDAPStringList.StartsWith":
-                case "System.String.StartsWith":
+                case "StartsWith":
                     return Strings.OpToString(e, p, validSubExprs, "({0}={1}*)");
-                case "Linq2Ldap.Proxies.ResultPropertyValueCollectionProxy.EndsWith":
-                case "Linq2Ldap.Types.LDAPStringList.EndsWith":
-                case "System.String.EndsWith":
+                case "EndsWith":
                     return Strings.OpToString(e, p, validSubExprs, "({0}=*{1})");
-                case "Linq2Ldap.Models.Entry.Has":
+                case "Has":
                     return $"({EvalExpr(e.Arguments.First(), p)}=*)";
-                case "Linq2Ldap.ExtensionMethods.StringExtensions.Matches":
+                case "Matches":
                     return Strings.ExtensionOpToString(e, p, "=");
-                case "Linq2Ldap.ExtensionMethods.StringExtensions.Approx":
+                case "Approx":
                     return Strings.ExtensionOpToString(e, p, "~=");
                 case propertiesBagGetItem:
                     return __PDictIndexToString(e, p);
@@ -129,6 +125,32 @@ namespace Linq2Ldap.FilterCompiler
                         $"Linq-to-LDAP method calls only implemented for substring comparisons" +
                         $" (.Contains, .StartsWith, .EndsWith). Was: {fullname}.");
             }
+        }
+
+        internal void AssertValidUnderlyingType(Type decType) {
+            var simpleTypes = new Type[] {
+                typeof(string),
+                typeof(Linq2Ldap.Proxies.ResultPropertyValueCollectionProxy),
+                typeof(Linq2Ldap.ExtensionMethods.StringExtensions),
+                typeof(Linq2Ldap.Models.Entry),
+                typeof(Linq2Ldap.Models.IEntry)
+            };
+            if (simpleTypes.Contains(decType)) {
+                return;
+            }
+
+            Type[] genArgs = decType.GetGenericArguments();
+            if (decType.IsGenericType
+                && genArgs.Count() == 2
+                && (typeof(BaseLDAPManyType<,>)
+                    .MakeGenericType(genArgs))
+                    .IsAssignableFrom(decType))
+            {
+                return;
+            }
+
+            throw new NotImplementedException(
+                $"Linq-to-LDAP method calls not implemented for type: {decType}.");
         }
 
         internal string __PDictIndexToString(

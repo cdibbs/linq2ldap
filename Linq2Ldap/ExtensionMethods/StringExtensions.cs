@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Linq2Ldap.Types;
@@ -51,6 +52,26 @@ namespace Linq2Ldap.ExtensionMethods {
             }
 
             return source.Any(e => Matches(e, pattern));
+        }
+
+        /// <summary>
+        /// Checks whether an LDAP filter pattern matches any member of the multi-valued source.
+        /// </summary>
+        /// <param name="source">The multi-valued source.</param>
+        /// <param name="pattern">The LDAP filter pattern (ex: some*thing).</param>
+        /// <returns>True, if it matches.</returns>
+        public static bool Matches<T>(this BaseLDAPType<T> source, string pattern)
+            where T: IComparable
+        {
+            if (source == null) {
+                return false;
+            }
+
+            if (pattern == "*") {
+                return true; // existence check operator
+            }
+
+            return Matches(source, pattern);
         }
 
         /// <summary>

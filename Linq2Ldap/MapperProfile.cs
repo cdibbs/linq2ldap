@@ -64,14 +64,17 @@ namespace Linq2Ldap
             string ldapName)
         {
             var ptype = prop.PropertyType;
-            if (ptype == typeof(LDAPStringList))
+            Type[] genArgs = ptype.BaseType.GetGenericArguments();
+            Type ldapType;
+            if (ptype.BaseType.IsGenericType
+                && genArgs.Count() == 2
+                && (ldapType = typeof(BaseLDAPManyType<,>)
+                    .MakeGenericType(genArgs))
+                    .IsAssignableFrom(ptype))
             {
-                var converted = ldapData
-                    .Select(e => e is Byte[] b
-                        ? System.Text.Encoding.UTF8.GetString(b, 0, b.Length)
-                        : e.ToString())
-                    .ToArray();
-                prop.SetValue(model, new LDAPStringList(converted));
+                var converter = Activator.CreateInstance(genArgs[1]);
+                var inst = Activator.CreateInstance(ptype, ldapData, converter);
+                prop.SetValue(model, inst);
                 return;
             }
 
