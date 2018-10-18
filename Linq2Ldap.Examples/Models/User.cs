@@ -22,5 +22,17 @@ namespace Linq2Ldap.Examples.Models
 
         [LDAPField("cn")]
         public string CommonName { get; set; }
+
+        [LDAPField("samaccount")]
+        public LDAPInt Id { get; set; }
+
+        [LDAPField("status")]
+        public string Status { get; set; }
+
+        [LDAPField("suspended")]
+        public string Suspended { get; set; }
+
+        [LDAPField("country")]
+        public string Country { get; set; }
     }
 }

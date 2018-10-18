@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using Linq2Ldap.FilterCompiler;
 
-namespace Linq2Ldap
+namespace Linq2Ldap.FilterCompiler
 {
     public class LDAPFilterCompiler : ILDAPFilterCompiler
     {

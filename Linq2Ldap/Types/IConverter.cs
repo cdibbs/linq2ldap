@@ -1,5 +1,7 @@
 using Linq2Ldap.Proxies;
 
-public interface IConverter<T> {
-    T Convert(ResultPropertyValueCollectionProxy values);
+namespace Linq2Ldap.Types {
+    public interface IConverter<T> {
+        T Convert(ResultPropertyValueCollectionProxy values);
+    }
 }

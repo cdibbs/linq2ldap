@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Specifications
+namespace Linq2Ldap.Specifications
 {
     /// <summary>
     /// A specification is an expression that given an object of type T, produces

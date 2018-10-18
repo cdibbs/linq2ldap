@@ -1,5 +1,5 @@
 ﻿using Linq2Ldap.Models;
-using Specifications;
+using Linq2Ldap.Specifications;
 
 namespace Linq2Ldap.Examples.Repository
 {

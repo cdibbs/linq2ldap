@@ -1,9 +1,9 @@
-﻿using Specifications;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Linq2Ldap.Specifications;
 using Xunit;
 
 namespace Linq2Ldap.Tests

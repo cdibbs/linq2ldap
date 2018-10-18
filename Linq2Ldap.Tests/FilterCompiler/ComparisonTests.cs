@@ -6,6 +6,7 @@ using System.Text;
 using Linq2Ldap.Models;
 using Xunit;
 using Linq2Ldap.ExtensionMethods;
+using Linq2Ldap.FilterCompiler;
 
 namespace Linq2Ldap.Tests.FilterCompiler
 {

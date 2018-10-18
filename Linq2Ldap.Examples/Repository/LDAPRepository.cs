@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using AutoMapper;
 using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
-using Specifications;
+using Linq2Ldap.Specifications;
 
 namespace Linq2Ldap.Examples.Repository
 {
@@ -72,10 +72,11 @@ namespace Linq2Ldap.Examples.Repository
             var searcher = new LinqDirectorySearcher<T>(Entry);
             searcher.SearchScope = SearchScope.Subtree;
             searcher.Filter = spec;
-            searcher.VirtualListView = new DirectoryVirtualListView(0, pageSize - 1, pageSize * offsetPage);
-            if (sortOpt != null)
-                searcher.Sort = sortOpt;
+            searcher.VirtualListView = new DirectoryVirtualListView(
+                0, pageSize - 1, pageSize * offsetPage + 1);
 
+            // Not obvious, but VLV must have a sort option.
+            searcher.Sort = sortOpt ?? new SortOption("cn", SortDirection.Ascending);
             return searcher.FindAll();
         }
 

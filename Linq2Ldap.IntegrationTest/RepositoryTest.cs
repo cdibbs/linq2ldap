@@ -10,8 +10,8 @@ using AutoMapper.EquivalencyExpression;
 using Linq2Ldap.Models;
 using Linq2Ldap.Examples.Repository;
 using Moq;
-using Specifications;
 using Xunit;
+using Linq2Ldap.FilterCompiler;
 
 namespace Linq2Ldap.IntegrationTest
 {

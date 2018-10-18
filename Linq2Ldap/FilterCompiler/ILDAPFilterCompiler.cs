@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Linq2Ldap
+namespace Linq2Ldap.FilterCompiler
 {
     public interface ILDAPFilterCompiler
     {

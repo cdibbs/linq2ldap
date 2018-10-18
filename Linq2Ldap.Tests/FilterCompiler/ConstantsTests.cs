@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using Linq2Ldap.FilterCompiler;
 using Linq2Ldap.Models;
 using Xunit;
 

@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
+using Linq2Ldap.FilterCompiler;
 using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
 

@@ -9,12 +9,12 @@ using System.Net;
 using System.Text;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
+using Linq2Ldap.FilterCompiler;
 using Linq2Ldap.IntegrationTest.Models;
 using Linq2Ldap.IntegrationTest.RemoteFilterEvaluation;
 using Linq2Ldap.Models;
 using Moq;
 using Newtonsoft.Json;
-using Specifications;
 using Xunit;
 using ProtocolsSearchScope = System.DirectoryServices.Protocols.SearchScope;
 
