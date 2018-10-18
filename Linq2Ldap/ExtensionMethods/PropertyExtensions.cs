@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Linq2Ldap.Types;
@@ -11,7 +12,7 @@ namespace Linq2Ldap.ExtensionMethods {
     ///
     /// To put it another way, null.Matches() is a no-go in an Expression. :-)
     /// </summary>
-    public static class StringExtensions {
+    public static class PropertyExtensions {
 
         /// <summary>
         /// Checks whether an LDAP filter pattern matches the source string.
@@ -42,7 +43,10 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="source">The multi-valued source.</param>
         /// <param name="pattern">The LDAP filter pattern (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
-        public static bool Matches(this LDAPStringList source, string pattern) {
+        public static bool Matches<T, U>(this BaseLDAPManyType<T, U> source, string pattern)
+            where T: IComparable
+            where U: class, IConverter<List<T>>
+        {
             if (source == null) {
                 return false;
             }
@@ -51,7 +55,7 @@ namespace Linq2Ldap.ExtensionMethods {
                 return true; // existence check operator
             }
 
-            return source.Any(e => Matches(e, pattern));
+            return source.Any(e => Matches(e.ToString(), pattern));
         }
 
         /// <summary>
@@ -95,7 +99,10 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="source">The multi-valued source to match against.</param>
         /// <param name="pattern">The pattern to match (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
-        public static bool Approx(this LDAPStringList source, string pattern) {
+        public static bool Approx<T, U>(this BaseLDAPManyType<T, U> source, string pattern)
+            where T: IComparable
+            where U: class, IConverter<List<T>>
+        {
             if (source == null) {
                 return false;
             }
@@ -104,7 +111,21 @@ namespace Linq2Ldap.ExtensionMethods {
                 return true; // existence check operator
             }
 
-            return source.Any(e => Approx(e, pattern));
+            return source.Any(e => Approx(e.ToString(), pattern));
+        }
+
+        public static bool Approx<T>(this BaseLDAPType<T> source, string pattern)
+            where T: IComparable
+        {
+            if (source == null) {
+                return false;
+            }
+
+            if (pattern == "*") {
+                return true; // existence check operator
+            }
+
+            return Matches(source, pattern);
         }
     }
 }

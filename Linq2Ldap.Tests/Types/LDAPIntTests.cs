@@ -1,3 +1,4 @@
+using Linq2Ldap.Types;
 using Xunit;
 
 namespace Linq2Ldap.Tests.Types {

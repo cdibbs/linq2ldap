@@ -131,7 +131,7 @@ namespace Linq2Ldap.FilterCompiler
             var simpleTypes = new Type[] {
                 typeof(string),
                 typeof(Linq2Ldap.Proxies.ResultPropertyValueCollectionProxy),
-                typeof(Linq2Ldap.ExtensionMethods.StringExtensions),
+                typeof(Linq2Ldap.ExtensionMethods.PropertyExtensions),
                 typeof(Linq2Ldap.Models.Entry),
                 typeof(Linq2Ldap.Models.IEntry)
             };
@@ -139,13 +139,16 @@ namespace Linq2Ldap.FilterCompiler
                 return;
             }
 
-            Type[] genArgs = decType.GetGenericArguments();
+            var genericTypes = new Type[] {
+                typeof(BaseLDAPManyType<,>),
+                typeof(BaseLDAPType<>)
+            };
+            var genArgs = decType.GetGenericArguments();
             if (decType.IsGenericType
-                && genArgs.Count() == 2
-                && (typeof(BaseLDAPManyType<,>)
-                    .MakeGenericType(genArgs))
-                    .IsAssignableFrom(decType))
-            {
+                && genericTypes.Any(t =>
+                    genArgs.Count() == t.GetGenericArguments().Count()
+                    && t.MakeGenericType(genArgs).IsAssignableFrom(decType))
+            ) {
                 return;
             }
 
@@ -239,7 +242,9 @@ namespace Linq2Ldap.FilterCompiler
             Expression expr, IReadOnlyCollection<ParameterExpression> p)
         {
             var e = expr as ConstantExpression;
-            if (e.Type != typeof(string) && e.Type != typeof(char))
+            if (e.Type != typeof(string)
+                && e.Type != typeof(char)
+                && e.Type != typeof(int))
             {
                 throw new NotImplementedException(
                     $"Type {e.Type} not implemented in {nameof(_ConstExprToString)}.");

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Linq2Ldap.Models;
 using Xunit;
+using Linq2Ldap.ExtensionMethods;
 
 namespace Linq2Ldap.Tests.FilterCompiler
 {
@@ -36,6 +37,32 @@ namespace Linq2Ldap.Tests.FilterCompiler
         {
             var actual = FilterCompiler.CompileFromLinq(expr);
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void CustomType_CompilesToCorrectStrings() {
+            Func<Expression<Func<TestLdapModel, bool>>, string> c = FilterCompiler.CompileFromLinq<TestLdapModel>;
+            Assert.Equal("(id=314)", c(m => m.Id == 314));
+            Assert.Equal("(id>=314)", c(m => m.Id >= 314));
+            Assert.Equal("(!(id<=314))", c(m => m.Id > 314));
+            Assert.Equal("(id=*31*)", c(m => m.Id.Contains("31")));
+            Assert.Equal("(id=31*)", c(m => m.Id.StartsWith("31")));
+            Assert.Equal("(id=*31)", c(m => m.Id.EndsWith("31")));
+            Assert.Equal("(id=*)", c(m => m.Id.Matches("*")));
+            Assert.Equal("(id~=*)", c(m => m.Id.Approx("*")));
+        }
+
+        [Fact]
+        public void CustomManyType_CompilesToCorrectStrings() {
+            Func<Expression<Func<TestLdapModel, bool>>, string> c = FilterCompiler.CompileFromLinq<TestLdapModel>;
+            Assert.Equal("(alt-emails=someone@example.com)", c(m => m.AltEmails == "someone@example.com"));
+            Assert.Equal("(alt-emails>=someone@example.com)", c(m => m.AltEmails >= "someone@example.com"));
+            Assert.Equal("(!(alt-emails<=someone@example.com))", c(m => m.AltEmails > "someone@example.com"));
+            Assert.Equal("(alt-emails=*someone*)", c(m => m.AltEmails.Contains("someone")));
+            Assert.Equal("(alt-emails=someone*)", c(m => m.AltEmails.StartsWith("someone")));
+            Assert.Equal("(alt-emails=*someone)", c(m => m.AltEmails.EndsWith("someone")));
+            Assert.Equal("(alt-emails=*)", c(m => m.AltEmails.Matches("*")));
+            Assert.Equal("(alt-emails~=*)", c(m => m.AltEmails.Approx("*")));
         }
 
         public static IEnumerable<object[]> StringOpData()

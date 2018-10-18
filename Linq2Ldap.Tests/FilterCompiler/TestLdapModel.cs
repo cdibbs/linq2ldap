@@ -22,5 +22,11 @@ namespace Linq2Ldap.Tests.FilterCompiler
 
         [LDAPField("cn")]
         public string CommonName { get; set; }
+
+        [LDAPField("id")]
+        public LDAPInt Id { get; set; }
+
+        [LDAPField("alt-emails")]
+        public LDAPStringList AltEmails { get; set; }
     }
 }
