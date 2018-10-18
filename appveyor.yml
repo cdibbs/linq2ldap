@@ -38,3 +38,15 @@ after_test:
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
       bash codecov.sh -f "Linq2Ldap.Tests/coverage.opencover.xml"
+
+before_deploy:
+  - dotnet pack .\Linq2Ldap\ -c Release
+
+deploy:
+  provider: NuGet
+  server: https://www.myget.org/F/cdibbs-dev/api/v2/package
+  api_key:
+    secure: Mf32sYawJIMVZ3+MzLd+7dl0TgQN2yAwfWS43+h0mhn7RqDS1dPGuO0Vv1HkZKmF
+  skip_symbols: false
+  symbol_server:           # remove to push symbols to SymbolSource.org
+  artifact: /Linq2Ldap\/bin\/Release/.*\.nupkg/
