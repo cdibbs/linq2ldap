@@ -72,8 +72,8 @@ Transpiler with a non-Windows LDAP library, however, since RFC 1960 filters are 
 ## Expression reusability
 
 Beyond the filter transpiler, this library also contains an implementation of the Specification pattern
-to wrap your Expressions and improve code reuse and testability. It does so by facilitating the
-[otherwise abstruse][1] ability to glue your Expressions together with And and Or.
+(in case you don't already have your own) to wrap your Expressions and improve code reuse and testability.
+It does so by facilitating the [otherwise abstruse][1] ability to glue your Expressions together with And and Or.
 
 ```csharp
 using Linq2Ldap.ExtensionMethods;
@@ -129,8 +129,9 @@ public class MyBizSpecificationsTests {
 }
 ```
 
-The alternative is either integration testing, which can be slow and hard to implement, or--worse--manual testing,
-which is like trying to maintain a sandcastle in the tide.
+The alternative is either integration-testing your expressions against an LDAP server, which can be slow, shallow, and
+hard to implement, or--worse--manually testing them, which, if you have even just a few, would be like trying
+to maintain a sandcastle in the tide.
 
 # Development setup
 
