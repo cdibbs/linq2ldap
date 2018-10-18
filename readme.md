@@ -12,9 +12,10 @@ It facilitates using the Repository and Specification patterns with LDAP, as wel
 If you only want to use the filter transpiler, you can do this:
 
 ```c#
-    // CompileFromLinq returns an RFC1960 filter string
+    //     filter = "(&(samaccountname=will*)(&(email=*uiowa*)(customprop=123)))";
     string filter = new LDAPFilterCompiler().CompileFromLinq(
-        (MyUserModel u) => u.SamAccountName.StartsWith("will")
+        (MyUserModel u)
+                    => u.SamAccountName.StartsWith("will")
                     && u.Email.Contains("uiowa")
                     && u["customprop"] != "123");
 
