@@ -38,13 +38,11 @@ after_test:
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
       bash codecov.sh -f "Linq2Ldap.Tests/coverage.opencover.xml"
-
-before_deploy:
-  - dotnet pack .\Linq2Ldap\ -c Release
+  - dotnet pack ./Linq2Ldap/ -c Release
 
 artifacts:
   - name: linq2ldap
-    path: .\Linq2Ldap\bin\Release\*.nupkg
+    path: ./Linq2Ldap/bin/Release/*.nupkg
     type: NuGetPackage
 
 deploy:
