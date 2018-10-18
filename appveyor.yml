@@ -49,4 +49,4 @@ deploy:
     secure: Mf32sYawJIMVZ3+MzLd+7dl0TgQN2yAwfWS43+h0mhn7RqDS1dPGuO0Vv1HkZKmF
   skip_symbols: false
   symbol_server:           # remove to push symbols to SymbolSource.org
-  artifact: /Linq2Ldap\/bin\/Release/.*\.nupkg/
+  artifact: /Linq2Ldap\\bin\\Release\\.*\.nupkg/
