@@ -6,8 +6,8 @@
 # Linq2Ldap
 
 This project centers around the ability to transpile C# LINQ Expressions into RFC 1960 LDAP filter strings.
-It facilitates using the Repository and Specification patterns with LDAP, as well as unit testing your filter
-logic.
+It facilitates using the Repository and Specification patterns with LDAP, as well as
+[reusing](#expression-reusability) and [unit testing](#testability) your filter logic.
 
 If you only want to use the filter transpiler, you can do this:
 
@@ -31,7 +31,7 @@ Also supported examples:
 ```c#
 (MyUserModel u) => u.Title.Matches("univ*of*iowa"); // (title=univ*of*iowa)
 (MyUserModel u) => u.Email.EndsWith("@gmail.com"); // (mail=*@gmail.com)
-(MyUserModel u) => u["acustomproperty"].Contains("some val"); // (acustomproperty=some val)
+(MyUserModel u) => u["acustomproperty"].Contains("some val"); // (acustomproperty=*some val*)
 (MyUserModel u) => u.Has("somekey"); // (somekey=*)
 ```
 
@@ -78,18 +78,18 @@ using Specifications;
 // ...
 
 public class MyBizSpecifications {
-    public virtual ISpecification<User> ActiveUsers() {
+    public virtual Specification<User> ActiveUsers() {
         return Specification<User>.Start(
             u =>     u.Status == "active"
                 && ! u.Suspended.Matches("*") /* not exists */
         );
     }
 
-    public virtual ISpecification<User> UsersInCountry(string country) {
+    public virtual Specification<User> UsersInCountry(string country) {
         return Specification<User>.Start(u => u.Country == country);
     }
 
-    public virtual ISpecification<User> ActiveUsersInCountry(string country) {
+    public virtual Specification<User> ActiveUsersInCountry(string country) {
         return ActiveUsers().And(UsersInCountry(country));
     }
 
