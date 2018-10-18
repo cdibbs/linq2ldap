@@ -42,6 +42,11 @@ after_test:
 before_deploy:
   - dotnet pack .\Linq2Ldap\ -c Release
 
+artifacts:
+  - name: linq2ldap
+    path: .\Linq2Ldap\bin\Release\*.nupkg
+    type: NuGetPackage
+
 deploy:
   provider: NuGet
   server: https://www.myget.org/F/cdibbs-dev/api/v2/package
@@ -49,4 +54,4 @@ deploy:
     secure: Mf32sYawJIMVZ3+MzLd+7dl0TgQN2yAwfWS43+h0mhn7RqDS1dPGuO0Vv1HkZKmF
   skip_symbols: false
   symbol_server:           # remove to push symbols to SymbolSource.org
-  artifact: .\Linq2Ldap\bin\Release\*.nupkg
+  artifact: linq2ldap
