@@ -8,7 +8,7 @@ namespace Linq2Ldap.IntegrationTest.Models {
         [LDAPField("mail")]
         public string Mail { get; set; }
 
-        [LDAPField("alt-mails")]
+        [LDAPField("alt-mails", optional: true)]
         public LDAPStringList AltMails { get; set; }
     }
 }

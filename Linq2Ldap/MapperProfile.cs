@@ -44,7 +44,19 @@ namespace Linq2Ldap
             }
 
             var ldapName = attr?.Name ?? prop.Name;
-            var val = srp.Properties[ldapName];
+            ResultPropertyValueCollectionProxy val;
+            if (! srp.Properties.Contains(ldapName)) {
+                if (! attr.Optional) {
+                    throw new ArgumentException(
+                        $"Column attribute {attr.Name} is not marked as optional, but was not"
+                        + " found in the store.");
+                }
+
+                val = null;
+            } else {
+                val = srp.Properties[ldapName];
+            }
+
             if (prop.CanWrite)
             {
                 ValidateTypeConvertAndSet(model, val, prop, ldapName);
@@ -72,13 +84,22 @@ namespace Linq2Ldap
                     .MakeGenericType(genArgs))
                     .IsAssignableFrom(ptype))
             {
+                if (ldapData == null) {
+                    prop.SetValue(model, null);
+                    return;
+                }
+
                 var converter = Activator.CreateInstance(genArgs[1]);
                 var inst = Activator.CreateInstance(ptype, ldapData, converter);
                 prop.SetValue(model, inst);
                 return;
             }
-
-            if (ldapData.Count == 1)
+            
+            if (ldapData == null || ldapData.Count == 0) {
+                prop.SetValue(model, null);
+                return;
+            }
+            else if (ldapData.Count == 1)
             {
                 //AssertValidCast(ptype, ldapData[0], ldapName, prop.Name);
                 prop.SetValue(model, ldapData[0]);

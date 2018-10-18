@@ -48,14 +48,72 @@ namespace Linq2Ldap.Tests
             //Assert.Equal(srp.Properties["userprincipalname"][0], b.UserPrincipalName);
             //Assert.Equal(srp.Properties["samaccountname"][0], b.SamAccountName);
         }
+
+        [Fact]
+        public void NullProp_YieldsNullField() {
+            var srp = new SearchResultProxy();
+            srp.Path = "test path";
+            srp.Properties = new ResultPropertyCollectionProxy(
+                new Dictionary<string, ResultPropertyValueCollectionProxy>()
+                {
+                    // { "mail", new string[] { "anemail@example.com" } },
+                    { "alt-mails", new string[] { "anemail@example.com", "mail2@example.com", "mail3@example.com" } }
+                }
+            );
+            var b = Mapper.Map<MyTestModel>(srp);
+            Assert.Null(b.Mail);
+        }
+
+        [Fact]
+        public void NullManyProp_Optional_YieldsNullField() {
+            var srp = new SearchResultProxy();
+            srp.Path = "test path";
+            srp.Properties = new ResultPropertyCollectionProxy(
+                new Dictionary<string, ResultPropertyValueCollectionProxy>()
+                {
+                    { "mail", new string[] { "anemail@example.com" } },
+                    // { "alt-mails", new string[] { "anemail@example.com", "mail2@example.com", "mail3@example.com" } }
+                }
+            );
+            var b = Mapper.Map<MyTestModel>(srp);
+            Assert.Null(b.AltMails);
+        }
+
+        [Fact]
+        public void EmptyProp_Optional_YieldsNullField() {
+            var srp = new SearchResultProxy();
+            srp.Path = "test path";
+            srp.Properties = new ResultPropertyCollectionProxy(
+                new Dictionary<string, ResultPropertyValueCollectionProxy>()
+                {
+                    { "mail", new string[] { } },
+                }
+            );
+            var b = Mapper.Map<MyTestModel>(srp);
+            Assert.Null(b.Mail);
+        }
+
+        [Fact]
+        public void EmptyManyProp_Optional_YieldsEmptyField() {
+            var srp = new SearchResultProxy();
+            srp.Path = "test path";
+            srp.Properties = new ResultPropertyCollectionProxy(
+                new Dictionary<string, ResultPropertyValueCollectionProxy>()
+                {
+                    { "alt-mails", new string[] { } }
+                }
+            );
+            var b = Mapper.Map<MyTestModel>(srp);
+            Assert.Empty(b.AltMails);
+        }
     }
 
     public class MyTestModel: Entry {
 
-        [LDAPField("mail")]
+        [LDAPField("mail", optional: true)]
         public string Mail { get; set; }
 
-        [LDAPField("alt-mails")]
+        [LDAPField("alt-mails", optional: true)]
         public LDAPStringList AltMails { get; set; }
     }
 }
