@@ -4,7 +4,10 @@ using System.Linq;
 namespace Linq2Ldap.Types {
 
     /// <summary>
-    /// Facilitates CompareTo on LDAPStringLists.
+    /// Facilitates CompareTo on BaseLDAPManyType and subclasses
+    /// by providing comparison operator overloads on lists of
+    /// integer CompareTo results. This accommodates LDAPs
+    /// multi-valued fields. Ex: (mails=something*)
     /// </summary>
     public class IntList: List<int> {
         public IntList(): base() {}
@@ -28,15 +31,5 @@ namespace Linq2Ldap.Types {
 
         public static bool operator >=(IntList a, int b)
             => a?.Any(m => m >= b) ?? false;
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 }

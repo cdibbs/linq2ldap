@@ -47,16 +47,5 @@ namespace Linq2Ldap.Types
         /// <param name="b">The string to compare with.</param>
         /// <returns>An IntList of individual CompareTo results.</returns>
         public IntList CompareTo(T b) => new IntList(this.Select(s => s.CompareTo(b)));
-
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 }

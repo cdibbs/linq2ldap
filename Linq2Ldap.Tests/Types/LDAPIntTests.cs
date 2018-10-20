@@ -1,8 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
 using Linq2Ldap.Types;
 using Xunit;
+using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Tests.Types {
     public class LDAPIntTests {
+        [Fact]
+        public void ImplicitToInt() {
+            int i = 314;
+            var t = new LDAPInt(new ResultPropertyValueCollectionProxy(new List<object>{ i }));
+            int result = t;
+            Assert.Equal(i, result);
+        }
+
+        [Fact]
+        public void ImplicitFromInt() {
+            LDAPInt i = 314;
+            int result = i;
+            Assert.Equal(314, result);
+        }
 
         [InlineData(new [] { "123" }, 123, true)]
         [InlineData(new [] { "123", "456" }, 567, false)]
