@@ -12,10 +12,17 @@ using Linq2Ldap.Proxies;
 
 [assembly: InternalsVisibleTo("Linq2Ldap.Tests")]
 namespace Linq2Ldap {
+    /// <inheritdoc />
     public class LinqDirectorySearcher<T> : DirectorySearcherProxy, ILinqDirectorySearcher<T>
         where T: class, IEntry
     {
-        protected LDAPFilterCompiler FilterCompiler { get; set; }
+        public LinqDirectorySearcher(LDAPFilterCompiler filterCompiler, IMapper mapper) 
+        {
+            this.FilterCompiler = filterCompiler;
+                this.Mapper = mapper;
+               
+        }
+                protected LDAPFilterCompiler FilterCompiler { get; set; }
             = new LDAPFilterCompiler();
         protected IMapper Mapper { get; set; }
 
@@ -33,11 +40,19 @@ namespace Linq2Ldap {
             Setup(mapper);
         }
 
+        /// <summary>
+        /// The raw, RFC 1960 filter string. Set by Filter.
+        /// </summary>
+        /// <value>An RFC 1960 filter string. Overrides earlier sets.</value>
         public string RawFilter {
             get => Base.Filter;
             set => Base.Filter = value;
         }
 
+        /// <summary>
+        /// Sets the RFC 1960 filter string from a LINQ Expression.
+        /// </summary>
+        /// <value>A LINQ Expression representing an LDAP filter.</value>
         public new Expression<Func<T, bool>> Filter {
             internal get {
                 throw new NotImplementedException(
