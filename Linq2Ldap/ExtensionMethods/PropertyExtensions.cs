@@ -31,24 +31,26 @@ namespace Linq2Ldap.ExtensionMethods {
             }
 
             var pieces = Regex.Split(pattern, @"(?<!\\)\*"); // non-escaped asterisk
-            int l = pieces.Length;
-            if (l == 0) {
+            int len = pieces.Length;
+            if (len == 0) {
                 return source == pattern;
             }
-            // so, what do we do with startsWith, endsWith, and
-            // nasties like "asdf***adsf" or (*ends*somestuff*afd
+
             if (pieces[0] != "" && ! source.StartsWith(pieces[0])) {
                 return false;
             }
 
-            int i = 1, p = pieces[0] == "" ? 0 : pieces[0].Length;
-            for (;
-                i < l && p != -1;
-                p = ((p = source.IndexOf(pieces[i], p)) >= 0
-                    ? p + pieces[i++].Length : -1));
+            int i = 1, pos = pieces[0] == "" ? 0 : pieces[0].Length;
+            while(i < len && pos != -1) {
+                pos = source.IndexOf(pieces[i], pos);
+                pos = pos != -1
+                    ? pos + pieces[i].Length
+                    : -1;
+                i++;
+            }
 
-            return i == l && pieces[l - 1] == ""
-                || p == source.Length;
+            return (i == len && pieces[len - 1] == "")
+                    || pos == source.Length;
         }
 
         /// <summary>
