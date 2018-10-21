@@ -14,6 +14,9 @@ namespace Linq2Ldap.Types {
 
         public IntList(IEnumerable<int> ints): base(ints) {}
 
+        public static implicit operator IntList(int i)
+            => new IntList(new [] { i });
+
         public static bool operator ==(IntList a, int b)
             => a?.Any(m => m == b) ?? false;
 

@@ -137,6 +137,15 @@ namespace Linq2Ldap.Tests
         }
 
         [Fact]
+        public void EqualsOverrideEquates() {
+            var sa = Specification<TestModel>.Start(t => t.Id == 1);
+            object sb = (object)Specification<TestModel>.Start(t => t.Id == 2);
+            Assert.False(sa.Equals(sb));
+            Assert.True(sa.Equals(sa));
+            Assert.False(sa.Equals(null));
+        }
+
+        [Fact]
         public void GetHashCodeHashes()
         {
             Assert.NotEqual(0, Specification<TestModel>.True.GetHashCode());

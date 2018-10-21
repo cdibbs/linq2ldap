@@ -5,7 +5,7 @@ using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Types
 {
-    public abstract class BaseLDAPManyType<T, TConv>: List<T>, IManyComparable<T>
+    public abstract class BaseLDAPManyType<T, TConv>: List<T>, ILDAPComparable<T>
         where T: IComparable
         where TConv: class, IConverter<List<T>>
     {

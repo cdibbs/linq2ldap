@@ -3,7 +3,7 @@ using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Types
 {
-    public abstract class BaseLDAPType<T>
+    public abstract class BaseLDAPType<T>: ILDAPComparable<T>
         where T: IComparable
     {
         internal protected ResultPropertyValueCollectionProxy Raw { get; set; }
@@ -42,6 +42,8 @@ namespace Linq2Ldap.Types
          * and add a public wrapper for their protected _CompareTo.
          */
         protected abstract int _CompareTo(object b);
+
+        public IntList CompareTo(T b) => _CompareTo(b);
 
         public override string ToString() {
             return Raw.Count > 0 ? Raw[0].ToString() : null;

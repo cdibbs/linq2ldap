@@ -1,15 +1,22 @@
 using Xunit;
+using System.Collections;
+using System.Collections.Generic;
 using Linq2Ldap.ExtensionMethods;
 using Linq2Ldap.Types;
+using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Tests.ExtensionMethods {
     public class StringExtensionMethodsTests {
-
         [InlineData("", "*", true)]
         [InlineData("asdfaf", "*", true)]
         [InlineData("***", "*", true)]
         [InlineData("asdf", "as*", true)]
         [InlineData("university of iowa", "univ*of*iowa", true)]
+        [InlineData("repeat replay rep", "rep*rep*rep", true)]
+        [InlineData("repeat replay rep", "rep*rep*rep*", true)]
+        [InlineData("repeat replay rep", "*rep*rep*rep", true)]
+        [InlineData("repeat replay rep", "*rep*rep*rep*", true)]
+        [InlineData("repeat replay rep", "*rep*replay", false)]
         [InlineData("university of iowa", "univ*of*il", false)]
         [InlineData("university of iowa", "univ*iowa", true)]
         [InlineData("university of iowa", "univ*", true)]
@@ -41,15 +48,22 @@ namespace Linq2Ldap.Tests.ExtensionMethods {
             Assert.Equal(expectedResult, actual);
         }
 
-        [InlineData(new [] { "university of IOWA" }, "*iowa", true)]
-        [InlineData(new [] { "university of IOWA" }, "univ*for*iowa", false)]
-        [InlineData(new string[] { }, "*", true)]
+        
+        [InlineData(new object[] { 314 }, "*314", true)]
+        [InlineData(new object[] { 31415 }, "3*4*5", true)]
+        [InlineData(new object[] { 31415 }, "3*5*5", false)]
+        [InlineData(new object[] { }, "*", true)]
         [InlineData(null, "*", false)]
         [Theory]
-        public void Approx_LDAPStringList_MatchesInvariant(string[] input, string pattern, bool expectedResult) {
-            LDAPStringList i = input == null ? (LDAPStringList)null : input;
-            var actual = i.Approx(pattern);
+        public void Matches_LDAPInt_MatchesInvariant(object[] input, string pattern, bool expectedResult) {
+            LDAPInt i = input == null
+                ? null
+                : new LDAPInt(new ResultPropertyValueCollectionProxy(
+                    new List<object>(input)));
+            var actual = i.Matches(pattern);
             Assert.Equal(expectedResult, actual);
         }
+
+
     }
 }

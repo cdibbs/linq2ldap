@@ -31,10 +31,24 @@ namespace Linq2Ldap.ExtensionMethods {
             }
 
             var pieces = Regex.Split(pattern, @"(?<!\\)\*"); // non-escaped asterisk
+            int l = pieces.Length;
+            if (l == 0) {
+                return source == pattern;
+            }
+            // so, what do we do with startsWith, endsWith, and
+            // nasties like "asdf***adsf" or (*ends*somestuff*afd
+            if (pieces[0] != "" && ! source.StartsWith(pieces[0])) {
+                return false;
+            }
 
-            int i = 0, p = 0;
-            for (; i < pieces.Length && p != -1; p = source.IndexOf(pieces[i++], p));
-            return i == pieces.Length && p != -1;
+            int i = 1, p = pieces[0] == "" ? 0 : pieces[0].Length;
+            for (;
+                i < l && p != -1;
+                p = ((p = source.IndexOf(pieces[i], p)) >= 0
+                    ? p + pieces[i++].Length : -1));
+
+            return i == l && pieces[l - 1] == ""
+                || p == source.Length;
         }
 
         /// <summary>
@@ -75,7 +89,7 @@ namespace Linq2Ldap.ExtensionMethods {
                 return true; // existence check operator
             }
 
-            return Matches(source, pattern);
+            return Matches(source.ToString(), pattern);
         }
 
         /// <summary>
