@@ -6,7 +6,7 @@ using Xunit;
 using Linq2Ldap.ExtensionMethods;
 
 namespace Linq2Ldap.Tests.Types {
-    public class LDAPStringListIntegrationTest {
+    public class LdapStringListIntegrationTest {
 
         [Fact]
         public void Equals_AnyEquals_True() {
@@ -49,6 +49,6 @@ namespace Linq2Ldap.Tests.Types {
     }
 
     public class MyUser: Entry {
-        public LDAPStringList Attr { get; set; }
+        public LdapStringList Attr { get; set; }
     }
 }

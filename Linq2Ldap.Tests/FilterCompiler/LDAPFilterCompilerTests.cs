@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Linq2Ldap.Tests.FilterCompiler
 {
-    public class LDAPFilterCompilerTests
+    public class LdapFilterCompilerTests
     {
-        private LDAPFilterCompiler FilterCompiler;
+        private LdapFilterCompiler FilterCompiler;
         private CompilerCore Core;
-        public LDAPFilterCompilerTests()
+        public LdapFilterCompilerTests()
         {
-            FilterCompiler = new LDAPFilterCompiler();
+            FilterCompiler = new LdapFilterCompiler();
             Core = new CompilerCore();
         }
 

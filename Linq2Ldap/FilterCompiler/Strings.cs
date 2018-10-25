@@ -26,7 +26,7 @@ namespace Linq2Ldap.FilterCompiler
 
         private bool __IsStrCmp(MethodCallExpression mce)
             => mce != null && (mce.Method.DeclaringType.FullName == "System.String"
-                || mce.Method.DeclaringType.FullName == "Linq2Ldap.Types.LDAPStringList")
+                || mce.Method.DeclaringType.FullName == "Linq2Ldap.Types.LdapStringList")
                && (mce.Method.Name == "Compare" || mce.Method.Name == "CompareTo");
 
         public string StringCompareToExpr(

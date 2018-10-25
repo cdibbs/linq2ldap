@@ -5,18 +5,18 @@ using Xunit;
 using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Tests.Types {
-    public class LDAPIntTests {
+    public class LdapIntTests {
         [Fact]
         public void ImplicitToInt() {
             int i = 314;
-            var t = new LDAPInt(new ResultPropertyValueCollectionProxy(new List<object>{ i }));
+            var t = new LdapInt(new ResultPropertyValueCollectionProxy(new List<object>{ i }));
             int result = t;
             Assert.Equal(i, result);
         }
 
         [Fact]
         public void ImplicitFromInt() {
-            LDAPInt i = 314;
+            LdapInt i = 314;
             int result = i;
             Assert.Equal(314, result);
         }
@@ -26,14 +26,14 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, 567, false)]
         [Theory]
         public void Equals_AnyEquals_True(string[] input, int toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test == toFind;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void Equals_LeftNull() {
-            LDAPInt test = null;
+            LdapInt test = null;
             Assert.False(test == 456);
             Assert.True(test == null);
         }
@@ -43,14 +43,14 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, 567, true)]
         [Theory]
         public void NotEquals_AnyEquals_True(string[] input, int toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test != toFind;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void NotEquals_LeftNull() {
-            LDAPInt test = null;
+            LdapInt test = null;
             Assert.True(test != 456);
             Assert.False(test != null);
         }
@@ -61,14 +61,14 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, 567, false)]
         [Theory]
         public void GreaterThanEqual_AnyGTE_True(string[] input, int toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test >= toFind;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void GreaterThanEqual_LeftNull() {
-            LDAPInt test = null;
+            LdapInt test = null;
             Assert.False(test >= 456);
         }
 
@@ -78,14 +78,14 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, 567, false)]
         [Theory]
         public void LessThanEqual_AnyLTE_True(string[] input, int toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test <= toFind;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void LessThanEqual_LeftNull() {
-            LDAPInt test = null;
+            LdapInt test = null;
             Assert.False(test <= 456);
         }
 
@@ -94,14 +94,14 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, 567, false)]
         [Theory]
         public void LessThan_AnyLessThan_True(string[] input, int toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test < toFind;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void LessThan_LeftNull() {
-            LDAPInt test = null;
+            LdapInt test = null;
             Assert.False(test < 456);
         }
 
@@ -111,14 +111,14 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, 567, false)]
         [Theory]
         public void GreaterThan_AnyLessThan_True(string[] input, int toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test > toFind;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void GreaterThan_LeftNull() {
-            LDAPInt test = null;
+            LdapInt test = null;
             Assert.False(test > 456);
         }
 
@@ -129,7 +129,7 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, "567", false)]
         [Theory]
         public void StartsWith_Any_True(string[] input, string toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test.StartsWith(toFind);
             Assert.Equal(expected, actual);
         }
@@ -141,7 +141,7 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, "567", false)]
         [Theory]
         public void EndsWith_Any_True(string[] input, string toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test.EndsWith(toFind);
             Assert.Equal(expected, actual);
         }
@@ -155,7 +155,7 @@ namespace Linq2Ldap.Tests.Types {
         [InlineData(new string[] { }, "567", false)]
         [Theory]
         public void Contains_Any_True(string[] input, string toFind, bool expected) {
-            var test = new LDAPInt(input);
+            var test = new LdapInt(input);
             var actual = test.Contains(toFind);
             Assert.Equal(expected, actual);
         }

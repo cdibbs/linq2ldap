@@ -16,14 +16,14 @@ namespace Linq2Ldap {
     public class LinqDirectorySearcher<T> : DirectorySearcherProxy, ILinqDirectorySearcher<T>
         where T: class, IEntry
     {
-        public LinqDirectorySearcher(LDAPFilterCompiler filterCompiler, IMapper mapper) 
+        public LinqDirectorySearcher(LdapFilterCompiler filterCompiler, IMapper mapper) 
         {
             this.FilterCompiler = filterCompiler;
                 this.Mapper = mapper;
                
         }
-                protected LDAPFilterCompiler FilterCompiler { get; set; }
-            = new LDAPFilterCompiler();
+                protected LdapFilterCompiler FilterCompiler { get; set; }
+            = new LdapFilterCompiler();
         protected IMapper Mapper { get; set; }
 
         // Allows our tests to get at our code.

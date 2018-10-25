@@ -140,8 +140,8 @@ namespace Linq2Ldap.FilterCompiler
             }
 
             var genericTypes = new Type[] {
-                typeof(BaseLDAPManyType<,>),
-                typeof(BaseLDAPType<>)
+                typeof(BaseLdapManyType<,>),
+                typeof(BaseLdapType<>)
             };
             var genArgs = decType.GetGenericArguments();
             if (decType.IsGenericType
@@ -258,7 +258,7 @@ namespace Linq2Ldap.FilterCompiler
         {
             if (__IsParamModelAccess(me, p) != null)
             {
-                var attr = me.Member.GetCustomAttribute<LDAPFieldAttribute>();
+                var attr = me.Member.GetCustomAttribute<LdapFieldAttribute>();
                 return attr != null ? attr.Name : me.Member.Name;
             }
 

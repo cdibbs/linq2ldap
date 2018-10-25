@@ -5,33 +5,33 @@ using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Types
 {
-    public abstract class BaseLDAPManyType<T, TConv>: List<T>, ILDAPComparable<T>
+    public abstract class BaseLdapManyType<T, TConv>: List<T>, ILdapComparable<T>
         where T: IComparable
         where TConv: class, IConverter<List<T>>
     {
         protected ResultPropertyValueCollectionProxy Raw { get; set; }
-        public BaseLDAPManyType(ResultPropertyValueCollectionProxy raw, TConv conv)
+        public BaseLdapManyType(ResultPropertyValueCollectionProxy raw, TConv conv)
             : base(conv.Convert(raw))
         {
             this.Raw = raw;               
         }
 
-        public static bool operator ==(BaseLDAPManyType<T, TConv> a, string b)
+        public static bool operator ==(BaseLdapManyType<T, TConv> a, string b)
             => a?.Any(m => m.CompareTo(b) == 0) ?? b == null;
 
-        public static bool operator !=(BaseLDAPManyType<T, TConv> a, string b)
+        public static bool operator !=(BaseLdapManyType<T, TConv> a, string b)
             => !(a == b);
 
-        public static bool operator <(BaseLDAPManyType<T, TConv> a, string b)
+        public static bool operator <(BaseLdapManyType<T, TConv> a, string b)
             => a?.Any(m => m.CompareTo(b) < 0) ?? b == null;
 
-        public static bool operator >(BaseLDAPManyType<T, TConv> a, string b)
+        public static bool operator >(BaseLdapManyType<T, TConv> a, string b)
             => a?.Any(m => m.CompareTo(b) > 0) ?? b == null;
 
-        public static bool operator <=(BaseLDAPManyType<T, TConv> a, string b)
+        public static bool operator <=(BaseLdapManyType<T, TConv> a, string b)
             => a?.Any(m => m.CompareTo(b) <= 0) ?? b == null;
 
-        public static bool operator >=(BaseLDAPManyType<T, TConv> a, string b)
+        public static bool operator >=(BaseLdapManyType<T, TConv> a, string b)
             => a?.Any(m => m.CompareTo(b) >= 0) ?? b == null;
 
         public virtual bool StartsWith(string frag) => this.Raw.Any(s => s.ToString().StartsWith(frag));

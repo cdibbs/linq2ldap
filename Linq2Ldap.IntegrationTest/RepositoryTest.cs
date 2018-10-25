@@ -18,12 +18,12 @@ namespace Linq2Ldap.IntegrationTest
     public class RepositoryTest
     {
         private IMapper Mapper;
-        private ILDAPFilterCompiler Compiler;
+        private ILdapFilterCompiler Compiler;
         private LDAPRepository Repo;
         private DirectoryEntry Entry;
         public RepositoryTest()
         {
-            Compiler = new LDAPFilterCompiler();
+            Compiler = new LdapFilterCompiler();
             var config = new MapperConfiguration(c =>
             {
                 c.AddProfile<MapperProfile<Entry>>();

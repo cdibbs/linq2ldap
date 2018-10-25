@@ -6,33 +6,33 @@ namespace Linq2Ldap.Examples.Models
 {
     public class User: Entry
     {
-        public LDAPString Url { get; set; }
+        public LdapString Url { get; set; }
 
-        [LDAPField("mail")]
+        [LdapField("mail")]
         public string Email { get; set; }
 
-        [LDAPField("givenname")]
+        [LdapField("givenname")]
         public string GivenName { get; set; }
 
-        [LDAPField("sn")]
+        [LdapField("sn")]
         public string Surname { get; set; }
 
-        [LDAPField("samaccountname")]
+        [LdapField("samaccountname")]
         public string SamAccountName { get; set; }
 
-        [LDAPField("cn")]
+        [LdapField("cn")]
         public string CommonName { get; set; }
 
-        [LDAPField("samaccount")]
-        public LDAPInt Id { get; set; }
+        [LdapField("samaccount")]
+        public LdapInt Id { get; set; }
 
-        [LDAPField("status")]
+        [LdapField("status")]
         public string Status { get; set; }
 
-        [LDAPField("suspended")]
+        [LdapField("suspended")]
         public string Suspended { get; set; }
 
-        [LDAPField("country")]
+        [LdapField("country")]
         public string Country { get; set; }
     }
 }

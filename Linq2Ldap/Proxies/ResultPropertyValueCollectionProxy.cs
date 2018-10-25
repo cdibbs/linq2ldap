@@ -9,7 +9,7 @@ using Linq2Ldap.Types;
 namespace Linq2Ldap.Proxies
 {
     public class ResultPropertyValueCollectionProxy
-        : IEnumerable<object>, IEquatable<string>, ILDAPComparable<string>
+        : IEnumerable<object>, IEquatable<string>, ILdapComparable<string>
     {
         protected ResultPropertyValueCollection ProxyValues { get; }
         protected List<object> Values { get; }

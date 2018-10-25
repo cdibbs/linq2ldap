@@ -53,7 +53,7 @@ namespace Linq2Ldap.IntegrationTest.RemoteFilterEvaluation
                 Password = "testtest"
             };
             var ldapId = new LdapDirectoryIdentifier("127.0.0.1:1389");
-            var filter = new LDAPFilterCompiler().CompileFromLinq(
+            var filter = new LdapFilterCompiler().CompileFromLinq(
                 (MyModel u) => u["mail"].StartsWith("user")
             );
             var conn = new LdapConnection(ldapId, cred, AuthType.Basic);

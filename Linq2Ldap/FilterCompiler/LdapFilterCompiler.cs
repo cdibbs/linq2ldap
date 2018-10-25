@@ -5,11 +5,11 @@ using Linq2Ldap.FilterCompiler;
 namespace Linq2Ldap.FilterCompiler
 {
     /// <inheritdoc />
-    public class LDAPFilterCompiler : ILDAPFilterCompiler
+    public class LdapFilterCompiler : ILdapFilterCompiler
     {
         protected CompilerCore Core { get; }
 
-        public LDAPFilterCompiler(CompilerCore core = null)
+        public LdapFilterCompiler(CompilerCore core = null)
         {
             Core = core ?? new CompilerCore();
         }

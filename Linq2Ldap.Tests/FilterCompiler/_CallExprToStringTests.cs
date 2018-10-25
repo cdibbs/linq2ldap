@@ -11,10 +11,10 @@ namespace Linq2Ldap.Tests.FilterCompiler
 {
     public class _CallExprToStringTests
     {
-        private LDAPFilterCompiler FilterCompiler;
+        private LdapFilterCompiler FilterCompiler;
         public _CallExprToStringTests()
         {
-            FilterCompiler = new LDAPFilterCompiler();
+            FilterCompiler = new LdapFilterCompiler();
         }
 
         [Fact]

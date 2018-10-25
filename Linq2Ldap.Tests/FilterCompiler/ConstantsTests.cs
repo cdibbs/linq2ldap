@@ -11,10 +11,10 @@ namespace Linq2Ldap.Tests.FilterCompiler
 {
     public class ConstantsTests
     {
-        public LDAPFilterCompiler FilterCompiler;
+        public LdapFilterCompiler FilterCompiler;
         public ConstantsTests()
         {
-            FilterCompiler = new LDAPFilterCompiler();
+            FilterCompiler = new LdapFilterCompiler();
         }
 
         [Fact]

@@ -6,7 +6,7 @@ using Linq2Ldap.Types;
 using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Tests.ExtensionMethods {
-    public class StringExtensionMethodsTests {
+    public class PropertyExtensionMethodsTests {
         [InlineData("", "*", true)]
         [InlineData("asdfaf", "*", true)]
         [InlineData("***", "*", true)]
@@ -35,8 +35,8 @@ namespace Linq2Ldap.Tests.ExtensionMethods {
         [InlineData(new string[] { }, "*", true)]
         [InlineData(null, "*", false)]
         [Theory]
-        public void Matches_LDAPStringList_MatchesValidRFC1960RightHandStrings(string[] input, string pattern, bool expectedResult) {
-            LDAPStringList i = input == null ? (LDAPStringList)null : input;
+        public void Matches_LdapStringList_MatchesValidRFC1960RightHandStrings(string[] input, string pattern, bool expectedResult) {
+            LdapStringList i = input == null ? (LdapStringList)null : input;
             Assert.Equal(expectedResult, i.Matches(pattern));
         }
 
@@ -55,15 +55,28 @@ namespace Linq2Ldap.Tests.ExtensionMethods {
         [InlineData(new object[] { }, "*", true)]
         [InlineData(null, "*", false)]
         [Theory]
-        public void Matches_LDAPInt_MatchesInvariant(object[] input, string pattern, bool expectedResult) {
-            LDAPInt i = input == null
+        public void Matches_LdapInt_MatchesInvariant(object[] input, string pattern, bool expectedResult) {
+            LdapInt i = input == null
                 ? null
-                : new LDAPInt(new ResultPropertyValueCollectionProxy(
+                : new LdapInt(new ResultPropertyValueCollectionProxy(
                     new List<object>(input)));
             var actual = i.Matches(pattern);
             Assert.Equal(expectedResult, actual);
         }
 
-
+        [InlineData(new object[] { 314 }, "*314", true)]
+        [InlineData(new object[] { 31415 }, "3*4*5", true)]
+        [InlineData(new object[] { 31415 }, "3*5*5", false)]
+        [InlineData(new object[] { }, "*", true)]
+        [InlineData(null, "*", false)]
+        [Theory]
+        public void Approx_LdapInt_MatchesInvariant(object[] input, string pattern, bool expectedResult) {
+            LdapInt i = input == null
+                ? null
+                : new LdapInt(new ResultPropertyValueCollectionProxy(
+                    new List<object>(input)));
+            var actual = i.Approx(pattern);
+            Assert.Equal(expectedResult, actual);
+        }
     }
 }

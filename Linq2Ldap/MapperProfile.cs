@@ -37,7 +37,7 @@ namespace Linq2Ldap
 
         private void SetPropFromProperties(SearchResultProxy srp, T model, PropertyInfo prop)
         {
-            var attr = prop.GetCustomAttribute<LDAPFieldAttribute>();
+            var attr = prop.GetCustomAttribute<LdapFieldAttribute>();
             if (attr == null)
             {
                 return;
@@ -80,7 +80,7 @@ namespace Linq2Ldap
             Type ldapType;
             if (ptype.BaseType.IsGenericType
                 && genArgs.Count() == 2
-                && (ldapType = typeof(BaseLDAPManyType<,>)
+                && (ldapType = typeof(BaseLdapManyType<,>)
                     .MakeGenericType(genArgs))
                     .IsAssignableFrom(ptype))
             {

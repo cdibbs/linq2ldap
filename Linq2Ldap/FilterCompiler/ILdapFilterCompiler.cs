@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Linq2Ldap.FilterCompiler
 {
-    public interface ILDAPFilterCompiler
+    public interface ILdapFilterCompiler
     {
         /// <summary>
         /// Compiles an LDAP Filter string from a Linq Expression. Implements

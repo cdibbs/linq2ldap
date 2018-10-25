@@ -3,34 +3,34 @@ using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Types
 {
-    public abstract class BaseLDAPType<T>: ILDAPComparable<T>
+    public abstract class BaseLdapType<T>: ILdapComparable<T>
         where T: IComparable
     {
         internal protected ResultPropertyValueCollectionProxy Raw { get; set; }
-        public BaseLDAPType(ResultPropertyValueCollectionProxy raw) 
+        public BaseLdapType(ResultPropertyValueCollectionProxy raw) 
         {
             this.Raw = raw;
                
         }
 
-        public static bool operator ==(BaseLDAPType<T> a, T b)
+        public static bool operator ==(BaseLdapType<T> a, T b)
             => a == null ? b == null : a.Raw.Count > 0 && a._CompareTo(b) == 0;
 
-        public static bool operator !=(BaseLDAPType<T> a, T b)
+        public static bool operator !=(BaseLdapType<T> a, T b)
             => a == null ? b != null : a.Raw.Count == 0 || a._CompareTo(b) != 0;
 
-        public static bool operator <(BaseLDAPType<T> a, T b)
+        public static bool operator <(BaseLdapType<T> a, T b)
             => a == null ? false : a.Raw.Count > 0 && a._CompareTo(b) < 0;
 
-        public static bool operator >(BaseLDAPType<T> a, T b)
+        public static bool operator >(BaseLdapType<T> a, T b)
             => a == null ? false : a.Raw.Count > 0 && a._CompareTo(b) > 0;
 
-        public static bool operator <=(BaseLDAPType<T> a, T b)
+        public static bool operator <=(BaseLdapType<T> a, T b)
             => a == null ? false : a.Raw.Count > 0 && a._CompareTo(b) <= 0;
 
-        public static bool operator >=(BaseLDAPType<T> a, T b)
+        public static bool operator >=(BaseLdapType<T> a, T b)
             => a == null ? false : a.Raw.Count > 0 && a._CompareTo(b) >= 0;
-        public static implicit operator string(BaseLDAPType<T> source)
+        public static implicit operator string(BaseLdapType<T> source)
             => source.ToString();
 
         public virtual bool StartsWith(string frag) => Raw.Count > 0 && this.ToString().StartsWith(frag);

@@ -12,10 +12,10 @@ namespace Linq2Ldap.Tests.FilterCompiler
 {
     public class ComparisonTests
     {
-        private LDAPFilterCompiler FilterCompiler;
+        private LdapFilterCompiler FilterCompiler;
         public ComparisonTests()
         {
-            FilterCompiler = new LDAPFilterCompiler();
+            FilterCompiler = new LdapFilterCompiler();
         }
 
         [Fact]

@@ -4,16 +4,16 @@ using Linq2Ldap.Types;
 
 namespace Linq2Ldap.IntegrationTest.Models {
     public class User: MyModel {
-        [LDAPField("samaccount")]
-        public LDAPInt Id { get; set; }
+        [LdapField("samaccount")]
+        public LdapInt Id { get; set; }
 
-        [LDAPField("status")]
+        [LdapField("status")]
         public string Status { get; set; }
 
-        [LDAPField("suspended")]
+        [LdapField("suspended")]
         public string Suspended { get; set; }
 
-        [LDAPField("country")]
+        [LdapField("country")]
         public string Country { get; set; }
     }
 }

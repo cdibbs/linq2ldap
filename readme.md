@@ -15,7 +15,7 @@ If you only want to use the filter transpiler, you can do this:
     // Goal: produce this filter string from a LINQ Expression
     //     filter = "(&(samaccountname=will*)(&(email=*uiowa*)(!(customprop=123))))";
     
-    string filter = new LDAPFilterCompiler().CompileFromLinq(
+    string filter = new LdapFilterCompiler().CompileFromLinq(
         (MyUserModel u)
                     => u.SamAccountName.StartsWith("will")
                     && u.Email.Contains("uiowa")

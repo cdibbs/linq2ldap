@@ -110,10 +110,10 @@ namespace Linq2Ldap.Tests
 
     public class MyTestModel: Entry {
 
-        [LDAPField("mail", optional: true)]
+        [LdapField("mail", optional: true)]
         public string Mail { get; set; }
 
-        [LDAPField("alt-mails", optional: true)]
-        public LDAPStringList AltMails { get; set; }
+        [LdapField("alt-mails", optional: true)]
+        public LdapStringList AltMails { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace Linq2Ldap.ExtensionMethods {
                 return false;
             }
 
-            // existence check for single-valued. Multi-valued handled by LDAPStringList overload
+            // existence check for single-valued. Multi-valued handled by LdapStringList overload
             if (pattern == "*") {
                 return true;
             }
@@ -59,7 +59,7 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="source">The multi-valued source.</param>
         /// <param name="pattern">The LDAP filter pattern (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
-        public static bool Matches<T, U>(this BaseLDAPManyType<T, U> source, string pattern)
+        public static bool Matches<T, U>(this BaseLdapManyType<T, U> source, string pattern)
             where T: IComparable
             where U: class, IConverter<List<T>>
         {
@@ -80,7 +80,7 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="source">The multi-valued source.</param>
         /// <param name="pattern">The LDAP filter pattern (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
-        public static bool Matches<T>(this BaseLDAPType<T> source, string pattern)
+        public static bool Matches<T>(this BaseLdapType<T> source, string pattern)
             where T: IComparable
         {
             if (source == null) {
@@ -115,7 +115,7 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="source">The multi-valued source to match against.</param>
         /// <param name="pattern">The pattern to match (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
-        public static bool Approx<T, U>(this BaseLDAPManyType<T, U> source, string pattern)
+        public static bool Approx<T, U>(this BaseLdapManyType<T, U> source, string pattern)
             where T: IComparable
             where U: class, IConverter<List<T>>
         {
@@ -130,7 +130,7 @@ namespace Linq2Ldap.ExtensionMethods {
             return source.Any(e => Approx(e.ToString(), pattern));
         }
 
-        public static bool Approx<T>(this BaseLDAPType<T> source, string pattern)
+        public static bool Approx<T>(this BaseLdapType<T> source, string pattern)
             where T: IComparable
         {
             if (source == null) {

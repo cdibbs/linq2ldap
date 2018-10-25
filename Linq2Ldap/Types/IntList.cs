@@ -4,7 +4,7 @@ using System.Linq;
 namespace Linq2Ldap.Types {
 
     /// <summary>
-    /// Facilitates CompareTo on BaseLDAPManyType and subclasses
+    /// Facilitates CompareTo on BaseLdapManyType and subclasses
     /// by providing comparison operator overloads on lists of
     /// integer CompareTo results. This accommodates LDAPs
     /// multi-valued fields. Ex: (mails=something*)

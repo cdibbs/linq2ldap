@@ -97,17 +97,17 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:C:\git\linq2ldap\Linq2Ldap\FilterCompiler\LDAPFilterCompiler.cs
-FN:8,LDAPData.FilterCompiler.CompilerCore LDAPData.LDAPFilterCompiler::get_Core()
-FNDA:47,LDAPData.FilterCompiler.CompilerCore LDAPData.LDAPFilterCompiler::get_Core()
+SF:C:\git\linq2ldap\Linq2Ldap\FilterCompiler\LdapFilterCompiler.cs
+FN:8,LDAPData.FilterCompiler.CompilerCore LDAPData.LdapFilterCompiler::get_Core()
+FNDA:47,LDAPData.FilterCompiler.CompilerCore LDAPData.LdapFilterCompiler::get_Core()
 DA:9,47
-FN:23,System.String LDAPData.LDAPFilterCompiler::CompileFromLinq(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
-FNDA:47,System.String LDAPData.LDAPFilterCompiler::CompileFromLinq(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
+FN:23,System.String LDAPData.LdapFilterCompiler::CompileFromLinq(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
+FNDA:47,System.String LDAPData.LdapFilterCompiler::CompileFromLinq(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)
 DA:24,47
 DA:25,47
 DA:26,39
-FN:10,System.Void LDAPData.LDAPFilterCompiler::.ctor(LDAPData.FilterCompiler.CompilerCore)
-FNDA:50,System.Void LDAPData.LDAPFilterCompiler::.ctor(LDAPData.FilterCompiler.CompilerCore)
+FN:10,System.Void LDAPData.LdapFilterCompiler::.ctor(LDAPData.FilterCompiler.CompilerCore)
+FNDA:50,System.Void LDAPData.LdapFilterCompiler::.ctor(LDAPData.FilterCompiler.CompilerCore)
 DA:11,50
 DA:12,50
 DA:13,50
@@ -125,8 +125,8 @@ SF:C:\git\linq2ldap\Linq2Ldap\LDAPRepository.cs
 FN:11,AutoMapper.IMapper LDAPData.LDAPRepository::get_Mapper()
 FNDA:0,AutoMapper.IMapper LDAPData.LDAPRepository::get_Mapper()
 DA:12,0
-FN:12,LDAPData.ILDAPFilterCompiler LDAPData.LDAPRepository::get_FilterCompiler()
-FNDA:0,LDAPData.ILDAPFilterCompiler LDAPData.LDAPRepository::get_FilterCompiler()
+FN:12,LDAPData.ILdapFilterCompiler LDAPData.LDAPRepository::get_FilterCompiler()
+FNDA:0,LDAPData.ILdapFilterCompiler LDAPData.LDAPRepository::get_FilterCompiler()
 DA:13,0
 FN:13,System.DirectoryServices.ActiveDirectory.Domain LDAPData.LDAPRepository::get_Domain()
 FNDA:0,System.DirectoryServices.ActiveDirectory.Domain LDAPData.LDAPRepository::get_Domain()
@@ -171,13 +171,13 @@ FN:87,System.Void LDAPData.LDAPRepository::Update(T)
 FNDA:0,System.Void LDAPData.LDAPRepository::Update(T)
 DA:88,0
 DA:91,0
-FN:16,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILDAPFilterCompiler)
-FNDA:0,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILDAPFilterCompiler)
+FN:16,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILdapFilterCompiler)
+FNDA:0,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILdapFilterCompiler)
 DA:17,0
 DA:18,0
 DA:19,0
-FN:20,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILDAPFilterCompiler,System.DirectoryServices.ActiveDirectory.Domain)
-FNDA:0,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILDAPFilterCompiler,System.DirectoryServices.ActiveDirectory.Domain)
+FN:20,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILdapFilterCompiler,System.DirectoryServices.ActiveDirectory.Domain)
+FNDA:0,System.Void LDAPData.LDAPRepository::.ctor(AutoMapper.IMapper,LDAPData.ILdapFilterCompiler,System.DirectoryServices.ActiveDirectory.Domain)
 DA:21,0
 DA:22,0
 DA:23,0
@@ -523,63 +523,63 @@ BRH:0
 FNF:4
 FNH:3
 end_of_record
-SF:C:\git\linq2ldap\Linq2Ldap\Types\LDAPStringList.cs
-FN:13,System.Boolean LDAPData.Types.LDAPStringList::op_Equality(LDAPData.Types.LDAPStringList,System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_Equality(LDAPData.Types.LDAPStringList,System.String)
+SF:C:\git\linq2ldap\Linq2Ldap\Types\LdapStringList.cs
+FN:13,System.Boolean LDAPData.Types.LdapStringList::op_Equality(LDAPData.Types.LdapStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::op_Equality(LDAPData.Types.LdapStringList,System.String)
 DA:14,0
 BRDA:14,7,0,0
 BRDA:14,16,0,0
 BRDA:14,16,1,0
 BRDA:14,7,1,0
-FN:16,System.Boolean LDAPData.Types.LDAPStringList::op_Inequality(LDAPData.Types.LDAPStringList,System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_Inequality(LDAPData.Types.LDAPStringList,System.String)
+FN:16,System.Boolean LDAPData.Types.LdapStringList::op_Inequality(LDAPData.Types.LdapStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::op_Inequality(LDAPData.Types.LdapStringList,System.String)
 DA:17,0
-FN:19,System.Boolean LDAPData.Types.LDAPStringList::op_LessThan(LDAPData.Types.LDAPStringList,System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_LessThan(LDAPData.Types.LDAPStringList,System.String)
+FN:19,System.Boolean LDAPData.Types.LdapStringList::op_LessThan(LDAPData.Types.LdapStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::op_LessThan(LDAPData.Types.LdapStringList,System.String)
 DA:20,0
 BRDA:20,7,0,0
 BRDA:20,7,1,0
-FN:22,System.Boolean LDAPData.Types.LDAPStringList::op_GreaterThanOrEqual(LDAPData.Types.LDAPStringList,System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_GreaterThanOrEqual(LDAPData.Types.LDAPStringList,System.String)
+FN:22,System.Boolean LDAPData.Types.LdapStringList::op_GreaterThanOrEqual(LDAPData.Types.LdapStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::op_GreaterThanOrEqual(LDAPData.Types.LdapStringList,System.String)
 DA:23,0
-FN:25,System.Boolean LDAPData.Types.LDAPStringList::op_GreaterThan(LDAPData.Types.LDAPStringList,System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_GreaterThan(LDAPData.Types.LDAPStringList,System.String)
+FN:25,System.Boolean LDAPData.Types.LdapStringList::op_GreaterThan(LDAPData.Types.LdapStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::op_GreaterThan(LDAPData.Types.LdapStringList,System.String)
 DA:26,0
 BRDA:26,7,0,0
 BRDA:26,7,1,0
-FN:28,System.Boolean LDAPData.Types.LDAPStringList::op_LessThanOrEqual(LDAPData.Types.LDAPStringList,System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::op_LessThanOrEqual(LDAPData.Types.LDAPStringList,System.String)
+FN:28,System.Boolean LDAPData.Types.LdapStringList::op_LessThanOrEqual(LDAPData.Types.LdapStringList,System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::op_LessThanOrEqual(LDAPData.Types.LdapStringList,System.String)
 DA:29,0
-FN:31,System.String LDAPData.Types.LDAPStringList::op_Implicit(LDAPData.Types.LDAPStringList)
-FNDA:0,System.String LDAPData.Types.LDAPStringList::op_Implicit(LDAPData.Types.LDAPStringList)
+FN:31,System.String LDAPData.Types.LdapStringList::op_Implicit(LDAPData.Types.LdapStringList)
+FNDA:0,System.String LDAPData.Types.LdapStringList::op_Implicit(LDAPData.Types.LdapStringList)
 DA:32,0
 DA:33,0
 DA:34,0
 DA:35,0
-FN:37,System.Boolean LDAPData.Types.LDAPStringList::StartsWith(System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::StartsWith(System.String)
+FN:37,System.Boolean LDAPData.Types.LdapStringList::StartsWith(System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::StartsWith(System.String)
 DA:38,0
-FN:38,System.Boolean LDAPData.Types.LDAPStringList::EndsWith(System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::EndsWith(System.String)
+FN:38,System.Boolean LDAPData.Types.LdapStringList::EndsWith(System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::EndsWith(System.String)
 DA:39,0
-FN:39,System.Boolean LDAPData.Types.LDAPStringList::Contains(System.String)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::Contains(System.String)
+FN:39,System.Boolean LDAPData.Types.LdapStringList::Contains(System.String)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::Contains(System.String)
 DA:40,0
-FN:40,System.Int32 LDAPData.Types.LDAPStringList::CompareTo(System.String)
-FNDA:0,System.Int32 LDAPData.Types.LDAPStringList::CompareTo(System.String)
+FN:40,System.Int32 LDAPData.Types.LdapStringList::CompareTo(System.String)
+FNDA:0,System.Int32 LDAPData.Types.LdapStringList::CompareTo(System.String)
 DA:41,0
-FN:43,System.Boolean LDAPData.Types.LDAPStringList::Equals(System.Object)
-FNDA:0,System.Boolean LDAPData.Types.LDAPStringList::Equals(System.Object)
+FN:43,System.Boolean LDAPData.Types.LdapStringList::Equals(System.Object)
+FNDA:0,System.Boolean LDAPData.Types.LdapStringList::Equals(System.Object)
 DA:44,0
 DA:45,0
 DA:46,0
-FN:48,System.Int32 LDAPData.Types.LDAPStringList::GetHashCode()
-FNDA:0,System.Int32 LDAPData.Types.LDAPStringList::GetHashCode()
+FN:48,System.Int32 LDAPData.Types.LdapStringList::GetHashCode()
+FNDA:0,System.Int32 LDAPData.Types.LdapStringList::GetHashCode()
 DA:49,0
 DA:50,0
 DA:51,0
-FN:8,System.Void LDAPData.Types.LDAPStringList::.ctor(System.Collections.Generic.IEnumerable`1<System.String>)
-FNDA:2,System.Void LDAPData.Types.LDAPStringList::.ctor(System.Collections.Generic.IEnumerable`1<System.String>)
+FN:8,System.Void LDAPData.Types.LdapStringList::.ctor(System.Collections.Generic.IEnumerable`1<System.String>)
+FNDA:2,System.Void LDAPData.Types.LdapStringList::.ctor(System.Collections.Generic.IEnumerable`1<System.String>)
 DA:9,2
 DA:10,2
 DA:11,2
@@ -600,11 +600,11 @@ DA:14,0
 FN:14,System.Void LDAPData.Models.BaseSAMAccount::set_Id(System.String)
 FNDA:0,System.Void LDAPData.Models.BaseSAMAccount::set_Id(System.String)
 DA:15,0
-FN:18,LDAPData.Types.LDAPStringList LDAPData.Models.BaseSAMAccount::get_ObjectClass()
-FNDA:1,LDAPData.Types.LDAPStringList LDAPData.Models.BaseSAMAccount::get_ObjectClass()
+FN:18,LDAPData.Types.LdapStringList LDAPData.Models.BaseSAMAccount::get_ObjectClass()
+FNDA:1,LDAPData.Types.LdapStringList LDAPData.Models.BaseSAMAccount::get_ObjectClass()
 DA:19,1
-FN:24,LDAPData.Types.LDAPStringList LDAPData.Models.BaseSAMAccount::get_CommonName()
-FNDA:1,LDAPData.Types.LDAPStringList LDAPData.Models.BaseSAMAccount::get_CommonName()
+FN:24,LDAPData.Types.LdapStringList LDAPData.Models.BaseSAMAccount::get_CommonName()
+FNDA:1,LDAPData.Types.LdapStringList LDAPData.Models.BaseSAMAccount::get_CommonName()
 DA:25,1
 FN:27,System.String LDAPData.Models.BaseSAMAccount::get_UserPrincipalName()
 FNDA:2,System.String LDAPData.Models.BaseSAMAccount::get_UserPrincipalName()
@@ -1106,11 +1106,11 @@ FNF:3
 FNH:3
 end_of_record
 SF:C:\git\linq2ldap\Linq2Ldap\Attributes\LdapFieldAttribute.cs
-FN:8,System.String LDAPData.Attributes.LDAPFieldAttribute::get_Name()
-FNDA:102,System.String LDAPData.Attributes.LDAPFieldAttribute::get_Name()
+FN:8,System.String LDAPData.Attributes.LdapFieldAttribute::get_Name()
+FNDA:102,System.String LDAPData.Attributes.LdapFieldAttribute::get_Name()
 DA:9,102
-FN:10,System.Void LDAPData.Attributes.LDAPFieldAttribute::.ctor(System.String)
-FNDA:57,System.Void LDAPData.Attributes.LDAPFieldAttribute::.ctor(System.String)
+FN:10,System.Void LDAPData.Attributes.LdapFieldAttribute::.ctor(System.String)
+FNDA:57,System.Void LDAPData.Attributes.LdapFieldAttribute::.ctor(System.String)
 DA:11,57
 DA:12,57
 DA:13,57

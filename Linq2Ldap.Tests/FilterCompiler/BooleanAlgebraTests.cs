@@ -11,10 +11,10 @@ namespace Linq2Ldap.Tests.FilterCompiler
 {
     public class BooleanAlgebraTests
     {
-        private LDAPFilterCompiler FilterCompiler;
+        private LdapFilterCompiler FilterCompiler;
         public BooleanAlgebraTests()
         {
-            FilterCompiler = new LDAPFilterCompiler();
+            FilterCompiler = new LdapFilterCompiler();
         }
 
         [Fact]

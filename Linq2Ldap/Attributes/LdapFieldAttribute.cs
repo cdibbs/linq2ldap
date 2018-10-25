@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Linq2Ldap.Attributes
 {
-    public class LDAPFieldAttribute: Attribute
+    public class LdapFieldAttribute: Attribute
     {
         public string Name { get; set; }
         public bool Optional { get; set; }
 
-        public LDAPFieldAttribute(string name, bool optional = false)
+        public LdapFieldAttribute(string name, bool optional = false)
         {
             Name = name;
             Optional = optional;

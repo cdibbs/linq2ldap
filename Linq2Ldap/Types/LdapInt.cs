@@ -5,18 +5,18 @@ using Linq2Ldap.ExtensionMethods;
 using System.Collections.Generic;
 
 namespace Linq2Ldap.Types {
-    public class LDAPInt : BaseLDAPType<int>
+    public class LdapInt : BaseLdapType<int>
     {
-        public LDAPInt(ResultPropertyValueCollectionProxy raw) : base(raw)
+        public LdapInt(ResultPropertyValueCollectionProxy raw) : base(raw)
         {
         }
 
-        public static implicit operator int(LDAPInt i) => i.GetInt();
-        public static implicit operator LDAPInt(int i) => new LDAPInt(new ResultPropertyValueCollectionProxy(new List<object> { i }));
+        public static implicit operator int(LdapInt i) => i.GetInt();
+        public static implicit operator LdapInt(int i) => new LdapInt(new ResultPropertyValueCollectionProxy(new List<object> { i }));
 
         protected int GetInt() {
             if (Raw == null || Raw.Count == 0) {
-                throw new InvalidOperationException("LDAPInt value access from empty property bag.");
+                throw new InvalidOperationException("LdapInt value access from empty property bag.");
             }
 
             if (this.Raw[0].GetType() == typeof(int)) {

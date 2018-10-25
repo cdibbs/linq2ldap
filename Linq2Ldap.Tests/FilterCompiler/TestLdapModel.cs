@@ -6,27 +6,27 @@ namespace Linq2Ldap.Tests.FilterCompiler
 {
     public class TestLdapModel: Entry
     {
-        public LDAPString Url { get; set; }
+        public LdapString Url { get; set; }
 
-        [LDAPField("mail")]
+        [LdapField("mail")]
         public string Email { get; set; }
 
-        [LDAPField("givenname")]
+        [LdapField("givenname")]
         public string GivenName { get; set; }
 
-        [LDAPField("sn")]
+        [LdapField("sn")]
         public string Surname { get; set; }
 
-        [LDAPField("samaccountname")]
+        [LdapField("samaccountname")]
         public string SamAccountName { get; set; }
 
-        [LDAPField("cn")]
+        [LdapField("cn")]
         public string CommonName { get; set; }
 
-        [LDAPField("id")]
-        public LDAPInt Id { get; set; }
+        [LdapField("id")]
+        public LdapInt Id { get; set; }
 
-        [LDAPField("alt-emails")]
-        public LDAPStringList AltEmails { get; set; }
+        [LdapField("alt-emails")]
+        public LdapStringList AltEmails { get; set; }
     }
 }
