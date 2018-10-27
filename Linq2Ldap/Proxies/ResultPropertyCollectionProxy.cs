@@ -33,9 +33,13 @@ namespace Linq2Ldap.Proxies
         {
             get
             {
-                return ProxyResults != null
-                    ? new ResultPropertyValueCollectionProxy(ProxyResults[name])
-                    : this.Results[name];
+                if (ProxyResults != null && ProxyResults.Contains(name)) {
+                    return new ResultPropertyValueCollectionProxy(ProxyResults[name]);
+                } else if (Results.ContainsKey(name)) {
+                    return this.Results[name];
+                }
+
+                return null;
             }
         }
 

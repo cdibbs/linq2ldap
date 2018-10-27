@@ -78,5 +78,21 @@ namespace Linq2Ldap.Tests.ExtensionMethods {
             var actual = i.Approx(pattern);
             Assert.Equal(expectedResult, actual);
         }
+
+        [InlineData(new object[] { "abc", "123", "456" }, "ab*", true)]
+        [Theory]
+        public void Matches_ProxyValues(object[] input, string pattern, bool expected) {
+            var p = new ResultPropertyValueCollectionProxy(new List<object>(input));
+            var actual = p.Matches(pattern);
+            Assert.Equal(expected, actual);
+        }
+        
+        [InlineData(new object[] { "abc", "123", "456" }, "ab*", true)]
+        [Theory]
+        public void Approx_ProxyValues(object[] input, string pattern, bool expected) {
+            var p = new ResultPropertyValueCollectionProxy(new List<object>(input));
+            var actual = p.Approx(pattern);
+            Assert.Equal(expected, actual);
+        }
     }
 }

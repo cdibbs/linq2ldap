@@ -5,21 +5,6 @@ using System.Text.RegularExpressions;
 
 namespace Linq2Ldap.FilterParser {
     public class Lexer: ILexer {
-        public static string[] AllTokens = new string[] {
-            Tokens.LeftParen,
-            Tokens.RightParen,
-            Tokens.Approx,
-            Tokens.LTE,
-            Tokens.GTE,
-            Tokens.Present,
-            Tokens.Equal,
-            Tokens.And,
-            Tokens.Or,
-            Tokens.Not,
-            Tokens.EscapedEscape,
-            Tokens.Escape
-        };
-
         public IEnumerable<Token> Lex(string input) {
             int i = 0, prevTokEnd = 0;
             Token nextTok = null, ucToken;
@@ -66,12 +51,13 @@ namespace Linq2Ldap.FilterParser {
                 return null;
             }
 
-            foreach (var tok in AllTokens)
+            Match m;
+            foreach (var sregex in Tokens.Lookup.Keys)
             {
-                if (i + tok.Length <= input.Length
-                    && input.IndexOf(tok, i) == i)
+                if ((m = new Regex(sregex).Match(input, i)).Success
+                    && m.Index == i && m.Length > 0)
                 {
-                    return new Token(tok, i, true);
+                    return new Token(m.Value, i, true, Tokens.Lookup[sregex]);
                 }
             }
 

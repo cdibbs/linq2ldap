@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Linq2Ldap.ExtensionMethods;
 using Linq2Ldap.Models;
+using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.FilterParser
 {
@@ -83,13 +84,16 @@ namespace Linq2Ldap.FilterParser
         )
             where T: IEntry
         {
-            if (left.IsDefinedSymbol) {
+            if (! left.IsDefinedSymbol) {
                 var memberRef = BuildPropertyExpr<T>(left, paramExpr);
-                var methodInfo = typeof(PropertyExtensions).GetMethod(nameof(PropertyExtensions.Matches));
+                var methodInfo = typeof(PropertyExtensions)
+                    .GetMethod(
+                        nameof(PropertyExtensions.Matches),
+                        new [] { typeof(ResultPropertyValueCollectionProxy), typeof(string) });
                 return Expression.Call(methodInfo, memberRef, Expression.Constant("*"));
             }
 
-            throw new SyntaxException($"Unrecognized token type in presence check: {left.Text}.", left.StartPos, left.EndPos);
+            throw new SyntaxException($"Left side of presence check must be property name. Was a defined symbol: {left.Text}.", left.StartPos, left.EndPos);
         }
 
         internal Expression CreateMatchCheck<T>(
@@ -103,12 +107,16 @@ namespace Linq2Ldap.FilterParser
         {
             if (! left.IsDefinedSymbol) {
                 var memberRef = BuildPropertyExpr<T>(left, paramExpr);
-                var methodInfo = typeof(PropertyExtensions).GetMethod(nameof(PropertyExtensions.Matches));
+                var methodInfo = typeof(PropertyExtensions)
+                    .GetMethod(
+                        nameof(PropertyExtensions.Matches),
+                        new [] { typeof(ResultPropertyValueCollectionProxy), typeof(string) });
+                var start = tokens.ElementAt(startPos);
                 var matchAgg = tokens
                     .Skip(startPos)
                     .Take(endPos - startPos + 1)
                     .Aggregate(
-                        new Token("", 0, tokens.ElementAt(startPos).IsDefinedSymbol),
+                        new Token(start.Text, 0, start.IsDefinedSymbol),
                         AggregateOneToken);
                 return Expression.Call(methodInfo, memberRef, Expression.Constant(matchAgg.Text));
             }
@@ -117,7 +125,7 @@ namespace Linq2Ldap.FilterParser
         }
 
         internal Token AggregateOneToken(Token acc, Token cur) {
-            if (! cur.IsDefinedSymbol || cur.Text != Tokens.Star) {
+            if (cur.IsDefinedSymbol && cur.Text != Tokens.Star) {
                 throw new SyntaxException($"This symbol not allowed in match expression: {cur.Text}.", cur.StartPos, cur.EndPos);
             }
 
@@ -140,6 +148,7 @@ namespace Linq2Ldap.FilterParser
             var left = tokens.ElementAt(startPos);
             var right = tokens.ElementAt(startPos + 2);
             if (right.IsDefinedSymbol || left.IsDefinedSymbol) {
+                // This is CreateSimpleCompare. How did we get here? These should be handled in CreateMatchCheck.
                 throw new SyntaxException(
                     $"Binary expression arguments cannot include operators (except asterisks on the right-hand side).",
                     right.StartPos, right.EndPos);
@@ -157,7 +166,12 @@ namespace Linq2Ldap.FilterParser
                 case Tokens.LTE:
                     return Expression.LessThanOrEqual(memberRef, Expression.Constant(right.Text));
                 case Tokens.Approx:
-                    var methodInfo = typeof(PropertyExtensions).GetMethod(nameof(PropertyExtensions.Approx));
+                    // TODO add overload for property bag extension methods? Tests
+                    // TODO flesh out method types to pass...
+                    var methodInfo = typeof(PropertyExtensions)
+                        .GetMethod(
+                            nameof(PropertyExtensions.Approx),
+                            new [] { typeof(ResultPropertyValueCollectionProxy), typeof(string) });
                     return Expression.Call(methodInfo, memberRef, Expression.Constant(right.Text));
                 default:
                     throw new SyntaxException($"Unrecognized operator: {op.Text}.", op.StartPos, op.EndPos);
@@ -194,9 +208,9 @@ namespace Linq2Ldap.FilterParser
 
             // Find the matching right parent at our nesting depth.
             int nextEnd = -1, depth = 0;
-            for (var i = startPos + 1; i < endPos; i++) {
+            for (var i = startPos + 1; i <= endPos; i++) {
                 var tok = tokens.ElementAt(i);
-                if (tok.Text == Tokens.RightParen)
+                if (tok.MatchedToken == Tokens.RightParen)
                 {
                     if (depth == 0) {
                         nextEnd = i;
@@ -204,19 +218,26 @@ namespace Linq2Ldap.FilterParser
                     }
 
                     depth = depth - 1;
-                } else if (tok.Text == Tokens.LeftParen) {
+                } else if (tok.MatchedToken == Tokens.LeftParen) {
                     depth = depth + 1;
                 }
             }
             
             if (nextEnd == -1) {
-                throw new SyntaxException($"Mismatched left paren.", startPos, endPos);
+                throw new SyntaxException($"Mismatched left paren: {tokens.ElementAt(startPos + 1)} -> {tokens.ElementAt(endPos)}", startPos, endPos);
             }
 
-            var subExpr = ParseUnguarded<T>(tokens, startPos, nextEnd, paramExpr);
+            var subExpr = ParseUnguarded<T>(tokens, startPos + 1, nextEnd - 1, paramExpr);
             if (nextEnd != endPos) {
                 var subExpr2 = CreateListOp<T>(op, tokens, nextEnd + 1, endPos, paramExpr);
-                return Expression.AndAlso(subExpr, subExpr2);
+                if (subExpr2 == null) {
+                    return subExpr;
+                }
+                switch(op.MatchedToken) {
+                    case Tokens.And: return Expression.AndAlso(subExpr, subExpr2);
+                    case Tokens.Or:  return Expression.OrElse(subExpr, subExpr2);
+                    default: throw new SyntaxException($"Unrecognized binary operation: {op.MatchedToken}.", op.StartPos, op.EndPos);
+                }
             }
 
             return subExpr;

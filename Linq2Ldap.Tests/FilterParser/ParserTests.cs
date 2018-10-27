@@ -30,6 +30,12 @@ namespace Linq2Ldap.Tests.FilterParser {
         [InlineData("(e=*2*)", false)]
         [InlineData("(e=21*)", false)]
         [InlineData("(e=*15)", false)]
+        [InlineData("(&(a=b)(c=d))", true)]
+        [InlineData("(&(a=b)(!(c=d)))", false)]
+        [InlineData("(|(a=b)(!(c=d)))", true)]
+        [InlineData("(&(a=b)(!(c=d)))", false)]
+        [InlineData("(&(a=b)(c=d)(e>=31)))", true)]
+        [InlineData("(&(a=b)(c=d)(e>=315)))", false)]
         [Theory]
         public void Parse_Integration_BasicBooleans(string input, bool expected) {
             var expr = Parser.Parse<Entry>(input);
@@ -40,7 +46,38 @@ namespace Linq2Ldap.Tests.FilterParser {
             };
             var entry = new Entry() { Properties = new Linq2Ldap.Proxies.ResultPropertyCollectionProxy(dict) };
             Assert.Equal(expected, expr.Compile()(entry));
+        }
 
+        [InlineData("(a=*)", true)]
+        [InlineData("(multiv=*)", true)]
+        [InlineData("(f=*)", false)]
+        [InlineData("(emptylist=*)", true)]
+        [Theory]
+        public void Parse_Integration_ExistenceChecks(string input, bool expected) {
+            var expr = Parser.Parse<Entry>(input);
+            var dict = new Dictionary<string, ResultPropertyValueCollectionProxy>() {
+                { "a", new ResultPropertyValueCollectionProxy(new List<object>() { "b" }) },
+                { "multiv", new ResultPropertyValueCollectionProxy(new List<object>() { "d", "e" }) },
+                { "emptylist", new ResultPropertyValueCollectionProxy(new List<object>() { }) }
+            };
+            var entry = new Entry() { Properties = new Linq2Ldap.Proxies.ResultPropertyCollectionProxy(dict) };
+            Assert.Equal(expected, expr.Compile()(entry));
+        }
+
+        [InlineData("(a~=B)", true)]
+        [InlineData("(a~=b)", true)]
+        [InlineData("(a~=C)", false)]
+        [InlineData("(a~=c)", false)]
+        [InlineData("(c~=E)", true)]
+        [Theory]
+        public void Parse_Integration_ApproxChecks(string input, bool expected) {
+            var expr = Parser.Parse<Entry>(input);
+            var dict = new Dictionary<string, ResultPropertyValueCollectionProxy>() {
+                { "a", new ResultPropertyValueCollectionProxy(new List<object>() { "b" }) },
+                { "c", new ResultPropertyValueCollectionProxy(new List<object>() { "d", "e" }) },
+            };
+            var entry = new Entry() { Properties = new Linq2Ldap.Proxies.ResultPropertyCollectionProxy(dict) };
+            Assert.Equal(expected, expr.Compile()(entry));
         }
     }
 }

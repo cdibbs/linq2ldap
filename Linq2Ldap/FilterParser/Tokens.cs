@@ -4,19 +4,19 @@ namespace Linq2Ldap.FilterParser {
     public static class Tokens {
         public static readonly Dictionary<string, string> Lookup
             = new Dictionary<string, string>() {
-                { @"(?<!(?<!\\)\\)(",               LeftParen },
-                { @"(?<!(?<!\\)\\))",               RightParen },
-                { @"(?<!(?<!\\)\\)&",               And },
-                { @"(?<!(?<!\\)\\)|",               Or },
-                { @"(?<!(?<!\\)\\)!",               Not },
-                { @"(?<!(?<!\\)\\)=\*\s*(?>![\)])", Present },
-                { @"(?<!(?<!\\)\\)=",               Equal },
-                { @"(?<!(?<!\\)\\)>=",              GTE },
-                { @"(?<!(?<!\\)\\)<=",              LTE },
-                { @"(?<!(?<!\\)\\)\*",              Star },
-                { @"(?<!(?<!\\)\\)~=",              Approx },
-                { @"(?<!(?<!\\)\\)\\\\",            EscapedEscape },
-                { @"(?<!(?<!\\)\\)\\",              Escape },
+                { @"(?<!(?<!\\)\\)*\(",               LeftParen },
+                { @"(?<!(?<!\\)\\)*\)",               RightParen },
+                { @"(?<!(?<!\\)\\)*\&",               And },
+                { @"(?<!(?<!\\)\\)*\|",               Or },
+                { @"(?<!(?<!\\)\\)*\!",               Not },
+                { @"(?<!(?<!\\)\\)*=\*(?=\s*[\)])", Present },
+                { @"(?<!(?<!\\)\\)*=",               Equal },
+                { @"(?<!(?<!\\)\\)*>=",              GTE },
+                { @"(?<!(?<!\\)\\)*<=",              LTE },
+                { @"(?<!(?<!\\)\\)*\*",              Star },
+                { @"(?<!(?<!\\)\\)*~=",              Approx },
+                { @"(?<!(?<!\\)\\)*\\\\",            EscapedEscape },
+                { @"(?<!(?<!\\)\\)*\\",              Escape },
             };
 
         public const string LeftParen = "(";

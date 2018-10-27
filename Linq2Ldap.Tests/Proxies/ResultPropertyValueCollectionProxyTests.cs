@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices;
+using Linq2Ldap.Models;
 using Linq2Ldap.Proxies;
 using Xunit;
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Linq2Ldap.Proxies;
 using Linq2Ldap.Types;
 
 namespace Linq2Ldap.ExtensionMethods {
@@ -80,6 +81,26 @@ namespace Linq2Ldap.ExtensionMethods {
         /// <param name="source">The multi-valued source.</param>
         /// <param name="pattern">The LDAP filter pattern (ex: some*thing).</param>
         /// <returns>True, if it matches.</returns>
+        public static bool Matches(this ResultPropertyValueCollectionProxy source, string pattern)
+        {
+            if (source == null) {
+                return false;
+            }
+
+            if (pattern == "*") {
+                return true; // existence check operator
+            }
+
+
+            return source.Any(e => Matches(e.ToString(), pattern));
+        }
+
+        /// <summary>
+        /// Checks whether an LDAP filter pattern matches any member of the multi-valued source.
+        /// </summary>
+        /// <param name="source">The multi-valued source.</param>
+        /// <param name="pattern">The LDAP filter pattern (ex: some*thing).</param>
+        /// <returns>True, if it matches.</returns>
         public static bool Matches<T>(this BaseLdapType<T> source, string pattern)
             where T: IComparable
         {
@@ -118,6 +139,28 @@ namespace Linq2Ldap.ExtensionMethods {
         public static bool Approx<T, U>(this BaseLdapManyType<T, U> source, string pattern)
             where T: IComparable
             where U: class, IConverter<List<T>>
+        {
+            if (source == null) {
+                return false;
+            }
+
+            if (pattern == "*") {
+                return true; // existence check operator
+            }
+
+            return source.Any(e => Approx(e.ToString(), pattern));
+        }
+
+        /// <summary>
+        /// Checks whether the pattern approximately matches (~=) any member of the
+        /// multi-valued source.
+        /// Warning: locally, this does a lower-invariant .Match(). This may not line
+        /// up with LDAP implementations. Take local, unit test results with a grain of salt.
+        /// </summary>
+        /// <param name="source">The multi-valued source to match against.</param>
+        /// <param name="pattern">The pattern to match (ex: some*thing).</param>
+        /// <returns>True, if it matches.</returns>
+        public static bool Approx(this ResultPropertyValueCollectionProxy source, string pattern)
         {
             if (source == null) {
                 return false;

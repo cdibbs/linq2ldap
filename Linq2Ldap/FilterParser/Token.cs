@@ -1,11 +1,14 @@
 namespace Linq2Ldap.FilterParser {
     public class Token {
-        public Token(string text, int start, bool isDef = false) {
+        public Token(string text, int start, bool isDef = false, string matchedToken = null) {
             Text = text;
             StartPos = start;
             EndPos = start + text.Length;
             IsDefinedSymbol = isDef;
+            MatchedToken = matchedToken;
         }
+
+        public string MatchedToken { get; set; }
         public string Text { get; set; }
         public int StartPos { get; set; }
         public int EndPos { get; set; }
