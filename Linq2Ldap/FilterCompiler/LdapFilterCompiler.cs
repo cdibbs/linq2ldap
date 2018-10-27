@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Linq2Ldap.FilterCompiler;
+using Linq2Ldap.Models;
 
 namespace Linq2Ldap.FilterCompiler
 {
@@ -16,6 +17,7 @@ namespace Linq2Ldap.FilterCompiler
 
         /// <inheritdoc />
         public string CompileFromLinq<T>(Expression<Func<T, bool>> expr)
+            where T: IEntry
         {
             return Core.ExpressionToString(expr.Body, expr.Parameters);
         }

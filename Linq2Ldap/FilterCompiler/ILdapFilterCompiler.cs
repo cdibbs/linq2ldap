@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Linq2Ldap.Models;
 
 namespace Linq2Ldap.FilterCompiler
 {
     public interface ILdapFilterCompiler
     {
         /// <summary>
-        /// Compiles an LDAP Filter string from a Linq Expression. Implements
+        /// Compiles an LDAP Filter string from a LINQ Expression. Implements
         /// a subset of Expressions that includes boolean algebraic operators (||, &&, !),
         /// comparison operators (==, &lt;=, &gt;=, !=), as well as substring filters
         /// like .Contains(), .StartsWith(), and .EndsWith().
@@ -16,6 +17,7 @@ namespace Linq2Ldap.FilterCompiler
         /// <typeparam name="T">The LDAP model.</typeparam>
         /// <param name="expr">A Linq Expression over the LDAP model.</param>
         /// <returns>An LDAP filter string.</returns>
-        string CompileFromLinq<T>(Expression<Func<T, bool>> expr);
+        string CompileFromLinq<T>(Expression<Func<T, bool>> expr)
+            where T: IEntry;
     }
 }

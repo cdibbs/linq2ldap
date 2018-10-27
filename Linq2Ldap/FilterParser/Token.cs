@@ -1,15 +1,20 @@
-namespace Linq2Ldap.FilterCompiler.Parser {
+namespace Linq2Ldap.FilterParser {
     public class Token {
         public Token(string text, int start, bool isDef = false) {
             Text = text;
             StartPos = start;
             EndPos = start + text.Length;
-            IsDefaultToken = isDef;
+            IsDefinedSymbol = isDef;
         }
         public string Text { get; set; }
         public int StartPos { get; set; }
         public int EndPos { get; set; }
-        public bool IsDefaultToken { get; set; }
+
+        /// <summary>
+        /// Indicates whether this is one of the defined symbols.
+        /// </summary>
+        /// <value>True, if in the set of defined symbols. False if user text.</value>
+        public bool IsDefinedSymbol { get; set; }
 
         public override string ToString() => Text;
     }

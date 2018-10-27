@@ -1,10 +1,10 @@
 using System.Linq;
-using Linq2Ldap.FilterCompiler.Parser;
+using Linq2Ldap.FilterParser;
 using Xunit;
 using Newtonsoft.Json;
 using System;
 
-namespace Linq2Ldap.Tests.FilterCompiler.Parser {
+namespace Linq2Ldap.Tests.FilterParser {
     public class LexerTests {
         public Lexer Lexer;
         public LexerTests() {

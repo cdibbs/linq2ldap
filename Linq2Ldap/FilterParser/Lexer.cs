@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Linq2Ldap.FilterCompiler.Parser {
-    public class Lexer {
+namespace Linq2Ldap.FilterParser {
+    public class Lexer: ILexer {
         public static string[] AllTokens = new string[] {
             Tokens.LeftParen,
             Tokens.RightParen,
