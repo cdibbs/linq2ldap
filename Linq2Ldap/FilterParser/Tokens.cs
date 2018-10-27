@@ -4,19 +4,22 @@ namespace Linq2Ldap.FilterParser {
     public static class Tokens {
         public static readonly Dictionary<string, string> Lookup
             = new Dictionary<string, string>() {
-                { @"(?<!(?<!\\)\\)*\(",               LeftParen },
-                { @"(?<!(?<!\\)\\)*\)",               RightParen },
-                { @"(?<!(?<!\\)\\)*\&",               And },
-                { @"(?<!(?<!\\)\\)*\|",               Or },
-                { @"(?<!(?<!\\)\\)*\!",               Not },
-                { @"(?<!(?<!\\)\\)*=\*(?=\s*[\)])", Present },
-                { @"(?<!(?<!\\)\\)*=",               Equal },
-                { @"(?<!(?<!\\)\\)*>=",              GTE },
-                { @"(?<!(?<!\\)\\)*<=",              LTE },
-                { @"(?<!(?<!\\)\\)*\*",              Star },
-                { @"(?<!(?<!\\)\\)*~=",              Approx },
-                { @"(?<!(?<!\\)\\)*\\\\",            EscapedEscape },
-                { @"(?<!(?<!\\)\\)*\\",              Escape },
+                //  (?<= non-capturing look-behind
+                //      \G to match only where previous match left off
+                //        (\\\\)*) and only when an even number of backslashes (when operator unescaped).
+                { @"(?<=\G(\\\\)*)\(",               LeftParen },
+                { @"(?<=\G(\\\\)*)\)",               RightParen },
+                { @"(?<=\G(\\\\)*)\&",               And },
+                { @"(?<=\G(\\\\)*)\|",               Or },
+                { @"(?<=\G(\\\\)*)\!",               Not },
+                { @"(?<=\G(\\\\)*)=\*(?=\s*[\)])", Present },
+                { @"(?<=\G(\\\\)*)=",               Equal },
+                { @"(?<=\G(\\\\)*)>=",              GTE },
+                { @"(?<=\G(\\\\)*)<=",              LTE },
+                { @"(?<=\G(\\\\)*)\*",              Star },
+                { @"(?<=\G(\\\\)*)~=",              Approx },
+                { @"(?<=\G(\\\\)*)\\\\",            EscapedEscape },
+                { @"(?<=\G(\\\\)*)\\",              Escape },
             };
 
         public const string LeftParen = "(";

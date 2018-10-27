@@ -79,5 +79,23 @@ namespace Linq2Ldap.Tests.FilterParser {
             var entry = new Entry() { Properties = new Linq2Ldap.Proxies.ResultPropertyCollectionProxy(dict) };
             Assert.Equal(expected, expr.Compile()(entry));
         }
+
+        [InlineData(@"(a\==b)", true)]
+        [InlineData(@"(a=b)", false)]
+        [InlineData(@"(a=*)", false)]
+        [InlineData(@"(a\==*)", true)]
+        [InlineData(@"(a=*)", false)]
+        [InlineData(@"(c\\=*)", true)]
+        [InlineData(@"(c\==*)", false)]
+        [Theory]
+        public void Parse_Integration_EscapeChecks(string input, bool expected) {
+            var expr = Parser.Parse<Entry>(input);
+            var dict = new Dictionary<string, ResultPropertyValueCollectionProxy>() {
+                { @"a=", new ResultPropertyValueCollectionProxy(new List<object>() { "b" }) },
+                { @"c\", new ResultPropertyValueCollectionProxy(new List<object>() { "d", "e" }) },
+            };
+            var entry = new Entry() { Properties = new Linq2Ldap.Proxies.ResultPropertyCollectionProxy(dict) };
+            Assert.Equal(expected, expr.Compile()(entry));
+        }
     }
 }
