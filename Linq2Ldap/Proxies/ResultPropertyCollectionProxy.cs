@@ -29,6 +29,26 @@ namespace Linq2Ldap.Proxies
             return this.Results.ContainsKey(key);
         }
 
+        public virtual ICollection Keys {
+            get {
+                if (ProxyResults != null) {
+                    return ProxyResults.PropertyNames;
+                }
+
+                return Results.Keys;
+            }
+        }
+
+        public virtual ICollection Values {
+            get {
+                if (ProxyResults != null) {
+                    return ProxyResults.Values;
+                }
+
+                return Results.Values;
+            }
+        }
+
         public ResultPropertyValueCollectionProxy this[string name]
         {
             get
