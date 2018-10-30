@@ -6,9 +6,9 @@ using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Tests.FilterParser {
     public class ParserTests {
-        public Parser Parser;
+        public LdapFilterParser Parser;
         public ParserTests() {
-            Parser = new Parser();
+            Parser = new LdapFilterParser();
         }
 
         [Fact]

@@ -8,10 +8,10 @@ using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.FilterParser
 {
-    public class Parser
+    public class LdapFilterParser: ILdapFilterParser
     {
         protected ILexer Lexer { get; set; }
-        public Parser(ILexer lexer = null) {
+        public LdapFilterParser(ILexer lexer = null) {
             Lexer = lexer ?? new Lexer();
         }
 

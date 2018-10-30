@@ -16,7 +16,7 @@ namespace Linq2Ldap.FilterCompiler
         }
 
         /// <inheritdoc />
-        public string CompileFromLinq<T>(Expression<Func<T, bool>> expr)
+        public string Compile<T>(Expression<Func<T, bool>> expr)
             where T: IEntry
         {
             return Core.ExpressionToString(expr.Body, expr.Parameters);

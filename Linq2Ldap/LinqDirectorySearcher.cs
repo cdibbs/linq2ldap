@@ -60,7 +60,7 @@ namespace Linq2Ldap {
             }
 
             set {
-                Base.Filter = FilterCompiler.CompileFromLinq(value);
+                Base.Filter = FilterCompiler.Compile(value);
             }
         }
 

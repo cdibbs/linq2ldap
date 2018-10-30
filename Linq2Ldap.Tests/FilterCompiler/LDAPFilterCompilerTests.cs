@@ -47,7 +47,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         {
             Func<string> testfn = () => "samaccountname"; // TestLdapModel can always invoke prior to express
             Expression<Func<TestLdapModel, bool>> expr1 = (TestLdapModel u) => u.Properties[testfn()] == "123";
-            Assert.Throws<NotImplementedException>(() => FilterCompiler.CompileFromLinq(expr1));
+            Assert.Throws<NotImplementedException>(() => FilterCompiler.Compile(expr1));
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         {
             Expression<Func<TestLdapModel, bool>> e
                 = (TestLdapModel u) => u.SamAccountName.Contains("test") && u.CommonName == "123";
-            var result = FilterCompiler.CompileFromLinq(e);
+            var result = FilterCompiler.Compile(e);
             Assert.Equal("(&(samaccountname=*test*)(cn=123))", result);
         }
 
@@ -65,7 +65,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
             Func<string> testfn = () => "samaccountname"; // TestLdapModel can always invoke prior to express
             Expression<Func<TestLdapModel, bool>> e
                 = (TestLdapModel u) => u.SamAccountName.Contains(testfn());
-            Assert.Throws<NotImplementedException>(() => FilterCompiler.CompileFromLinq(e));
+            Assert.Throws<NotImplementedException>(() => FilterCompiler.Compile(e));
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
             int a = 3, b = 4;
             Expression<Func<TestLdapModel, bool>> e
                 = (TestLdapModel u) => a + b == 7;
-            Assert.Throws<NotImplementedException>(() => FilterCompiler.CompileFromLinq(e));
+            Assert.Throws<NotImplementedException>(() => FilterCompiler.Compile(e));
         }
 
         [Fact]

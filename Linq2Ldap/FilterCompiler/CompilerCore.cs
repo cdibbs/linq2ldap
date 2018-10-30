@@ -143,7 +143,10 @@ namespace Linq2Ldap.FilterCompiler
                 typeof(BaseLdapManyType<,>),
                 typeof(BaseLdapType<>)
             };
-            var genArgs = decType.GetGenericArguments();
+            var genArgs = decType
+                .GetGenericArguments()
+                .Where(a => ! a.IsGenericParameter)
+                .ToArray();
             if (decType.IsGenericType
                 && genericTypes.Any(t =>
                     genArgs.Count() == t.GetGenericArguments().Count()
@@ -202,8 +205,17 @@ namespace Linq2Ldap.FilterCompiler
             Expression expr, IReadOnlyCollection<ParameterExpression> p, string op)
         {
             var e = expr as BinaryExpression;
-            var left = ExpressionToString(e.Left, p);
-            var right = EvalExpr(e.Right, p);
+            if (e.Left.NodeType == ExpressionType.Constant
+                && e.Right.NodeType == ExpressionType.Constant) {
+                throw new NotImplementedException("Constant comparisons not allowed in LDAP filter. One side must be member reference.");
+            }
+
+            // TODO LDAP expects property references to be on the left. Use experimental evaluation to determine left v right?
+            var trueLeft = e.Left;
+            var trueRight = e.Right;
+
+            var left = ExpressionToString(trueLeft, p);
+            var right = EvalExpr(trueRight, p);
             return $"({left}{op}{right})";
         }
 
@@ -242,6 +254,11 @@ namespace Linq2Ldap.FilterCompiler
             Expression expr, IReadOnlyCollection<ParameterExpression> p)
         {
             var e = expr as ConstantExpression;
+            if (e.Type == typeof(Boolean)) {
+                // The following strings are LDAP filter's canonical true and false, respectively.
+                return (e.Value is Boolean b && b) ? "(&)" : "(|)";
+            }
+
             if (e.Type != typeof(string)
                 && e.Type != typeof(char)
                 && e.Type != typeof(int))
@@ -260,6 +277,8 @@ namespace Linq2Ldap.FilterCompiler
             {
                 var attr = me.Member.GetCustomAttribute<LdapFieldAttribute>();
                 return attr != null ? attr.Name : me.Member.Name;
+            } else if (me.Type == typeof(Boolean)) {
+                return RawEvalExpr(me, p) == "True" ? "(&)" : "(|)";
             }
 
             // We could eval it, but may be out of scope?

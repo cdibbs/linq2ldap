@@ -18,31 +18,39 @@ namespace Linq2Ldap.Tests.FilterCompiler
             FilterCompiler = new LdapFilterCompiler();
         }
 
+        [Fact(Skip = "Need to implement (experimental expr evaluation to determine left v right?)")]
+        public void SimpleComparisons_PutsMemberRefOnLeft() {
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => "something" == u.GivenName;
+            var b = FilterCompiler.Compile(expr);
+            var result = FilterCompiler.Compile(expr);
+            Assert.Equal("(givenname=something)", result);
+        }
+
         [Fact]
         public void CompareTo_BothSidesReferenceDataSourceModel_Throws()
         {
             Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => u.Email.CompareTo(u.SamAccountName) > 0;
-            Assert.Throws<NotImplementedException>(() => FilterCompiler.CompileFromLinq(expr));
+            Assert.Throws<NotImplementedException>(() => FilterCompiler.Compile(expr));
         }
 
         [Fact]
         public void Compare_BothSidesReferenceDataSourceModel_Throws()
         {
             Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => String.Compare(u.Email, u.SamAccountName) > 0;
-            Assert.Throws<NotImplementedException>(() => FilterCompiler.CompileFromLinq(expr));
+            Assert.Throws<NotImplementedException>(() => FilterCompiler.Compile(expr));
         }
 
         [MemberData(nameof(StringOpData))]
         [Theory]
         public void Comparisons_GeneratesValidLDAPFilterString(Expression<Func<TestLdapModel, bool>> expr, string expected)
         {
-            var actual = FilterCompiler.CompileFromLinq(expr);
+            var actual = FilterCompiler.Compile(expr);
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void CustomType_CompilesToCorrectStrings() {
-            Func<Expression<Func<TestLdapModel, bool>>, string> c = FilterCompiler.CompileFromLinq<TestLdapModel>;
+            Func<Expression<Func<TestLdapModel, bool>>, string> c = FilterCompiler.Compile<TestLdapModel>;
             Assert.Equal("(id=314)", c(m => m.Id == 314));
             Assert.Equal("(id>=314)", c(m => m.Id >= 314));
             Assert.Equal("(!(id<=314))", c(m => m.Id > 314));
@@ -55,7 +63,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
 
         [Fact]
         public void CustomManyType_CompilesToCorrectStrings() {
-            Func<Expression<Func<TestLdapModel, bool>>, string> c = FilterCompiler.CompileFromLinq<TestLdapModel>;
+            Func<Expression<Func<TestLdapModel, bool>>, string> c = FilterCompiler.Compile<TestLdapModel>;
             Assert.Equal("(alt-emails=someone@example.com)", c(m => m.AltEmails == "someone@example.com"));
             Assert.Equal("(alt-emails>=someone@example.com)", c(m => m.AltEmails >= "someone@example.com"));
             Assert.Equal("(!(alt-emails<=someone@example.com))", c(m => m.AltEmails > "someone@example.com"));

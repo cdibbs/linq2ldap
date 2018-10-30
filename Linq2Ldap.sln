@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linq2Ldap.Examples", "Linq2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linq2Ldap.TestUtil", "Linq2Ldap.TestUtil\Linq2Ldap.TestUtil.csproj", "{3C3E434E-FDAC-41C7-A03F-991C7632756A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linq2Ldap.Protocols", "Linq2Ldap.Protocols\Linq2Ldap.Protocols.csproj", "{8AAD5337-D554-42F7-A802-4670EEE0599D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linq2Ldap.Protocols.Tests", "Linq2Ldap.Protocols.Tests\Linq2Ldap.Protocols.Tests.csproj", "{931A7811-B81A-4673-86F9-4FA670474F9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{3C3E434E-FDAC-41C7-A03F-991C7632756A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C3E434E-FDAC-41C7-A03F-991C7632756A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C3E434E-FDAC-41C7-A03F-991C7632756A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AAD5337-D554-42F7-A802-4670EEE0599D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AAD5337-D554-42F7-A802-4670EEE0599D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AAD5337-D554-42F7-A802-4670EEE0599D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AAD5337-D554-42F7-A802-4670EEE0599D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{931A7811-B81A-4673-86F9-4FA670474F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{931A7811-B81A-4673-86F9-4FA670474F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{931A7811-B81A-4673-86F9-4FA670474F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{931A7811-B81A-4673-86F9-4FA670474F9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

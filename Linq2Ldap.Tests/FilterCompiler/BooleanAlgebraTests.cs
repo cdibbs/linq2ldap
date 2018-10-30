@@ -22,7 +22,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         {
             Expression<Func<TestLdapModel, bool>> expr = ((TestLdapModel u)
                 => u.CommonName.StartsWith("one") && u.CommonName.EndsWith("two"));
-            var actual = FilterCompiler.CompileFromLinq(expr);
+            var actual = FilterCompiler.Compile(expr);
             Assert.Equal("(&(cn=one*)(cn=*two))", actual);
         }
 
@@ -31,7 +31,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         {
             Expression<Func<TestLdapModel, bool>> expr = ((TestLdapModel u)
                 => !(u.CommonName.StartsWith("one") && u.CommonName.EndsWith("two")));
-            var actual = FilterCompiler.CompileFromLinq(expr);
+            var actual = FilterCompiler.Compile(expr);
             Assert.Equal("(!(&(cn=one*)(cn=*two)))", actual);
         }
 
@@ -40,7 +40,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         {
             Expression<Func<TestLdapModel, bool>> expr = ((TestLdapModel u)
                 => u.CommonName.StartsWith("one") || u.CommonName.EndsWith("two"));
-            var actual = FilterCompiler.CompileFromLinq(expr);
+            var actual = FilterCompiler.Compile(expr);
             Assert.Equal("(|(cn=one*)(cn=*two))", actual);
         }
     }

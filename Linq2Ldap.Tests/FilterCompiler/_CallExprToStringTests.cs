@@ -21,7 +21,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         public void CallStrOp_ThrowsOnUnrecognized()
         {
             Expression<Func<TestLdapModel, bool>> expr = TestLdapModel => TestLdapModel.Email.LastIndexOf("asdf") > 1;
-            Action lambda = () => FilterCompiler.CompileFromLinq(expr);
+            Action lambda = () => FilterCompiler.Compile(expr);
             Assert.Throws<NotImplementedException>(lambda);
         }
 
@@ -29,7 +29,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         public void Contains_ThrowsOnExtraParams()
         {
             Expression<Func<TestLdapModel, bool>> expr = TestLdapModel => TestLdapModel.Email.Contains("asdf", StringComparison.CurrentCulture);
-            Action lambda = () => FilterCompiler.CompileFromLinq(expr);
+            Action lambda = () => FilterCompiler.Compile(expr);
             Assert.Throws<NotImplementedException>(lambda);
         }
 
@@ -38,7 +38,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         public void CallStrOp_GeneratesValidLDAPFilterString(
             Expression<Func<TestLdapModel, bool>> expr, string expected)
         {
-            var actual = FilterCompiler.CompileFromLinq(expr);
+            var actual = FilterCompiler.Compile(expr);
             Assert.Equal(expected, actual);
         }
 

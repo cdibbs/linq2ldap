@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Linq2Ldap.FilterCompiler;
 using Linq2Ldap.Models;
+using Moq;
 using Xunit;
 
 namespace Linq2Ldap.Tests.FilterCompiler
@@ -18,13 +20,13 @@ namespace Linq2Ldap.Tests.FilterCompiler
         }
 
         [Fact]
-        public void ConstantAlone_Throws()
+        public void _MemberToString_ThrowsForNonBoolNonProp()
         {
-            const string c = "something";
-#pragma warning disable CS1718 // Comparison made to same variable
-            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => c == c;
-#pragma warning restore CS1718 // Comparison made to same variable
-            Assert.Throws<NotImplementedException>(() => FilterCompiler.CompileFromLinq(expr));
+            var str = "stringy";
+            Expression<Func<TestLdapModel, object>> expr = (TestLdapModel m) => str;
+            var cc = new CompilerCore();
+            Assert.Throws<NotImplementedException>(() =>
+                cc._MemberToString(expr.Body as MemberExpression, expr.Parameters));
         }
 
 
@@ -32,7 +34,7 @@ namespace Linq2Ldap.Tests.FilterCompiler
         public void InlineConstant_CompilesToValue()
         {
             Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => u.SamAccountName == "something";
-            var result = FilterCompiler.CompileFromLinq(expr);
+            var result = FilterCompiler.Compile(expr);
             Assert.Equal("(samaccountname=something)", result);
         }
 
@@ -42,8 +44,40 @@ namespace Linq2Ldap.Tests.FilterCompiler
         {
             const string c = "something";
             Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => u.SamAccountName == c;
-            var result = FilterCompiler.CompileFromLinq(expr);
+            var result = FilterCompiler.Compile(expr);
             Assert.Equal("(samaccountname=something)", result);
         }
+
+        [InlineData(true, "(&)")]
+        [InlineData(false, "(|)")]
+        [Theory]
+        public void BooleanMember_Compiles(bool val, string expected) {
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => val;
+            var result = FilterCompiler.Compile(expr);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void ConstantTrue_Canonical() {
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => true;
+            var result = FilterCompiler.Compile(expr);
+            Assert.Equal("(&)", result);
+
+            expr = (TestLdapModel u) => true && u["something"] == "one";
+            result = FilterCompiler.Compile(expr);
+            Assert.Equal("(&(&)(something=one))", result);
+        }
+
+        [Fact]
+        public void ConstantFalse_Canonical() {
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel u) => false;
+            var result = FilterCompiler.Compile(expr);
+            Assert.Equal("(|)", result);
+
+            expr = (TestLdapModel u) => false && u["something"] == "one";
+            result = FilterCompiler.Compile(expr);
+            Assert.Equal("(&(|)(something=one))", result);
+        }
+
     }
 }
