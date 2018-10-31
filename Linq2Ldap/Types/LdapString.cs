@@ -1,19 +1,33 @@
 using System;
+using System.Collections.Generic;
+using Linq2Ldap.Proxies;
 
 namespace Linq2Ldap.Types
 {
-    public class LdapString
+    public class LdapString: BaseLdapType<string>
     {
-        private string S;
-        public LdapString(string s)
+        public LdapString(ResultPropertyValueCollectionProxy raw): base(raw)
         {
-            S = s;
         }
 
-        public static implicit operator string(LdapString ls) => ls.ToString();
+        public static implicit operator string(LdapString i) => i.GetString();
+        public static implicit operator LdapString(string i)
+            => new LdapString(new ResultPropertyValueCollectionProxy(new List<object> { i }));
 
-        public static implicit operator LdapString(string s) => new LdapString(s);
+        protected string GetString() {
+            if (Raw == null || Raw.Count == 0) {
+                throw new InvalidOperationException("LdapInt value access from empty property bag.");
+            }
 
-        public override string ToString() => S;
+            if (this.Raw[0].GetType() == typeof(string)) {
+                return (string)this.Raw[0];
+            }
+            return this.Raw[0].ToString();
+        }
+
+        // We'll choose not to make a public version of this for ints, because what would that mean for empty bags?
+        protected override int _CompareTo(object b) => GetString().CompareTo(b);
+
+        public override string ToString() => GetString();
     }
 }

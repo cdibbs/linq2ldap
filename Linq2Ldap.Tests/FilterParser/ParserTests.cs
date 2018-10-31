@@ -3,6 +3,7 @@ using Linq2Ldap.FilterParser;
 using Linq2Ldap.Models;
 using System.Collections.Generic;
 using Linq2Ldap.Proxies;
+using Linq2Ldap.FilterCompiler;
 
 namespace Linq2Ldap.Tests.FilterParser {
     public class ParserTests {
@@ -96,6 +97,34 @@ namespace Linq2Ldap.Tests.FilterParser {
             };
             var entry = new Entry() { Properties = new Linq2Ldap.Proxies.ResultPropertyCollectionProxy(dict) };
             Assert.Equal(expected, expr.Compile()(entry));
+        }
+
+        [Fact]
+        public void Parse_CanParseCanonicalTrue() {
+            var expr = Parser.Parse<Entry>(@"(&)");
+            Assert.Equal("m => True", expr.ToString());
+            expr = Parser.Parse<Entry>(@"(|(&)(a=b)(c=d))");
+            Assert.StartsWith("m => (True OrElse", expr.ToString());
+        }
+
+        [Fact]
+        public void Parse_CanParseCanonicalFalse() {
+            var expr = Parser.Parse<Entry>(@"(|)");
+            Assert.Equal("m => False", expr.ToString());
+            expr = Parser.Parse<Entry>(@"(&(|)(a=b)(c=d))");
+            Assert.StartsWith("m => (False AndAlso", expr.ToString());
+        }
+
+        [InlineData(@"(  & (a =  b ) ( c= d) )", @"(&(a=b)(c=d))")]
+        [InlineData(@"(  &  )", @"(&)")]
+        [InlineData(@"(  |)", @"(|)")]
+        [InlineData(@"(| (aaaa=         123  )(bcd\ = \  321 ))", @"(|(aaaa=123)(bcd\ =\ \ 321))")]
+        [Theory]
+        public void Parse_CanHandleWhitespace(string input, string expected) {
+            var compiler = new LdapFilterCompiler();
+            var expr = Parser.Parse<Entry>(input);
+            var filter = compiler.Compile(expr);
+            Assert.Equal(expected, filter);
         }
     }
 }

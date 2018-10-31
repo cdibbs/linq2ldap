@@ -28,5 +28,8 @@ namespace Linq2Ldap.Tests.FilterCompiler
 
         [LdapField("alt-emails")]
         public LdapStringList AltEmails { get; set; }
+
+        [LdapField(" we ird  ")]
+        public LdapString WeirdName { get; set; }
     }
 }

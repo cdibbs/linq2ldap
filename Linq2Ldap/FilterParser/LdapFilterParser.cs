@@ -185,7 +185,10 @@ namespace Linq2Ldap.FilterParser
             where T: IEntry
         {
             // TODO: If a field exists dedicated to this property access, use that, instead.
-            return Expression.Property(paramExpr, "Item", Expression.Constant(left.Text));
+            var mi = typeof(Entry).GetProperties()
+                .Where(p => p.GetIndexParameters().Any())
+                .Select(p => p.GetGetMethod());
+            return Expression.Call(paramExpr, mi.First(), Expression.Constant(left.Text));
         }
 
         internal Expression CreateListOp<T>(
@@ -202,34 +205,17 @@ namespace Linq2Ldap.FilterParser
             }
 
             var paren = tokens.ElementAt(startPos);
-            if (paren.Text != Tokens.LeftParen) {
+            if (paren.Text == Tokens.RightParen) {
+                // Then it was the canonical true/false that's available in some LDAP implementations
+                return CanonicalBool(op);
+            } else if (paren.Text != Tokens.LeftParen) {
                 throw new SyntaxException($"Sub-filter must begin with left paren. Was: {paren.Text}.", startPos, endPos);
             }
 
-            // Find the matching right parent at our nesting depth.
-            int nextEnd = -1, depth = 0;
-            for (var i = startPos + 1; i <= endPos; i++) {
-                var tok = tokens.ElementAt(i);
-                if (tok.MatchedToken == Tokens.RightParen)
-                {
-                    if (depth == 0) {
-                        nextEnd = i;
-                        break;
-                    }
-
-                    depth = depth - 1;
-                } else if (tok.MatchedToken == Tokens.LeftParen) {
-                    depth = depth + 1;
-                }
-            }
-            
-            if (nextEnd == -1) {
-                throw new SyntaxException($"Mismatched left paren: {tokens.ElementAt(startPos + 1)} -> {tokens.ElementAt(endPos)}", startPos, endPos);
-            }
-
-            var subExpr = ParseUnguarded<T>(tokens, startPos + 1, nextEnd - 1, paramExpr);
-            if (nextEnd != endPos) {
-                var subExpr2 = CreateListOp<T>(op, tokens, nextEnd + 1, endPos, paramExpr);
+            int closingIndex = FindClosingParenIndex(tokens, startPos, endPos);
+            var subExpr = ParseUnguarded<T>(tokens, startPos + 1, closingIndex - 1, paramExpr);
+            if (closingIndex != endPos) {
+                var subExpr2 = CreateListOp<T>(op, tokens, closingIndex + 1, endPos, paramExpr);
                 if (subExpr2 == null) {
                     return subExpr;
                 }
@@ -241,6 +227,36 @@ namespace Linq2Ldap.FilterParser
             }
 
             return subExpr;
+        }
+
+        internal int FindClosingParenIndex(IEnumerable<Token> tokens, int startPos, int endPos) {
+            int depth = 0;
+            for (var i = startPos + 1; i <= endPos; i++) {
+                var tok = tokens.ElementAt(i);
+                if (tok.MatchedToken == Tokens.RightParen)
+                {
+                    if (depth == 0) {
+                        return i;
+                    }
+
+                    depth = depth - 1;
+                } else if (tok.MatchedToken == Tokens.LeftParen) {
+                    depth = depth + 1;
+                }
+            }
+            
+            throw new SyntaxException(
+                $"Mismatched left paren: {tokens.ElementAt(startPos + 1)} -> {tokens.ElementAt(endPos)}",
+                startPos, endPos);
+        }
+
+        internal Expression CanonicalBool(Token token) {
+            switch(token.MatchedToken) {
+                case Tokens.And: return Expression.Constant(true);
+                case Tokens.Or: return Expression.Constant(false);
+                default:
+                    throw new SyntaxException($"Unrecognized empty expression operator: {token}.", token.StartPos, token.EndPos);
+            }
         }
 
         internal Expression CreateNegation<T>(

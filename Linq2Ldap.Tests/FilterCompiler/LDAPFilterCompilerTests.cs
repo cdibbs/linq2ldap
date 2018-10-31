@@ -29,6 +29,20 @@ namespace Linq2Ldap.Tests.FilterCompiler
         }
 
         [Fact]
+        public void CompileFromLinq_EscapesIndexerNames() {
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel e) => e["one "] == "123";
+            var filter = Core.ExpressionToString(expr.Body, expr.Parameters);
+            Assert.Equal(@"(one\ =123)", filter);
+        }
+
+        [Fact]
+        public void CompileFromLinq_EscapesPropertyNames() {
+            Expression<Func<TestLdapModel, bool>> expr = (TestLdapModel e) => e.WeirdName == "123";
+            var filter = Core.ExpressionToString(expr.Body, expr.Parameters);
+            Assert.Equal(@"(\ we ird\ \ =123)", filter);
+        }
+
+        [Fact]
         public void _MemberToString_DataSourceModel_SerializesByColumnAttrWhenAvailable()
         {
             Expression<Func<TestLdapModel, bool>> expr1 = (TestLdapModel u) => u.SamAccountName == "something";

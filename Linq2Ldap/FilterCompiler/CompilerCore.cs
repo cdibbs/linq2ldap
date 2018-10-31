@@ -77,7 +77,7 @@ namespace Linq2Ldap.FilterCompiler
                 case ExpressionType.Conditional: /* ternary */
                 default:
                     throw new NotImplementedException(
-                        $"Linq-to-LDAP-filter-string not implemented for {expr.NodeType}. \n"
+                        $"Linq-to-LDAP not implemented for {expr.NodeType}. \n"
                         + "Use local variables to remove algebraic expressions and method calls, \n"
                         + "and reduce Linq expression complexity to boolean algebra and \n"
                         + ".Contains/.StartsWith/.EndsWith string ops.");
@@ -167,9 +167,9 @@ namespace Linq2Ldap.FilterCompiler
             switch (keyExpr)
             {
                 case ConstantExpression e when e.Type == typeof(string):
-                    return e.Value as string;
+                    return ValueUtil.EscapeFilterValue(e.Value as string);
                 case MemberExpression _:
-                    return EvalExpr(keyExpr, p);
+                    return ValueUtil.EscapeFilterValue(EvalExpr(keyExpr, p));
             }
 
             throw new NotImplementedException(
@@ -276,7 +276,7 @@ namespace Linq2Ldap.FilterCompiler
             if (__IsParamModelAccess(me, p) != null)
             {
                 var attr = me.Member.GetCustomAttribute<LdapFieldAttribute>();
-                return attr != null ? attr.Name : me.Member.Name;
+                return ValueUtil.EscapeFilterValue(attr != null ? attr.Name : me.Member.Name);
             } else if (me.Type == typeof(Boolean)) {
                 return RawEvalExpr(me, p) == "True" ? "(&)" : "(|)";
             }
