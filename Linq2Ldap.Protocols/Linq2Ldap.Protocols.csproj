@@ -16,12 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="linq2ldap.core" Version="0.1.0-alpha" />
     <PackageReference Include="System.DirectoryServices.Protocols" Version="4.5.0" />
     <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Linq2Ldap\Linq2Ldap.csproj" />
-  </ItemGroup>
-
 </Project>
