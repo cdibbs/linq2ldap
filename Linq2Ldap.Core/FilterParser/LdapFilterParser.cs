@@ -15,12 +15,12 @@ namespace Linq2Ldap.Core.FilterParser
             Lexer = lexer ?? new Lexer();
         }
 
-        public Expression<Func<T, bool>> Parse<T>(string filter)
+        public Expression<Func<T, bool>> Parse<T>(string filter, string modelName = "m")
             where T: IEntry
         {
             var tokens = Lexer.Lex(filter);
             int startPos = 0, endPos = tokens.Count() - 1;
-            var argParam = Expression.Parameter(typeof(T), "m");
+            var argParam = Expression.Parameter(typeof(T), modelName);
             var body = _Parse<T>(tokens, startPos, endPos, argParam);
             return Expression.Lambda<Func<T, bool>>(body, argParam);
         }

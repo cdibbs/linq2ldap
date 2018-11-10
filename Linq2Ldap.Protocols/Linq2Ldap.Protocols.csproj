@@ -6,7 +6,7 @@
     <PackageVersion>0.1.0-alpha$(APPVEYOR_BUILD_NUMBER)</PackageVersion>
     <PackageId>Linq2Ldap.Protocols</PackageId>
     <Title>LINQ-to-LDAP wrapper for System.DirectoryServices.Protocols.</Title>
-    <Description>A library that wraps System.DirectoryServices.Protocols to facilitate searching using Linq Expressions.</Description>
+    <Description>A library that wraps System.DirectoryServices.Protocols to facilitate searching using LINQ Expressions.</Description>
     <PackageProjectUrl>https://github.com/cdibbs/linq2ldap</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cdibbs/linq2ldap</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/cdibbs/linq2ldap/blob/master/LICENSE</PackageLicenseUrl>

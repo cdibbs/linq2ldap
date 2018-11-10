@@ -4,7 +4,7 @@ using Linq2Ldap.Core.Models;
 
 namespace Linq2Ldap.Core.FilterParser {
     public interface ILdapFilterParser {
-        Expression<Func<T, bool>> Parse<T>(string filter)
+        Expression<Func<T, bool>> Parse<T>(string filter, string modelName = "m")
             where T: IEntry;
     }
 }

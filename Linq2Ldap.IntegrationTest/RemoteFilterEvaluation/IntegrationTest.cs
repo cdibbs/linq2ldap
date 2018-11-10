@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.DirectoryServices;
-using System.DirectoryServices.ActiveDirectory;
+﻿using System.DirectoryServices;
 using System.DirectoryServices.Protocols;
 using System.Linq;
 using System.Net;
-using System.Text;
-using AutoMapper;
-using AutoMapper.EquivalencyExpression;
 using Linq2Ldap.Core.FilterCompiler;
 using Linq2Ldap.IntegrationTest.Models;
-using Linq2Ldap.IntegrationTest.RemoteFilterEvaluation;
-using Linq2Ldap.Core.Models;
-using Linq2Ldap.Core;
-using Moq;
-using Newtonsoft.Json;
 using Xunit;
 using ProtocolsSearchScope = System.DirectoryServices.Protocols.SearchScope;
 
