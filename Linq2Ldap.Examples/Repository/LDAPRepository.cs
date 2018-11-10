@@ -4,9 +4,10 @@ using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq.Expressions;
 using AutoMapper;
-using Linq2Ldap.Models;
-using Linq2Ldap.Proxies;
-using Linq2Ldap.Specifications;
+using Linq2Ldap.Core;
+using Linq2Ldap.Core.Models;
+using Linq2Ldap.Core.Proxies;
+using Linq2Ldap.Core.Specifications;
 
 namespace Linq2Ldap.Examples.Repository
 {
@@ -25,7 +26,7 @@ namespace Linq2Ldap.Examples.Repository
         }
 
         public T FindOne<T>(Specification<T> spec)
-            where T: class, IEntry
+            where T: IEntry, new()
         {
             var searcher = new LinqDirectorySearcher<T>(Entry);
             searcher.SearchScope = SearchScope.Subtree;
@@ -38,7 +39,7 @@ namespace Linq2Ldap.Examples.Repository
         }
 
         public T[] FindAll<T>(Specification<T> spec)
-            where T: class, IEntry
+            where T: IEntry, new()
         {
             var searcher = new LinqDirectorySearcher<T>(Entry);
             searcher.SearchScope = SearchScope.Subtree;
@@ -67,7 +68,7 @@ namespace Linq2Ldap.Examples.Repository
             Specification<T> spec,
             int offsetPage = 0, int pageSize = 10,
             SortOption sortOpt = null)
-            where T : class, IEntry
+            where T : IEntry, new()
         {
             var searcher = new LinqDirectorySearcher<T>(Entry);
             searcher.SearchScope = SearchScope.Subtree;
@@ -81,7 +82,7 @@ namespace Linq2Ldap.Examples.Repository
         }
 
         public void Add<T>(T entity)
-            where T: class, IEntry
+            where T: IEntry, new()
         {
             var name = "o=example";
             var schemaClassName = "top";
@@ -91,7 +92,7 @@ namespace Linq2Ldap.Examples.Repository
         }
 
         public void Update<T>(T entity)
-            where T: class, IEntry
+            where T: IEntry, new()
         {
             /*var result = Searcher.FindOne();
             result.GetDirectoryEntry().Properties["something"].Value = "something";*/

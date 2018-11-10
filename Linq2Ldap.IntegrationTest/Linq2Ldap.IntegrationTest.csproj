@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Linq2Ldap\Linq2Ldap.csproj" />
+    <ProjectReference Include="..\Linq2Ldap.Core\Linq2Ldap.Core.csproj" />
     <ProjectReference Include="..\Linq2Ldap.Examples\Linq2Ldap.Examples.csproj" />
   </ItemGroup>
 

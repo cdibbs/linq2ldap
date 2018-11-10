@@ -4,9 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <APPVEYOR_BUILD_NUMBER Condition=" '$(APPVEYOR_BUILD_NUMBER)' == '' ">local</APPVEYOR_BUILD_NUMBER>
     <PackageVersion>0.1.0-alpha$(APPVEYOR_BUILD_NUMBER)</PackageVersion>
-    <PackageId>Linq2Ldap.NETStandard</PackageId>
-    <Title>LINQ-to-LDAP filter transpiler</Title>
-    <Description>A library to transpile C# LINQ Expressions into RFC 1960 LDAP filter strings.</Description>
+    <PackageId>Linq2Ldap</PackageId>
+    <Title>LINQ-to-LDAP wrapper for System.DirectoryServices.</Title>
+    <Description>A library that wraps System.DirectoryServices to facilitate searching using Linq Expressions.</Description>
     <PackageProjectUrl>https://github.com/cdibbs/linq2ldap</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cdibbs/linq2ldap</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/cdibbs/linq2ldap/blob/master/LICENSE</PackageLicenseUrl>
@@ -17,9 +17,11 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="AutoMapper.Collection" Version="4.0.0" />
-    <PackageReference Include="LINQKit.Core" Version="1.1.15" />
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
-    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="4.5.0" />
-    <PackageReference Include="System.DirectoryServices.Protocols" Version="4.5.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Linq2Ldap.Core\Linq2Ldap.Core.csproj" />
+  </ItemGroup>
+
 </Project>

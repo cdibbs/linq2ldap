@@ -1,6 +1,6 @@
-using Linq2Ldap.Attributes;
-using Linq2Ldap.Models;
-using Linq2Ldap.Types;
+using Linq2Ldap.Core.Attributes;
+using Linq2Ldap.Core.Models;
+using Linq2Ldap.Core.Types;
 
 namespace Linq2Ldap.IntegrationTest.Models {
     public class MyModel: Entry {

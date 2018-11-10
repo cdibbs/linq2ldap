@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.DirectoryServices;
 using System.Text;
+using Linq2Ldap.Core.Proxies;
 
 namespace Linq2Ldap.Proxies
 {
@@ -13,7 +14,7 @@ namespace Linq2Ldap.Proxies
         {
         }
 
-        public SearchResultProxy(SearchResult result, ResultPropertyCollectionProxy properties, string path)
+        public SearchResultProxy(SearchResult result, DirectoryEntryPropertyCollection properties, string path)
         {
             Result = result;
             Properties = properties;
@@ -22,9 +23,9 @@ namespace Linq2Ldap.Proxies
 
         public string Path { get; set; }
 
-        public ResultPropertyCollectionProxy Properties { get; set; }
+        public DirectoryEntryPropertyCollection Properties { get; set; }
 
         public static implicit operator SearchResultProxy(SearchResult result)
-            => new SearchResultProxy(result, result?.Properties, result?.Path);
+            => result == null ? null : new SearchResultProxy(result, result?.Properties, result?.Path);
     }
 }

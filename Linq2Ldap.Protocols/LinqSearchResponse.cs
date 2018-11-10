@@ -1,21 +1,33 @@
 using System.Collections.Generic;
 using System.DirectoryServices.Protocols;
 using AutoMapper;
+using Linq2Ldap.Core.Models;
 
+// https://stackoverflow.com/questions/15733900/dynamically-creating-a-proxy-class
+// https://github.com/dotnet/corefx/blob/master/src/System.DirectoryServices.Protocols/src/System/DirectoryServices/Protocols/common/DirectoryResponse.cs
 namespace Linq2Ldap.Protocols {
-    public class LinqSearchResponse<T> {
-        internal SearchResponse Response { get; private set; }
-
-        public LinqSearchResponse(SearchResponse response) {
+    public class LinqSearchResponse<T>
+        where T: LinqSearchResultEntry, new()
+    {
+        public LinqSearchResponse(SearchResponse response)
+        {
             Response = response;
         }
 
-        public IEnumerable<T> Entries { get; set; }
+        public virtual SearchResponse Response { get; set; }
 
-        public static implicit operator LinqSearchResponse<T>(SearchResponse response)
-            => new LinqSearchResponse<T>(response);
+        public virtual IEnumerable<T> Entries {
+            get {
+                foreach (SearchResultEntry entry in Response.Entries) {
+                    yield return new T() {
+                        DistinguishedName = entry.DistinguishedName,
+                        Attributes = entry.Attributes,
+                        Native = entry,
+                        Controls = entry.Controls
+                    };
+                }
+            }
+        }
 
-        public static implicit operator SearchResponse(LinqSearchResponse<T> response)
-            => response.Response;
     }
 }

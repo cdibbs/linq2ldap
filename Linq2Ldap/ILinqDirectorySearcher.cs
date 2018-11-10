@@ -4,8 +4,8 @@ using System.Collections.Specialized;
 using System.DirectoryServices;
 using System.Linq.Expressions;
 using AutoMapper;
-using Linq2Ldap.Models;
-using Linq2Ldap.Proxies;
+using Linq2Ldap.Core.Models;
+using Linq2Ldap.Core.Proxies;
 
 namespace Linq2Ldap
 {

@@ -1,5 +1,5 @@
 using System;
-using Linq2Ldap.Models;
+using Linq2Ldap.Core.Models;
 using Xunit;
 
 namespace Linq2Ldap.Protocols.Tests
@@ -10,7 +10,7 @@ namespace Linq2Ldap.Protocols.Tests
         public void Test1()
         {
             var inst = new LinqSearchRequest<Entry>();
-            inst.Filter = (Entry e) => e["what"] == "asdf";
+            //inst.Filter = (Entry e) => e["what"] == "asdf";
         }
     }
 }

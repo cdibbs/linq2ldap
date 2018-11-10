@@ -7,28 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Collection" Version="4.0.0" />
-    <PackageReference Include="coverlet.msbuild" Version="2.3.0">
+    <PackageReference Include="coverlet.msbuild" Version="2.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Moq" Version="4.10.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
-    <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.0-rc7" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="moq" Version="4.10.0" />
+    <PackageReference Include="system.directoryservices" Version="4.5.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Linq2Ldap\Linq2Ldap.csproj" />
     <ProjectReference Include="..\Linq2Ldap.TestUtil\Linq2Ldap.TestUtil.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>C:\Users\cdibbern\.nuget\packages\moq\4.10.0\lib\netstandard1.3\Moq.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Linq2Ldap.Core\Linq2Ldap.Core.csproj" />
   </ItemGroup>
 
 </Project>

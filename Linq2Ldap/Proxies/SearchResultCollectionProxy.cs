@@ -9,10 +9,7 @@ namespace Linq2Ldap.Proxies
     public class SearchResultCollectionProxy: IEnumerable<SearchResultProxy>
     {
         protected IEnumerable Results;
-        public SearchResultCollectionProxy(List<SearchResultProxy> mockResults) {
-            Results = mockResults;
-        }
-        public SearchResultCollectionProxy(SearchResultCollection results)
+        public SearchResultCollectionProxy(IEnumerable results)
         {
             Results = results;
         }

@@ -3,6 +3,7 @@ using Linq2Ldap.Proxies;
 using Xunit;
 using Linq2Ldap.TestUtil;
 using System.Collections.Generic;
+using Linq2Ldap.Core.Proxies;
 
 namespace Linq2Ldap.Tests.Proxies
 {
@@ -16,7 +17,7 @@ namespace Linq2Ldap.Tests.Proxies
 
         [WindowsOnlyFact]
         public void Constructs() {
-            var props = new ResultPropertyCollectionProxy(new Dictionary<string, ResultPropertyValueCollectionProxy>());
+            var props = new DirectoryEntryPropertyCollection(new Dictionary<string, Core.Proxies.PropertyValueCollection>());
             var path = "something";
             var p = new SearchResultProxy(null, props, path);
             Assert.Equal(path, p.Path);

@@ -1,43 +1,35 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.DirectoryServices;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using AutoMapper;
-using AutoMapper.EquivalencyExpression;
-using Linq2Ldap.FilterCompiler;
-using Linq2Ldap.Models;
+using Linq2Ldap.Core;
+using Linq2Ldap.Core.FilterCompiler;
+using Linq2Ldap.Core.FilterParser;
+using Linq2Ldap.Core.Models;
 using Linq2Ldap.Proxies;
 
 [assembly: InternalsVisibleTo("Linq2Ldap.Tests")]
-namespace Linq2Ldap {
+namespace Linq2Ldap
+{
     /// <inheritdoc />
     public class LinqDirectorySearcher<T> : DirectorySearcherProxy, ILinqDirectorySearcher<T>
-        where T: class, IEntry
+        where T: IEntry, new()
     {
-        public LinqDirectorySearcher(LdapFilterCompiler filterCompiler, IMapper mapper) 
-        {
-            this.FilterCompiler = filterCompiler;
-                this.Mapper = mapper;
-               
-        }
-                protected LdapFilterCompiler FilterCompiler { get; set; }
-            = new LdapFilterCompiler();
-        protected IMapper Mapper { get; set; }
+        // Opens base to testing.
+        protected internal IDirectorySearcherProxy Base;
+        protected internal ILdapFilterCompiler FilterCompiler { get; set; } = new LdapFilterCompiler();
+        protected internal ILdapFilterParser FilterParser { get; set; } = new LdapFilterParser();
+        protected internal IModelCreator ModelCreator { get; set; } = new ModelCreator();
 
-        // Allows our tests to get at our code.
-        internal IDirectorySearcherProxy Base;
-
-        public LinqDirectorySearcher(IMapper mapper = null): base() {
-            Setup(mapper);
+        public LinqDirectorySearcher(): base() {
+            Base = this;
         }
 
         public LinqDirectorySearcher(
-            DirectoryEntry entry,
-            IMapper mapper = null) : base(entry)
+            DirectoryEntry entry) : base(entry)
         {
-            Setup(mapper);
+            Base = this;
         }
 
         /// <summary>
@@ -54,27 +46,20 @@ namespace Linq2Ldap {
         /// </summary>
         /// <value>A LINQ Expression representing an LDAP filter.</value>
         public new Expression<Func<T, bool>> Filter {
-            internal get {
-                throw new NotImplementedException(
-                    "Converting from a LDAP filter back into a LINQ Expression is not currently supported.");
-            }
-
-            set {
-                Base.Filter = FilterCompiler.Compile(value);
-            }
+            get => FilterParser.Parse<T>(Base.Filter);
+            set => Base.Filter = FilterCompiler.Compile(value);
         }
 
-        public new IEnumerable<T> FindAll() => Mapper.Map<IEnumerable<T>>(Base.FindAll());
-
-        public new T FindOne() => Mapper.Map<T>(Base.FindOne());
+        public virtual new IEnumerable<T> FindAll() {
+            var results = Base.FindAll();
+            foreach (var result in results) {
+                yield return ModelCreator.Create<T>(result.Properties, result.Path);
+            }
+        }
         
-        protected virtual void Setup(IMapper mapper) {
-            Base = this;
-            Mapper = mapper ?? new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new MapperProfile<T>());
-                cfg.AddCollectionMappers();
-            }).CreateMapper();
+        public virtual new T FindOne() {
+            var result = Base.FindOne();
+            return ModelCreator.Create<T>(result.Properties, result.Path);
         }
     }
 }

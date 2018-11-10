@@ -1,6 +1,6 @@
 using Linq2Ldap.Examples.Models;
-using Linq2Ldap.Specifications;
-using Linq2Ldap.ExtensionMethods;
+using Linq2Ldap.Core.Specifications;
+using Linq2Ldap.Core.ExtensionMethods;
 
 namespace Linq2Ldap.Examples {
     public class ExampleSpecifications {

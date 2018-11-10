@@ -30,14 +30,14 @@ build_script:
   - cmd: dotnet publish ./Linq2Ldap.sln
 
 test_script:
-  - ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Tests/Linq2Ldap.Tests.csproj
+  - ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.Core.Tests/Linq2Ldap.Core.Tests.csproj
   - ps: dotnet test Linq2Ldap.IntegrationTest
 
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "Linq2Ldap.Tests/coverage.opencover.xml"
+      bash codecov.sh -f "Linq2Ldap.Core.Tests/coverage.opencover.xml"
   - dotnet pack ./Linq2Ldap/ -c Release
 
 artifacts:

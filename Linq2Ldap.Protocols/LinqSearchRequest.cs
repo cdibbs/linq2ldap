@@ -1,9 +1,9 @@
 using System;
 using System.DirectoryServices.Protocols;
 using System.Linq.Expressions;
-using Linq2Ldap.FilterCompiler;
-using Linq2Ldap.FilterParser;
-using Linq2Ldap.Models;
+using Linq2Ldap.Core.FilterCompiler;
+using Linq2Ldap.Core.FilterParser;
+using Linq2Ldap.Core.Models;
 
 namespace Linq2Ldap.Protocols
 {
@@ -22,12 +22,7 @@ namespace Linq2Ldap.Protocols
         {
         }
 
-        public object RawFilter {
-            get => base.Filter;
-            set => base.Filter = value;
-        }
-
-        public new Expression<Func<T, bool>> Filter {
+        public Expression<Func<T, bool>> LinqFilter {
             get {
                 if (base.Filter is string f) {
                     return FilterParser.Parse<T>(f);
@@ -38,7 +33,7 @@ namespace Linq2Ldap.Protocols
             }
 
             set {
-                RawFilter = FilterCompiler.Compile(value);
+                Filter = FilterCompiler.Compile(value);
             }
         }
     }

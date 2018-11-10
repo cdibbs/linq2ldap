@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
-using Linq2Ldap.Models;
+using Linq2Ldap.Core.Models;
 using Linq2Ldap.Examples.Repository;
 using Moq;
 using Xunit;
-using Linq2Ldap.FilterCompiler;
+using Linq2Ldap.Core.FilterCompiler;
+using Linq2Ldap.Core;
 
 namespace Linq2Ldap.IntegrationTest
 {
@@ -24,15 +25,8 @@ namespace Linq2Ldap.IntegrationTest
         public RepositoryTest()
         {
             Compiler = new LdapFilterCompiler();
-            var config = new MapperConfiguration(c =>
-            {
-                c.AddProfile<MapperProfile<Entry>>();
-                c.AddCollectionMappers();
-            });
-            Mapper = config.CreateMapper();
             Entry = new DirectoryEntry("LDAP://localhost:389/o=example", "cn=neoman,ou=users,o=example", "testtest", AuthenticationTypes.None);
             Repo = new LDAPRepository(Entry);
-
         }
 
         [Fact]

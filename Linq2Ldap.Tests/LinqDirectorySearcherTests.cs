@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.DirectoryServices;
-using AutoMapper;
+using System.Linq;
+using System.Linq.Expressions;
+using Linq2Ldap.Core;
+using Linq2Ldap.Core.Proxies;
 using Linq2Ldap.Proxies;
-using Linq2Ldap.Tests.FilterCompiler;
 using Linq2Ldap.TestUtil;
 using Moq;
 using Xunit;
@@ -12,37 +13,49 @@ namespace Linq2Ldap.Tests
 {
     public class LinqDirectorySearcherTests
     {
-        IMapper Mapper { get; set; }
+        IModelCreator Creator { get; set; }
         LinqDirectorySearcher<TestLdapModel> Searcher;
         public LinqDirectorySearcherTests() {
-            Mapper = Mock.Of<IMapper>();
-            Searcher = new LinqDirectorySearcher<TestLdapModel>(Mapper);
+            Creator = Mock.Of<IModelCreator>();
+            Searcher = new LinqDirectorySearcher<TestLdapModel>();
             Searcher.Base = Mock.Of<IDirectorySearcherProxy>();
+            Searcher.ModelCreator = Creator;
         }
 
         [WindowsOnlyFact]
         public void FindAll_ReturnsMappedFromBase() {
-            var data = new SearchResultCollectionProxy(new List<SearchResultProxy>());
+            var first = new SearchResultProxy()
+            {
+                Path = "ou=some,com=path",
+                Properties = new DirectoryEntryPropertyCollection()
+            };
+            var data = new SearchResultCollectionProxy(new List<SearchResultProxy>() { first });
             Mock.Get(Searcher.Base)
                 .Setup(m => m.FindAll())
                 .Returns(data);
-            var results = Searcher.FindAll();
-            Mock.Get(Mapper).Verify(m => m.Map<IEnumerable<TestLdapModel>>(data), Times.Once);
+            var results = Searcher.FindAll().ToList();
+            Mock.Get(Creator).Verify(m => m.Create<TestLdapModel>(first.Properties, first.Path), Times.Once);
         }
 
         [WindowsOnlyFact]
         public void FindOne_ReturnsMappedFromBase() {
-            var data = new SearchResultProxy();
+            var data = new SearchResultProxy()
+            {
+                Path = "ou=some,com=path",
+                Properties = new DirectoryEntryPropertyCollection()
+            };
             Mock.Get(Searcher.Base)
                 .Setup(m => m.FindOne())
                 .Returns(data);
             var results = Searcher.FindOne();
-            Mock.Get(Mapper).Verify(m => m.Map<TestLdapModel>(data), Times.Once);
+            Mock.Get(Creator).Verify(m => m.Create<TestLdapModel>(data.Properties, data.Path), Times.Once);
         }
 
         [WindowsOnlyFact]
-        public void Filter_GetThrows() {
-            Assert.Throws<NotImplementedException>(() => Searcher.Filter);
+        public void Filter_GetParses() {
+            Searcher.RawFilter = "(cn=something)";
+            Expression<Func<TestLdapModel, bool>> result = (m) => m["cn"] == "something";
+            Assert.Equal(result.ToString(), Searcher.Filter.ToString());
         }
 
         [WindowsOnlyFact]
@@ -56,6 +69,13 @@ namespace Linq2Ldap.Tests
             var val = "(cn=one)";
             Searcher.RawFilter = val;
             Mock.Get(Searcher.Base).VerifySet(m => m.Filter = val, Times.Once);
+        }
+
+        [WindowsOnlyFact]
+        public void RawFilter_GetsWithoutError()
+        {
+            var val = Searcher.RawFilter;
+            Mock.Get(Searcher.Base).VerifyGet(m => m.Filter, Times.Once);
         }
     }
 }
