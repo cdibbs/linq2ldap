@@ -11,6 +11,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="linq2ldap.core" Version="0.1.0-alpha" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="moq" Version="4.10.0" />
     <PackageReference Include="system.directoryservices" Version="4.5.0" />
@@ -21,7 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Linq2Ldap\Linq2Ldap.csproj" />
     <ProjectReference Include="..\Linq2Ldap.TestUtil\Linq2Ldap.TestUtil.csproj" />
-    <ProjectReference Include="..\Linq2Ldap.Core\Linq2Ldap.Core.csproj" />
   </ItemGroup>
 
 </Project>

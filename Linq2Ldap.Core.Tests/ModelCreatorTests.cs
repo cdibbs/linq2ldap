@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoMapper;
-using Linq2Ldap.Core;
+﻿using System.Collections.Generic;
 using Linq2Ldap.Core.Attributes;
 using Linq2Ldap.Core.Models;
 using Linq2Ldap.Core.Proxies;
