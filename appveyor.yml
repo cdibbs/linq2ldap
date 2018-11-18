@@ -1,9 +1,14 @@
-version: '1.0.{build}'
+version: '1.1.{build}'
 image: Visual Studio 2017
 # https://dotnetcore.gaprogman.com/2017/06/08/continuous-integration-and-appveyor/
 branches:
   only:
   - master
+
+dotnet_csproj:
+  patch: true
+  file: 'Linq2Ldap\Linq2Ldap.csproj;Linq2Ldap.Protocols\Linq2Ldap.Protocols.csproj'
+  package_version: '{version}'
 
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
