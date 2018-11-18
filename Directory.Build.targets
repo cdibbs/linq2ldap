@@ -1,5 +1,5 @@
 <!-- https://github.com/Microsoft/vstest/issues/1129 -->
 <Project>
   <!--Override VSTest target when the project is no test project.-->
-  <Import Project="OverrideTest.targets" Condition="'$(IsTestProject)' != 'true' OR $(MSBuildProjectName) == 'Linq2Ldap.TestUtil'"/>
+  <Import Project="OverrideTest.targets" Condition="'$(IsTestProject)' != 'true' OR $(MSBuildProjectName) == 'Linq2Ldap.TestCommon'"/>
 </Project>
