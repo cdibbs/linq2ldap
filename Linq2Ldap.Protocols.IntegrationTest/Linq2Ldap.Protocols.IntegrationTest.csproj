@@ -9,20 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Linq2Ldap.Core" Version="0.1.1-alpha5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="Moq" Version="4.10.0" />
-    <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="4.5.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Linq2Ldap.Examples\Linq2Ldap.Examples.csproj" />
+    <ProjectReference Include="..\Linq2Ldap.Protocols\Linq2Ldap.Protocols.csproj" />
     <ProjectReference Include="..\Linq2Ldap.TestCommon\Linq2Ldap.TestCommon.csproj" />
   </ItemGroup>
 

@@ -1,3 +1,5 @@
+using Linq2Ldap.Core.Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices.Protocols;
 
@@ -6,27 +8,35 @@ using System.DirectoryServices.Protocols;
 namespace Linq2Ldap.Protocols
 {
     public class LinqSearchResponse<T>
-        where T: LinqSearchResultEntry, new()
+        where T: Entry, new()
     {
-        public LinqSearchResponse(SearchResponse response)
+        public LinqSearchResponse(SearchResponse response, IEnumerable entries)
         {
-            Response = response;
-        }
+            Native = response;
+            Entries = new List<T>();
+            if (entries == null) return;
+            foreach (dynamic entry in entries)
+            {
+                var converted = new T()
+                {
+                    DistinguishedName = entry.DistinguishedName,
+                    Attributes = entry.Attributes
+                };
 
-        public virtual SearchResponse Response { get; set; }
-
-        public virtual IEnumerable<T> Entries {
-            get {
-                foreach (SearchResultEntry entry in Response.Entries) {
-                    yield return new T() {
-                        DistinguishedName = entry.DistinguishedName,
-                        Attributes = entry.Attributes,
-                        Native = entry,
-                        Controls = entry.Controls
-                    };
+                if (converted is LinqSearchResultEntry sre)
+                {
+                    sre.Native = entry;
+                    sre.Controls = entry.Controls;
                 }
+
+                Entries.Add(converted);
             }
         }
 
+        public virtual SearchResponse Native { get; }
+
+        // Chris you want a wrapper type here that only accesses/converts a native entry upon request. This will keep it efficient.
+        // Protocols loads the whole set of entries all at once.
+        public virtual List<T> Entries { get; }
     }
 }

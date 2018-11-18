@@ -1,6 +1,6 @@
-using Linq2Ldap.IntegrationTest.Models;
 using Linq2Ldap.Core.ExtensionMethods;
 using Linq2Ldap.Core.Specifications;
+using Linq2Ldap.TestCommon.Models;
 
 namespace Linq2Ldap.IntegrationTest.LocalExpressionEvaluation {
     // The example from the readme

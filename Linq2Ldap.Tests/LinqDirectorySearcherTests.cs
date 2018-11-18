@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using Linq2Ldap.Core;
 using Linq2Ldap.Core.Proxies;
 using Linq2Ldap.Proxies;
-using Linq2Ldap.TestUtil;
+using Linq2Ldap.TestCommon;
 using Moq;
 using Xunit;
 

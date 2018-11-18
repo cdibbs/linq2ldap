@@ -1,6 +1,6 @@
+using Linq2Ldap.TestCommon.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Linq2Ldap.IntegrationTest.Models;
 using Xunit;
 
 namespace Linq2Ldap.IntegrationTest.LocalExpressionEvaluation

@@ -22,7 +22,7 @@ namespace Linq2Ldap.Protocols
         {
         }
 
-        public Expression<Func<T, bool>> LinqFilter {
+        public new Expression<Func<T, bool>> Filter {
             get {
                 if (base.Filter is string f) {
                     return FilterParser.Parse<T>(f);
@@ -33,7 +33,7 @@ namespace Linq2Ldap.Protocols
             }
 
             set {
-                Filter = FilterCompiler.Compile(value);
+                base.Filter = FilterCompiler.Compile(value);
             }
         }
     }

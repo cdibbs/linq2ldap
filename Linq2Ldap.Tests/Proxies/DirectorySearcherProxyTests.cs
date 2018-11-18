@@ -1,7 +1,7 @@
 using System.DirectoryServices;
 using Linq2Ldap.Proxies;
 using Xunit;
-using Linq2Ldap.TestUtil;
+using Linq2Ldap.TestCommon;
 
 namespace Linq2Ldap.Tests.Proxies {
     public class DirectorySearcherProxyTests {
