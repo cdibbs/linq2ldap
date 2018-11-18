@@ -41,7 +41,7 @@ after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "*.Tests/coverage.opencover.xml"
+      bash codecov.sh -f "Linq2Ldap.Tests/coverage.opencover.xml" -f "Linq2Ldap.Protocols.Tests/coverage.opencover.xml"
   - dotnet pack ./Linq2Ldap.Protocols/ -c Release
   - dotnet pack ./Linq2Ldap/ -c Release
 
