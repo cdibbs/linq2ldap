@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.DirectoryServices;
 using System.Text;
 using Linq2Ldap.Core.Proxies;
@@ -25,7 +26,8 @@ namespace Linq2Ldap.Proxies
 
         public DirectoryEntryPropertyCollection Properties { get; set; }
 
+        [ExcludeFromCodeCoverage]
         public static implicit operator SearchResultProxy(SearchResult result)
-            => result == null ? null : new SearchResultProxy(result, result?.Properties, result?.Path);
+            => result == null ? null : new SearchResultProxy(result, result.Properties, result.Path);
     }
 }

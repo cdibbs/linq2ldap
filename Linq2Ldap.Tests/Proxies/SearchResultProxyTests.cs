@@ -4,6 +4,7 @@ using Xunit;
 using Linq2Ldap.TestCommon;
 using System.Collections.Generic;
 using Linq2Ldap.Core.Proxies;
+using System.Runtime.Serialization;
 
 namespace Linq2Ldap.Tests.Proxies
 {

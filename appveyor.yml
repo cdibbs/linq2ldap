@@ -35,7 +35,7 @@ build_script:
   - cmd: dotnet publish ./Linq2Ldap.sln
 
 test_script:
-  - ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.sln
+  - ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude="[Linq2Ldap.TestCommon]*" /p:CoverletOutput=./ Linq2Ldap.sln
 
 after_test:
   - ps: |
