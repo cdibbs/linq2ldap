@@ -33,43 +33,12 @@ public IEnumerable<T> Page<T>(
 }
 ```
 
-## System.DirectoryServices.Protocols Example
-
-```c#
-public IEnumerable<T> Page<T>(
-	Specification<T> spec,
-	int offsetPage = 0, int pageSize = 10,
-	SortKey[] sortKeys = null)
-	where T : IEntry, new()
-{
-	LinqSearchResponse<T> result = null;
-	int curPage = 0;
-	while (curPage++ <= offsetPage)
-	{
-		var search = new LinqSearchRequest<T>(DistinguishedName, spec.AsExpression(), Scope);
-		var pageControl = new PageResultRequestControl(pageSize);
-		var soc = new SearchOptionsControl(SearchOption.DomainScope);
-		search.Controls.Add(pageControl);
-		search.Controls.Add(soc);
-		if (sortKeys != null)
-		{
-			var sortControl = new SortRequestControl(sortKeys);
-			search.Controls.Add(sortControl);
-		}
-		result = Connection.SendRequest(search);
-	}
-
-	return result?.Entries;
-}
-```
-
-Please note that, at the time of writing, the `System.DirectoryServices.*` libraries and, therefore, this
-library's abstraction layer, are not compatible with Mac/Linux. You should still be able to use the LINQ
-Transpiler in [Linq2Ldap.Core][core] with a non-Windows LDAP library, however, since RFC 1960 filters are cross-platform.
+Please note that even though the `System.DirectoryServices.*` libraries aren't compatible with Mac/Linux,
+you should still be able to use the LINQ Transpiler in [Linq2Ldap.Core][core] with a non-Windows LDAP library.
 
 For more information, please visit the [Wiki](https://github.com/cdibbs/linq2ldap/wiki).
 
-# Development setup
+## Development setup
 
 Please see our [wiki page][wiki-dev].
 
