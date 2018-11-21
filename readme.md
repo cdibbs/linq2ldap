@@ -71,30 +71,11 @@ For more information, please visit the [Wiki](https://github.com/cdibbs/linq2lda
 
 # Development setup
 
-## Code coverage 
+Please see our [wiki page][wiki-dev].
 
-To setup free code coverage analysis in VS Code, see this:
+## Contributing
 
-https://medium.com/bluekiri/code-coverage-in-vsts-with-xunit-coverlet-and-reportgenerator-be2a64cd9c2f
-
-If not using Visual Studio Code, please see .vscode/tasks.json for examples to run the build and tests.
-
-## End-to-end testing
-
-In VS Code, open a terminal, then launch a second pane (the icon to the right of the plus sign).
-In that pane:
-
-```bash
-cd e2e-helpers
-npm install
-npm run serve
-```
-
-After the LDAP test server is running, you can use the other pane to run integration tests.
-
-```
-dotnet test .\Linq2Ldap.IntegrationTest\
-```
+Do you appreciate the hard work that went into this software? We accept [donations]!
 
 [banner]: https://github.com/cdibbs/linq2ldap/blob/master/resources/header.svg "The only way to discover the limits of the possible is to go beyond them into the impossible. - Arthur C. Clarke"
 [1]: https://github.com/cdibbs/linq2ldap/blob/master/Linq2Ldap/Specification.cs#L42
@@ -103,3 +84,4 @@ dotnet test .\Linq2Ldap.IntegrationTest\
 [codecovimg]: https://codecov.io/gh/cdibbs/linq2ldap/branch/master/graph/badge.svg
 [codecovlink]: https://codecov.io/gh/cdibbs/linq2ldap
 [core]: https://github.com/cdibbs/linq2ldap.core
+[wiki-dev]: https://github.com/cdibbs/linq2ldap/wiki/Development-Setup
