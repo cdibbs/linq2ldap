@@ -38,13 +38,13 @@ you should still be able to use the LINQ Transpiler in [Linq2Ldap.Core][core] wi
 
 For more information, please visit the [Wiki](https://github.com/cdibbs/linq2ldap/wiki).
 
-## Development setup
-
-Please see our [wiki page][wiki-dev].
-
 ## Contributing
 
 Do you appreciate the hard work that went into this software? We accept [donations]!
+
+### Development setup
+
+Please see our [wiki page][wiki-dev].
 
 [banner]: https://github.com/cdibbs/linq2ldap/blob/master/resources/header.svg "The only way to discover the limits of the possible is to go beyond them into the impossible. - Arthur C. Clarke"
 [1]: https://github.com/cdibbs/linq2ldap/blob/master/Linq2Ldap/Specification.cs#L42
@@ -54,3 +54,4 @@ Do you appreciate the hard work that went into this software? We accept [donatio
 [codecovlink]: https://codecov.io/gh/cdibbs/linq2ldap
 [core]: https://github.com/cdibbs/linq2ldap.core
 [wiki-dev]: https://github.com/cdibbs/linq2ldap/wiki/Development-Setup
+[donations]: https://cdibbs.github.io/foss-giving
