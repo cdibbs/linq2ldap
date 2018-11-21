@@ -20,13 +20,13 @@ namespace Linq2Ldap.IntegrationTest
     {
         private IMapper Mapper;
         private ILdapFilterCompiler Compiler;
-        private LDAPRepository Repo;
+        private LdapRepository Repo;
         private DirectoryEntry Entry;
         public RepositoryTest()
         {
             Compiler = new LdapFilterCompiler();
             Entry = new DirectoryEntry("LDAP://localhost:389/o=example", "cn=neoman,ou=users,o=example", "testtest", AuthenticationTypes.None);
-            Repo = new LDAPRepository(Entry);
+            Repo = new LdapRepository(Entry);
         }
 
         [Fact]

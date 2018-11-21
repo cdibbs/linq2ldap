@@ -8,7 +8,7 @@ using System.DirectoryServices.Protocols;
 namespace Linq2Ldap.Protocols
 {
     public class LinqSearchResponse<T>
-        where T: Entry, new()
+        where T: IEntry, new()
     {
         public LinqSearchResponse(SearchResponse response, IEnumerable entries)
         {

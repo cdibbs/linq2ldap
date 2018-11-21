@@ -8,18 +8,18 @@ using AutoMapper;
 
 namespace Linq2Ldap.Examples.Repository
 {
-    public class LDAPRepositoryFactory
+    public class LdapRepositoryFactory
     {
-        public LDAPRepositoryFactory() {}
+        public LdapRepositoryFactory() {}
 
-        public LDAPRepository Build()
+        public LdapRepository Build()
         {
-            return new LDAPRepository();
+            return new LdapRepository();
         }
 
-        public LDAPRepository Build(DirectoryEntry entry)
+        public LdapRepository Build(DirectoryEntry entry)
         {
-            return new LDAPRepository(entry);
+            return new LdapRepository(entry);
         }
     }
 }

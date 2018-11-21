@@ -26,7 +26,7 @@ namespace Linq2Ldap.Protocols {
         }
 
         public LinqSearchResponse<T> SendRequest<T>(LinqSearchRequest<T> request)
-            where T : Entry, new()
+            where T : IEntry, new()
         {
             var native = LdapConnectionProxy.SendRequest(request) as SearchResponse;
             return new LinqSearchResponse<T>(native, native?.Entries);

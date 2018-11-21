@@ -11,24 +11,24 @@ using Linq2Ldap.Core.Specifications;
 
 namespace Linq2Ldap.Examples.Repository
 {
-    public class LDAPRepository : ILDAPRepository
+    public class LdapRepository : ILdapRepository
     {
-        protected DirectoryEntry Entry { get; set; }
+        protected DirectoryEntry RepoEntry { get; set; }
 
-        public LDAPRepository()
+        public LdapRepository()
             : this(Domain.GetDomain(new DirectoryContext(DirectoryContextType.Domain)).GetDirectoryEntry())
         {
         }
 
-        public LDAPRepository(DirectoryEntry entry)
+        public LdapRepository(DirectoryEntry entry)
         {
-            Entry = entry;
+            RepoEntry = entry;
         }
 
         public T FindOne<T>(Specification<T> spec)
             where T: IEntry, new()
         {
-            var searcher = new LinqDirectorySearcher<T>(Entry);
+            var searcher = new LinqDirectorySearcher<T>(RepoEntry);
             searcher.SearchScope = SearchScope.Subtree;
             searcher.Filter = spec;
             var result = searcher.FindOne();
@@ -41,7 +41,7 @@ namespace Linq2Ldap.Examples.Repository
         public T[] FindAll<T>(Specification<T> spec)
             where T: IEntry, new()
         {
-            var searcher = new LinqDirectorySearcher<T>(Entry);
+            var searcher = new LinqDirectorySearcher<T>(RepoEntry);
             searcher.SearchScope = SearchScope.Subtree;
             searcher.Filter = spec;
             searcher.PropertiesToLoad.Clear();
@@ -70,7 +70,7 @@ namespace Linq2Ldap.Examples.Repository
             SortOption sortOpt = null)
             where T : IEntry, new()
         {
-            var searcher = new LinqDirectorySearcher<T>(Entry);
+            var searcher = new LinqDirectorySearcher<T>(RepoEntry);
             searcher.SearchScope = SearchScope.Subtree;
             searcher.Filter = spec;
             searcher.VirtualListView = new DirectoryVirtualListView(
@@ -86,7 +86,7 @@ namespace Linq2Ldap.Examples.Repository
         {
             var name = "o=example";
             var schemaClassName = "top";
-            var newEntry = Entry.Children.Add(name, schemaClassName);
+            var newEntry = RepoEntry.Children.Add(name, schemaClassName);
             newEntry.Properties["mail"].Add("something@example.com");
             newEntry.CommitChanges();            
         }

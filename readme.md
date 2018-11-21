@@ -2,26 +2,28 @@
 [![Build status][appveyorimg]][appveyorlink]
 [![codecov][codecovimg]][codecovlink]
 
-# Linq2Ldap
+# Linq2Ldap.*
 
 This project wraps [Linq2Ldap.Core][core] to facilitate LINQ-based querying of LDAP using the System.DirectoryServices
-and System.DirectoryServices.Protocols libraries. The intention is to facilitate using Expressions so you don't have to
-litter your code with yet another meta language (RFC 1960 LDAP filter strings).
+and System.DirectoryServices.Protocols libraries. The intention is to facilitate using built-in LINQ Expressions so you
+don't have to use yet another metaprogramming target language in your code base.
 
-Here is an example which uses Expressions encapsulated by the Specification pattern to page through LDAP results.
+Here are a couple examples that use Expressions to page through LDAP results.
+
+## System.DirectoryServices Example
 
 ```c#
 public IEnumerable<T> Page<T>(
-    Specification<T> spec,
+    Expression<Func<T, bool>> filter,
     int offsetPage = 0,
     int pageSize = 10,
     SortOption sortOpt = null
 )
     where T : Entry
 {
-    var searcher = new LinqDirectorySearcher<T>(Entry);
+    var searcher = new LinqDirectorySearcher<T>(DirEntry);
     searcher.SearchScope = SearchScope.Subtree;
-    searcher.Filter = spec;
+    searcher.Filter = filter; // (.AsExpression() is implicit, here)
     searcher.VirtualListView = new DirectoryVirtualListView(
         0, pageSize - 1, pageSize * offsetPage + 1);
 
@@ -29,6 +31,11 @@ public IEnumerable<T> Page<T>(
     searcher.Sort = sortOpt ?? new SortOption("cn", SortDirection.Ascending);
     return searcher.FindAll();
 }
+```
+
+## System.DirectoryServices.Protocols Example
+
+```c#
 ```
 
 Please note that, at the time of writing, the `System.DirectoryServices.*` libraries and, therefore, this

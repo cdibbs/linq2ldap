@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Linq2Ldap.Protocols.Examples\Linq2Ldap.Protocols.Examples.csproj" />
     <ProjectReference Include="..\Linq2Ldap.Protocols\Linq2Ldap.Protocols.csproj" />
     <ProjectReference Include="..\Linq2Ldap.TestCommon\Linq2Ldap.TestCommon.csproj" />
   </ItemGroup>

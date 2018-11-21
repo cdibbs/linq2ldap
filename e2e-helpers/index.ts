@@ -82,7 +82,8 @@ class MockLdapInstance {
             }.bind(this), fakeLatency);
         }.bind(this));
 
-        this.ldapServer.search('', function(req, res, next) {
+        this.ldapServer.search('', function (req, res, next) {
+            console.log("\nIncoming search request\n", req.baseObject.toString(), req.scope.toString(), req.filter.toString());
             if (req.scope.toString() === "base" && req.filter.toString() === "(objectclass=*)") {
                 console.log("Received root DSE request.");
                 // https://ldap.com/dit-and-the-ldap-root-dse/
@@ -93,8 +94,11 @@ class MockLdapInstance {
                             'dc=example, dc=com'
                         ],
                         subschemaSubentry: 'dc=example, dc=com',
-                        supportedLDAPVersion: "2",
-                        supportedControl: [],
+                        supportedLDAPVersion: "3",
+
+                        // https://docs.microsoft.com/en-us/windows/desktop/adschema/rootdse
+                        supportedControl: ["1.2.840.113556.1.4.319" /*page */, "1.2.840.113556.1.4.473" /* sort */],
+
                         supportedSASLMechanisms: [],
                         supportedFeatures: [],
                         dn: `dc=example, dc=com`,
@@ -107,7 +111,6 @@ class MockLdapInstance {
                 return;
             }
 
-            console.log("\nIncoming search request\n", req.baseObject.toString(), req.scope.toString(), req.filter.toString());
             setTimeout(function() {
                 this.searchHandler.call(this.ldapServer, this, req, res, next);
             }.bind(this), fakeLatency);
@@ -151,7 +154,6 @@ class MockLdapInstance {
           if(self.directory[i].dn === bindDN && 
              credentials === self.directory[i].attributes.password &&
              self.directory[i].attributes.employeetype !== 'DISABLED') {
-    
             this.emit('bind', {
               success: true,
               dn: bindDN,
@@ -172,18 +174,23 @@ class MockLdapInstance {
         return next(new (<any>ldap).InvalidCredentialsError());
       }
     
-      searchHandler(self: MockLdapInstance, req, res, next) {
-        self.directory.forEach(function(user) {
-          // this test is pretty dumb, make sure in the directory
-          // that things are spaced / cased exactly
-            console.log(`search: ${req.baseObject} | ${user.dn} | ${user.dn.indexOf(req.baseObject.toString())}`);
-          if (user.dn.indexOf(req.baseObject.toString()) === -1) {
+    searchHandler(self: MockLdapInstance, req, res, next) {
+        console.log(`search: ${req.baseObject} ${req}`);
+        var pageCtrl = req.controls.find(c => c.type == "1.2.840.113556.1.4.319");
+        var sortCtrl = req.controls.find(c => c.type == "1.2.840.113556.1.4.473");
+        var i = 0;
+        self.directory.forEach(function (user) {
+            if (req.sizeLimit != 0 && i++ > req.sizeLimit) return true;
+            if (pageCtrl && i++ > pageCtrl.value.size) return true;
+            // this test is pretty dumb, make sure in the directory
+            // that things are spaced / cased exactly
+            if (user.dn.indexOf(req.baseObject.toString()) === -1) {
             return;
-          }
+            }
     
-          if (req.filter.matches(user.attributes)) {
+            if (req.filter.matches(user.attributes)) {
             res.send(user);
-          }
+            }
         });
     
         res.end();
