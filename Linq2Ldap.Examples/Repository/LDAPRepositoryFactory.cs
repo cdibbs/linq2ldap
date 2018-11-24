@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.DirectoryServices;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using AutoMapper;
+﻿using System.DirectoryServices;
 
 namespace Linq2Ldap.Examples.Repository
 {

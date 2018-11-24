@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
+using System.Linq;
 using System.Linq.Expressions;
-using AutoMapper;
 using Linq2Ldap.Core;
 using Linq2Ldap.Core.Models;
 using Linq2Ldap.Core.Proxies;
@@ -35,7 +35,7 @@ namespace Linq2Ldap.Examples.Repository
             /*var pnames = new string[results[0].Properties.PropertyNames.Count];
             results[0].Properties.PropertyNames.CopyTo(pnames, 0);
             var str = pnames.Join(",");*/
-            return Mapper.Map<T>(result);
+            return result;
         }
 
         public T[] FindAll<T>(Specification<T> spec)
@@ -50,7 +50,7 @@ namespace Linq2Ldap.Examples.Repository
             /*var pnames = new string[results[0].Properties.PropertyNames.Count];
             results[0].Properties.PropertyNames.CopyTo(pnames, 0);
             var str = pnames.Join(",");*/
-            return Mapper.Map<T[]>(results);
+            return results.ToArray();
         }
 
         /// <summary>

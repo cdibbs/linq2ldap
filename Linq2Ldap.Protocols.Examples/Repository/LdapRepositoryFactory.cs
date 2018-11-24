@@ -5,7 +5,6 @@ using System.DirectoryServices.Protocols;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using AutoMapper;
 using Linq2Ldap.Protocols;
 using Linq2Ldap.Protocols.Examples.Repository;
 
