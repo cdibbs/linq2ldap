@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Linq2Ldap.Protocols.Proxies;
+using Moq;
 using System.DirectoryServices.Protocols;
 using System.Net;
 using System.Runtime.Serialization;

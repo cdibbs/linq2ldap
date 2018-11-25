@@ -2,6 +2,7 @@ using System.DirectoryServices.Protocols;
 using System.Net;
 using System.Runtime.CompilerServices;
 using Linq2Ldap.Core.Models;
+using Linq2Ldap.Protocols.Proxies;
 
 [assembly: InternalsVisibleTo("Linq2Ldap.Protocols.Tests")]
 namespace Linq2Ldap.Protocols {

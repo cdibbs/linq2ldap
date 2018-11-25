@@ -15,7 +15,7 @@ namespace Linq2Ldap.Proxies
         {
         }
 
-        public SearchResultProxy(SearchResult result, DirectoryEntryPropertyCollection properties, string path)
+        public SearchResultProxy(SearchResult result, EntryAttributeDictionary properties, string path)
         {
             Result = result;
             Properties = properties;
@@ -24,7 +24,7 @@ namespace Linq2Ldap.Proxies
 
         public string Path { get; set; }
 
-        public DirectoryEntryPropertyCollection Properties { get; set; }
+        public EntryAttributeDictionary Properties { get; set; }
 
         [ExcludeFromCodeCoverage]
         public static implicit operator SearchResultProxy(SearchResult result)

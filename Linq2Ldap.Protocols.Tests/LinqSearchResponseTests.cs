@@ -20,7 +20,7 @@ namespace Linq2Ldap.Protocols.Tests
                 new FakeSearchResultEntry()
                 {
                     DistinguishedName = "awesome",
-                    Attributes = new DirectoryEntryPropertyCollection(),
+                    Attributes = new EntryAttributeDictionary(),
                     Controls = new DirectoryControl[0]
                 }
             };
@@ -37,7 +37,7 @@ namespace Linq2Ldap.Protocols.Tests
         public class FakeSearchResultEntry // must have same attributes as inaccessible SearchResultEntry
         {
             public string DistinguishedName { get; set; }
-            public DirectoryEntryPropertyCollection Attributes { get; set; }
+            public EntryAttributeDictionary Attributes { get; set; }
             public DirectoryControl[] Controls { get; set; }
         }
     }

@@ -27,7 +27,7 @@ namespace Linq2Ldap.Tests
             var first = new SearchResultProxy()
             {
                 Path = "ou=some,com=path",
-                Properties = new DirectoryEntryPropertyCollection()
+                Properties = new EntryAttributeDictionary()
             };
             var data = new SearchResultCollectionProxy(new List<SearchResultProxy>() { first });
             Mock.Get(Searcher.Base)
@@ -42,7 +42,7 @@ namespace Linq2Ldap.Tests
             var data = new SearchResultProxy()
             {
                 Path = "ou=some,com=path",
-                Properties = new DirectoryEntryPropertyCollection()
+                Properties = new EntryAttributeDictionary()
             };
             Mock.Get(Searcher.Base)
                 .Setup(m => m.FindOne())

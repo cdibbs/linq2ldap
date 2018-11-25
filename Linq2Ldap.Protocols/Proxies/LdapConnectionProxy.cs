@@ -4,7 +4,7 @@ using System.DirectoryServices.Protocols;
 using System.Net;
 using System.Text;
 
-namespace Linq2Ldap.Protocols
+namespace Linq2Ldap.Protocols.Proxies
 {
     public class LdapConnectionProxy : LdapConnection, ILdapConnectionProxy
     {

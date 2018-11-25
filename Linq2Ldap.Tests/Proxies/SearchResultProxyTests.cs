@@ -18,7 +18,7 @@ namespace Linq2Ldap.Tests.Proxies
 
         [WindowsOnlyFact]
         public void Constructs() {
-            var props = new DirectoryEntryPropertyCollection(new Dictionary<string, Core.Proxies.PropertyValueCollection>());
+            var props = new EntryAttributeDictionary(new Dictionary<string, Core.Proxies.AttributeValueList>());
             var path = "something";
             var p = new SearchResultProxy(null, props, path);
             Assert.Equal(path, p.Path);

@@ -51,9 +51,9 @@ namespace Linq2Ldap.Protocols.IntegrationTest.Remote
             var repo = Factory.Build("dc=example, dc=com", SearchScope.Subtree);
             var e = new Entry() {
                 DistinguishedName = "mail=user20@example.com, dc=example, dc=com",
-                Attributes = new DirectoryEntryPropertyCollection()
+                Attributes = new EntryAttributeDictionary()
                 {
-                    { "backup-mail", new PropertyValueCollection("someaddress@example.com") }
+                    { "backup-mail", new AttributeValueList("someaddress@example.com") }
                 }
             };
             repo.Add(e);

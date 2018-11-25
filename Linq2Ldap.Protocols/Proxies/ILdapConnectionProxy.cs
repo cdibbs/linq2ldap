@@ -1,6 +1,6 @@
 ﻿using System.DirectoryServices.Protocols;
 
-namespace Linq2Ldap.Protocols
+namespace Linq2Ldap.Protocols.Proxies
 {
     public interface ILdapConnectionProxy
     {

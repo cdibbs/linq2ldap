@@ -1,6 +1,8 @@
 ![LINQ2LDAP][banner]
+[![MIT License][license-badge]][LICENSE]
 [![Build status][appveyorimg]][appveyorlink]
 [![codecov][codecovimg]][codecovlink]
+[![Code of Conduct][coc-badge]][coc]
 
 # Linq2Ldap.*
 
@@ -51,3 +53,7 @@ Do you appreciate the hard work that went into this software? We accept [donatio
 [core]: https://github.com/cdibbs/linq2ldap.core
 [wiki-dev]: https://github.com/cdibbs/linq2ldap/wiki/Development-Setup
 [donations]: https://cdibbs.github.io/foss-giving
+[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
+[coc]: https://github.com/cdibbs/linq2ldap/blob/master/code_of_conduct.md
+[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[LICENSE]: https://github.com/ossplz/alsatian-fluent-assertions/blob/master/LICENSE

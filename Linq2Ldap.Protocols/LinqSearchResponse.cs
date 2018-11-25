@@ -35,8 +35,6 @@ namespace Linq2Ldap.Protocols
 
         public virtual SearchResponse Native { get; }
 
-        // Chris you want a wrapper type here that only accesses/converts a native entry upon request. This will keep it efficient.
-        // Protocols loads the whole set of entries all at once.
         public virtual List<T> Entries { get; }
     }
 }
