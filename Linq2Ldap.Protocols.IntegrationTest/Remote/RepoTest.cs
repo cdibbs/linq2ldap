@@ -33,8 +33,21 @@ namespace Linq2Ldap.Protocols.IntegrationTest.Remote
         public void Page_RunsWithoutError()
         {
             var repo = Factory.Build("dc=example, dc=com", SearchScope.Subtree);
-            var results = repo.Page(Specification<MyModel>.Start(m => m.Mail.StartsWith("user"))).ToList();
+            var results = repo.Page(Specification<MyModel>.Start(m => m.Mail.StartsWith("user")), withVlv: false).ToList();
             Assert.Equal(10, results.Count);
+        }
+
+        [Fact]
+        public void PageWithVlv_RunsWithoutError()
+        {
+            var repo = Factory.Build("dc=example, dc=com", SearchScope.Subtree);
+            var results = repo.PageWithVLV(
+                Specification<MyModel>.Start(m => m.Mail.StartsWith("user")),
+                offsetPage: 1,
+                pageSize: 5,
+                sortKeys: new[] { new SortKey("mail", "caseExactMatch", false) })
+                .ToList();
+            Assert.Equal(5, results.Count);
         }
 
         [Fact]

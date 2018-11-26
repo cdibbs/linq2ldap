@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.DirectoryServices.Protocols;
 using System.Linq;
-using System.Linq.Expressions;
-using Linq2Ldap.Core;
 using Linq2Ldap.Core.Models;
-using Linq2Ldap.Core.Proxies;
 using Linq2Ldap.Core.Specifications;
-using Linq2Ldap.Protocols;
 
 namespace Linq2Ldap.Protocols.Examples.Repository
 {
@@ -54,10 +50,11 @@ namespace Linq2Ldap.Protocols.Examples.Repository
         /// <param name="pageSize">Size of a page. Default = 10.</param>
         /// <param name="sortKeys">Sorting options.</param>
         /// <returns></returns>
-        public IEnumerable<T> Page<T>(
+        public virtual IEnumerable<T> PageWithPageControl<T>(
             Specification<T> spec,
             int offsetPage = 0, int pageSize = 10,
-            SortKey[] sortKeys = null)
+            SortKey[] sortKeys = null
+        )
             where T : IEntry, new()
         {
             LinqSearchResponse<T> result = null;
@@ -78,6 +75,69 @@ namespace Linq2Ldap.Protocols.Examples.Repository
             }
 
             return result?.Entries;
+        }
+
+        /// <summary>
+        /// Pages through LDAP results filtered by Linq spec.
+        /// Caveats:
+        /// (1) paging iterates through all prior pages - a limitation of LDAP,
+        /// (2) sorting can only take one attribute, and that attribute must be
+        /// indexed in LDAP, or the server-side sort will fail. 
+        /// </summary>
+        /// <typeparam name="T">The mapped type.</typeparam>
+        /// <param name="spec">The filter specification.</param>
+        /// <param name="offsetPage">How many pages into the results. 0 = first page.</param>
+        /// <param name="pageSize">Size of a page. Default = 10.</param>
+        /// <param name="sortKeys">Sorting options.</param>
+        /// <returns></returns>
+        public virtual IEnumerable<T> PageWithVLV<T>(
+            Specification<T> spec,
+            int offsetPage = 0, int pageSize = 10,
+            SortKey[] sortKeys = null
+        )
+            where T : IEntry, new()
+        {
+            var search = new LinqSearchRequest<T>(DistinguishedName, spec.AsExpression(), Scope);
+            var pageControl = new VlvRequestControl(0, pageSize - 1, pageSize * offsetPage + 1);
+            var soc = new SearchOptionsControl(SearchOption.DomainScope);
+            search.Controls.Add(pageControl);
+            search.Controls.Add(soc);
+            if (sortKeys != null)
+            {
+                var sortControl = new SortRequestControl(sortKeys);
+                search.Controls.Add(sortControl);
+            }
+            return Connection.SendRequest(search).Entries;
+        }
+
+        /// <summary>
+        /// Pages through LDAP results filtered by Linq spec.
+        /// Caveats:
+        /// (1) paging iterates through all prior pages - a limitation of LDAP,
+        /// (2) sorting can only take one attribute, and that attribute must be
+        /// indexed in LDAP, or the server-side sort will fail. 
+        /// </summary>
+        /// <typeparam name="T">The mapped type.</typeparam>
+        /// <param name="spec">The filter specification.</param>
+        /// <param name="offsetPage">How many pages into the results. 0 = first page.</param>
+        /// <param name="pageSize">Size of a page. Default = 10.</param>
+        /// <param name="sortKeys">Sorting options.</param>
+        /// <param name="withVlv">Whether to use VLV paging, or the slower PageControl paging.</param>
+        /// <returns>The page of results matching the spec.</returns>
+        public IEnumerable<T> Page<T>(
+            Specification<T> spec,
+            int offsetPage = 0, int pageSize = 10,
+            SortKey[] sortKeys = null,
+            bool withVlv = true
+        )
+            where T : IEntry, new()
+        {
+            if (withVlv)
+            {
+                return PageWithVLV(spec, offsetPage, pageSize, sortKeys);
+            }
+
+            return PageWithPageControl(spec, offsetPage, pageSize, sortKeys);
         }
 
         public void Add<T>(T entity)

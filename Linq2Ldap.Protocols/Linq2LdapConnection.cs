@@ -26,6 +26,7 @@ namespace Linq2Ldap.Protocols {
             LdapConnectionProxy = this;
         }
 
+        /// <inheritdoc />
         public LinqSearchResponse<T> SendRequest<T>(LinqSearchRequest<T> request)
             where T : IEntry, new()
         {

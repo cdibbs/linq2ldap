@@ -1,4 +1,6 @@
 import ldap = require('ldapjs');
+import { getMaxListeners } from 'cluster';
+import { BerReader } from "asn1";
 
 interface Attribute {
     type: string;
@@ -97,7 +99,10 @@ class MockLdapInstance {
                         supportedLDAPVersion: "3",
 
                         // https://docs.microsoft.com/en-us/windows/desktop/adschema/rootdse
-                        supportedControl: ["1.2.840.113556.1.4.319" /*page */, "1.2.840.113556.1.4.473" /* sort */],
+                        supportedControl: [
+                            "2.16.840.1.113730.3.4.9" /* vlv paging */,
+                            "1.2.840.113556.1.4.319" /* page */,
+                            "1.2.840.113556.1.4.473" /* sort */],
 
                         supportedSASLMechanisms: [],
                         supportedFeatures: [],
@@ -178,10 +183,19 @@ class MockLdapInstance {
         console.log(`search: ${req.baseObject} ${req}`);
         var pageCtrl = req.controls.find(c => c.type == "1.2.840.113556.1.4.319");
         var sortCtrl = req.controls.find(c => c.type == "1.2.840.113556.1.4.473");
-        var i = 0;
+        var vlvCtrl = self.getVlv(req.controls.find(c => c.type == "2.16.840.1.113730.3.4.9"));
+        console.log(vlvCtrl);
+        var i = -1;
+        if (pageCtrl && vlvCtrl) {
+            throw new Error("Conflicting Page and VLV controls?");
+        }
+
         self.directory.forEach(function (user) {
-            if (req.sizeLimit != 0 && i++ > req.sizeLimit) return true;
-            if (pageCtrl && i++ > pageCtrl.value.size) return true;
+            i = i + 1;
+            if (vlvCtrl && vlvCtrl.target - vlvCtrl.beforeCount > i) return;
+            if (vlvCtrl && vlvCtrl.target + vlvCtrl.afterCount < i) return true;
+            if (req.sizeLimit > 0 && i > req.sizeLimit) return true;
+            if (pageCtrl && i > pageCtrl.value.size) return true;
             // this test is pretty dumb, make sure in the directory
             // that things are spaced / cased exactly
             if (user.dn.indexOf(req.baseObject.toString()) === -1) {
@@ -196,6 +210,28 @@ class MockLdapInstance {
         res.end();
         return next();
       }
+
+      getVlv(ctrl) {
+        if (! ctrl) {
+            return null;
+        }
+
+        var ber = new BerReader(ctrl.value);
+        if (ber.readSequence()) {
+            let v: any= {};
+            v.beforeCount = ber.readInt();
+            v.afterCount = ber.readInt();
+            if (ber.readSequence()) {
+                v.target = ber.readInt();
+            } else {
+                v.target = -1;
+            }
+            return v;
+        }
+
+        return null;
+      }
+
     
       // some middleware to make sure the user has a successfully bind
       authorize(this: any, self: MockLdapInstance, req, res, next) {

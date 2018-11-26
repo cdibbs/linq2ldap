@@ -24,6 +24,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/ldapjs": "^1.0.3",
+    "asn1": "^0.2.4",
     "ldapjs": "^1.0.2",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.1"
