@@ -2,6 +2,7 @@ using Linq2Ldap.Core.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices.Protocols;
+using Linq2Ldap.Core;
 
 // https://stackoverflow.com/questions/15733900/dynamically-creating-a-proxy-class
 // https://github.com/dotnet/corefx/blob/master/src/System.DirectoryServices.Protocols/src/System/DirectoryServices/Protocols/common/DirectoryResponse.cs
@@ -20,18 +21,19 @@ namespace Linq2Ldap.Protocols
         /// </summary>
         /// <param name="response">The native search response object.</param>
         /// <param name="entries">The entries from the native search response.</param>
-        public LinqSearchResponse(SearchResponse response, IEnumerable entries)
+        public LinqSearchResponse(
+            SearchResponse response,
+            IEnumerable entries,
+            IModelCreator modelCreator = null)
         {
+            modelCreator = modelCreator ?? new ModelCreator();
             Native = response;
             Entries = new List<T>();
             if (entries == null) return;
             foreach (dynamic entry in entries)
             {
-                var converted = new T()
-                {
-                    DistinguishedName = entry.DistinguishedName,
-                    Attributes = entry.Attributes
-                };
+                var converted = modelCreator.Create<T>(entry.Attributes, entry.DistinguishedName);
+                converted.Attributes = entry.Attributes;
                 if (converted is LinqSearchResultEntry sre)
                 {
                     sre.Native = entry;
