@@ -1,4 +1,4 @@
-version: '1.1.{build}'
+version: '0.1.0-{build}'
 image: Visual Studio 2017
 # https://dotnetcore.gaprogman.com/2017/06/08/continuous-integration-and-appveyor/
 branches:
