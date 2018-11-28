@@ -16,9 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="linq2ldap.core" Version="1.3.17" />
+    <PackageReference Include="Linq2Ldap.Core" Version="1.3.17" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="System.DirectoryServices.Protocols" Version="4.5.0" />
-    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
   </ItemGroup>
 </Project>
