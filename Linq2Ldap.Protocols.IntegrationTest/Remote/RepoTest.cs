@@ -1,14 +1,11 @@
 ﻿using Linq2Ldap.Core.Models;
 using Linq2Ldap.Core.Proxies;
-using Linq2Ldap.Core.Specifications;
+using Linq2Ldap.ExampleCommon.Specifications;
 using Linq2Ldap.Protocols.Examples.Repository;
 using Linq2Ldap.TestCommon.Models;
-using System;
-using System.Collections.Generic;
 using System.DirectoryServices.Protocols;
 using System.Linq;
 using System.Net;
-using System.Text;
 using Xunit;
 
 namespace Linq2Ldap.Protocols.IntegrationTest.Remote

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Linq2Ldap.ExampleCommon\Linq2Ldap.ExampleCommon.csproj" />
     <ProjectReference Include="..\Linq2Ldap.Protocols\Linq2Ldap.Protocols.csproj" />
     <ProjectReference Include="..\Linq2Ldap\Linq2Ldap.csproj" />
   </ItemGroup>

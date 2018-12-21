@@ -1,5 +1,5 @@
 ﻿using Linq2Ldap.Core.Models;
-using Linq2Ldap.Core.Specifications;
+using Linq2Ldap.ExampleCommon.Specifications;
 using System.Collections.Generic;
 using System.DirectoryServices.Protocols;
 

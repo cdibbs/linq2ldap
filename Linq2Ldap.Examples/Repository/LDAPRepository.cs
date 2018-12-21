@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
-using System.Linq.Expressions;
-using Linq2Ldap.Core;
 using Linq2Ldap.Core.Models;
-using Linq2Ldap.Core.Proxies;
-using Linq2Ldap.Core.Specifications;
+using Linq2Ldap.ExampleCommon.Specifications;
 
 namespace Linq2Ldap.Examples.Repository
 {

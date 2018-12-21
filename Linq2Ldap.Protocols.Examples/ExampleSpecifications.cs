@@ -1,8 +1,9 @@
 using Linq2Ldap.Examples.Models;
-using Linq2Ldap.Core.Specifications;
 using Linq2Ldap.Core.ExtensionMethods;
+using Linq2Ldap.ExampleCommon.Specifications;
 
-namespace Linq2Ldap.Examples {
+namespace Linq2Ldap.Examples
+{
     public class ExampleSpecifications {
         public virtual Specification<User> ActiveUsers() {
             return Specification<User>.Start(

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.DirectoryServices.Protocols;
 using System.Linq;
 using Linq2Ldap.Core.Models;
-using Linq2Ldap.Core.Specifications;
+using Linq2Ldap.ExampleCommon.Specifications;
 
 namespace Linq2Ldap.Protocols.Examples.Repository
 {
