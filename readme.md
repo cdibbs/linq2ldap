@@ -10,28 +10,29 @@ This project wraps [Linq2Ldap.Core][core] to facilitate LINQ-based querying of L
 and System.DirectoryServices.Protocols libraries. The intention is to facilitate using built-in LINQ Expressions so you
 don't have to use yet another metaprogramming target language in your code base.
 
-Here are a couple examples that use Expressions to page through LDAP results.
+Here is an examples that takes Expressions (wrapped in Specifications) to page through LDAP results.
 
 ## System.DirectoryServices Example
 
 ```c#
-public IEnumerable<T> Page<T>(
-    Expression<Func<T, bool>> filter,
-    int offsetPage = 0,
-    int pageSize = 10,
-    SortOption sortOpt = null
+public virtual IEnumerable<T> PageWithVLV<T>(
+    Specification<T> spec,
+    int offsetPage = 0, int pageSize = 10,
+    SortKey[] sortKeys = null
 )
-    where T : Entry
+    where T : IEntry, new()
 {
-    var searcher = new LinqDirectorySearcher<T>(DirEntry);
-    searcher.SearchScope = SearchScope.Subtree;
-    searcher.Filter = filter; // (.AsExpression() is implicit, here)
-    searcher.VirtualListView = new DirectoryVirtualListView(
-        0, pageSize - 1, pageSize * offsetPage + 1);
-
-    // Not obvious, but VLV must have a sort option.
-    searcher.Sort = sortOpt ?? new SortOption("cn", SortDirection.Ascending);
-    return searcher.FindAll();
+    var search = new LinqSearchRequest<T>(DistinguishedName, spec.AsExpression(), Scope);
+    var pageControl = new VlvRequestControl(0, pageSize - 1, pageSize * offsetPage + 1);
+    var soc = new SearchOptionsControl(SearchOption.DomainScope);
+    search.Controls.Add(pageControl);
+    search.Controls.Add(soc);
+    if (sortKeys != null)
+    {
+        var sortControl = new SortRequestControl(sortKeys);
+        search.Controls.Add(sortControl);
+    }
+    return Connection.SendRequest(search).Entries;
 }
 ```
 
