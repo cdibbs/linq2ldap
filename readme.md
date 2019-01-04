@@ -6,7 +6,7 @@
 
 # Linq2Ldap.*
 
-This is a thin, wrapper library for System.DirectoryServices.* that facilitates using LINQ Expressions to represent LDAP filters.
+This is a thin wrapper library for System.DirectoryServices.* that facilitates using LINQ Expressions to represent LDAP filters.
 It uses [Linq2Ldap.Core][core] to compile and parse LDAP filters.
 
 Here is an example that takes an Expression provides a page of results.
