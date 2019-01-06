@@ -6,23 +6,22 @@
 
 # Linq2Ldap.*
 
-This project wraps [Linq2Ldap.Core][core] to facilitate LINQ-based querying of LDAP using the System.DirectoryServices
-and System.DirectoryServices.Protocols libraries. The intention is to facilitate using built-in LINQ Expressions so you
-don't have to use yet another metaprogramming target language in your code base.
+This is a thin wrapper library for System.DirectoryServices.* that facilitates using LINQ Expressions to represent LDAP filters.
+It uses [Linq2Ldap.Core][core] to compile and parse LDAP filters.
 
-Here is an examples that takes Expressions (wrapped in Specifications) to page through LDAP results.
+Here is an example that takes an Expression provides a page of results.
 
 ## System.DirectoryServices Example
 
 ```c#
 public virtual IEnumerable<T> PageWithVLV<T>(
-    Specification<T> spec,
+    Expression<Func<T, bool>> filter,
     int offsetPage = 0, int pageSize = 10,
     SortKey[] sortKeys = null
 )
     where T : IEntry, new()
 {
-    var search = new LinqSearchRequest<T>(DistinguishedName, spec.AsExpression(), Scope);
+    var search = new LinqSearchRequest<T>(DistinguishedName, filter, Scope);
     var pageControl = new VlvRequestControl(0, pageSize - 1, pageSize * offsetPage + 1);
     var soc = new SearchOptionsControl(SearchOption.DomainScope);
     search.Controls.Add(pageControl);
@@ -37,7 +36,7 @@ public virtual IEnumerable<T> PageWithVLV<T>(
 ```
 
 Please note that even though the `System.DirectoryServices.*` libraries aren't compatible with Mac/Linux,
-you should still be able to use the LINQ Transpiler in [Linq2Ldap.Core][core] with a non-Windows LDAP library.
+you can still use [Linq2Ldap.Core][core] with a non-Windows LDAP library.
 
 For more information, please visit the [Wiki](https://github.com/cdibbs/linq2ldap/wiki).
 
