@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <APPVEYOR_BUILD_NUMBER Condition=" '$(APPVEYOR_BUILD_NUMBER)' == '' ">local</APPVEYOR_BUILD_NUMBER>
-    <PackageVersion>0.2.0-alpha$(APPVEYOR_BUILD_NUMBER)</PackageVersion>
+    <PackageVersion>0.3.0-alpha$(APPVEYOR_BUILD_NUMBER)</PackageVersion>
     <PackageId>Linq2Ldap</PackageId>
     <Title>LINQ-to-LDAP wrapper for System.DirectoryServices.</Title>
     <Description>A library that wraps System.DirectoryServices to facilitate searching using LINQ Expressions. (Appreciate this unencumbered FOSS library? Please visit git.io/fp0Yr in your browser.)</Description>
@@ -11,12 +11,12 @@
     <RepositoryUrl>https://github.com/cdibbs/linq2ldap</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/cdibbs/linq2ldap/blob/master/LICENSE</PackageLicenseUrl>
     <Authors>Chris Dibbern</Authors>
-    <PackageReleaseNotes>Updated Linq2Ldap.Core to provide RFC target option (default: RFC 4515).</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated Linq2Ldap.Core dep to add ternary operator support, better common exception message.</PackageReleaseNotes>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Linq2Ldap.Core" Version="1.4.0" />
+    <PackageReference Include="Linq2Ldap.Core" Version="1.5.0" />
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
   </ItemGroup>
 </Project>
