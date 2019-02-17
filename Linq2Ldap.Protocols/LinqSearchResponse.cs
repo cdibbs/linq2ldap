@@ -13,8 +13,7 @@ namespace Linq2Ldap.Protocols
     /// objects of type T.
     /// </summary>
     /// <typeparam name="T">The IEntry type to map entries.</typeparam>
-    public class LinqSearchResponse<T>
-        where T: IEntry, new()
+    public class LinqSearchResponse<T> : ILinqSearchResponse<T> where T: IEntry, new()
     {
         /// <summary>
         /// Creates a new LinqSearchResponse from a base response and that response's entries.
@@ -47,11 +46,11 @@ namespace Linq2Ldap.Protocols
         /// <summary>
         /// The native search response object.
         /// </summary>
-        public virtual SearchResponse Native { get; }
+        public SearchResponse Native { get; }
 
         /// <summary>
         /// The native search response entries mapped to objects of type T.
         /// </summary>
-        public virtual List<T> Entries { get; }
+        public List<T> Entries { get; }
     }
 }

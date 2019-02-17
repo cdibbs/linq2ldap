@@ -57,7 +57,7 @@ namespace Linq2Ldap.Protocols.Examples.Repository
         )
             where T : IEntry, new()
         {
-            LinqSearchResponse<T> result = null;
+            ILinqSearchResponse<T> result = null;
             int curPage = 0;
             while (curPage++ <= offsetPage)
             {

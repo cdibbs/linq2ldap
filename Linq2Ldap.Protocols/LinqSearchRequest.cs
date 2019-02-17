@@ -42,23 +42,25 @@ namespace Linq2Ldap.Protocols
         {
         }
 
+        /// <summary>
+        /// True, if the underlying LDAP filter is a string.
+        /// </summary>
+        public bool HasSimpleFilter => base.Filter is string;
 
         /// <summary>
         /// The search request filter represented as a LINQ Expression.
         /// </summary>
         public new Expression<Func<T, bool>> Filter {
             get {
-                if (base.Filter is string f) {
-                    return FilterParser.Parse<T>(f);
+                if (HasSimpleFilter) {
+                    return FilterParser.Parse<T>(base.Filter as string);
                 }
 
                 throw new InvalidCastException(
                     "Underlying filter type was not a string. Access the base filter by casting the LinqSearchRequest as a SearchRequest.");
             }
 
-            set {
-                base.Filter = FilterCompiler.Compile(value);
-            }
+            set => base.Filter = FilterCompiler.Compile(value);
         }
     }
 }
