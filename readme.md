@@ -11,7 +11,7 @@ It uses [Linq2Ldap.Core][core] to compile and parse LDAP filters.
 
 Here is an example that takes an Expression provides a page of results.
 
-## System.DirectoryServices Example
+## System.DirectoryServices.Protocols Example
 
 ```c#
 public virtual IEnumerable<T> PageWithVLV<T>(
