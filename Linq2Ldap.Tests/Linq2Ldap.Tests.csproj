@@ -13,7 +13,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="linq2ldap.core" Version="1.5.1" />
+    <PackageReference Include="linq2ldap.core" Version="1.6.0.43" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="moq" Version="4.10.1" />
     <PackageReference Include="system.directoryservices" Version="4.5.0" />

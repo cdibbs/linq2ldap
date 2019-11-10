@@ -1,5 +1,6 @@
 ﻿using System.DirectoryServices;
 using System.Linq;
+using Linq2Ldap.Core.ExtensionMethods;
 using Linq2Ldap.TestCommon.Models;
 using Xunit;
 
@@ -43,6 +44,18 @@ namespace Linq2Ldap.IntegrationTest.RemoteFilterEvaluation
             Assert.Single(results);
             //throw new Exception($"{string.Join(", ", results.First().AltMails)}");
             Assert.Contains(results, r => r.AltMails == "user6-backup-two@example.com");
+        }
+
+        [Fact]
+        public void DirectorySearcher_UsingMatchesStar_NoThrow()
+        {
+            var entry = new DirectoryEntry(
+                "LDAP://127.0.0.1:1389", "cn=neoman,dc=example,dc=com",
+                "testtest", AuthenticationTypes.None);
+            var ctx = new LinqDirectorySearcher<MyModel>(entry);
+            ctx.Filter = e => e.Attributes["objectCategory"].Matches("*");
+            ctx.SearchScope = SearchScope.Subtree;
+            var results = ctx.FindAll();
         }
 
         [Fact]
