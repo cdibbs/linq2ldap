@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <APPVEYOR_BUILD_NUMBER Condition=" '$(APPVEYOR_BUILD_NUMBER)' == '' ">local</APPVEYOR_BUILD_NUMBER>
-    <PackageVersion>0.5.0-alpha$(APPVEYOR_BUILD_NUMBER)</PackageVersion>
+    <PackageVersion>0.5.1-alpha$(APPVEYOR_BUILD_NUMBER)</PackageVersion>
     <PackageId>Linq2Ldap.Protocols</PackageId>
     <Title>LINQ-to-LDAP wrapper for System.DirectoryServices.Protocols.</Title>
-    <Description>A library that wraps System.DirectoryServices.Protocols to facilitate searching using LINQ Expressions. (Appreciate this unencumbered FOSS library? Please visit git.io/fp0Yr in your browser.)</Description>
+    <Description>A library that wraps System.DirectoryServices.Protocols to facilitate searching using LINQ Expressions.</Description>
     <PackageProjectUrl>https://github.com/cdibbs/linq2ldap</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cdibbs/linq2ldap</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/cdibbs/linq2ldap/blob/master/LICENSE</PackageLicenseUrl>
