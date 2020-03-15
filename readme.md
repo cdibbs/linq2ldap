@@ -42,7 +42,17 @@ For more information, please visit the [Wiki](https://github.com/cdibbs/linq2lda
 
 ## Contributing
 
-Do you appreciate the hard work that went into this software? We accept [donations]!
+| Coin     | Address                                     
+|----------|---------------------------------------------
+| Ethereum | 0xfCdA80Be00F8907FfcD227683D9D96f7C47eC67f  
+| Bitcoin  | 33pypS6oRmgmvMwAnX5rpJAaxnqScxSALS          
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="hidden" name="hosted_button_id" value="JC7R9TLHQNDAU" />
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+</form>
 
 [banner]: https://github.com/cdibbs/linq2ldap/blob/master/resources/header.svg "The only way to discover the limits of the possible is to go beyond them into the impossible. - Arthur C. Clarke"
 [1]: https://github.com/cdibbs/linq2ldap/blob/master/Linq2Ldap/Specification.cs#L42
