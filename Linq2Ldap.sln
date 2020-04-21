@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq2Ldap", "Linq2Ldap\Linq2Ldap.csproj", "{30C82299-1EF3-4AB9-98FE-7FCD1DFEC12B}"
 EndProject
@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13E8105D-E404-4B38-AD25-DF0F9538AE00}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		changelog.md = changelog.md
 		..\linq2ldap.core\code_of_conduct.md = ..\linq2ldap.core\code_of_conduct.md
 		Directory.Build.targets = Directory.Build.targets
 		e2e-helpers\index.ts = e2e-helpers\index.ts
@@ -30,9 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq2Ldap.Protocols.Examples", "Linq2Ldap.Protocols.Examples\Linq2Ldap.Protocols.Examples.csproj", "{6FD6D631-D754-4389-83C8-72E0003355E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linq2Ldap.ExampleCommon", "Linq2Ldap.ExampleCommon\Linq2Ldap.ExampleCommon.csproj", "{2A0451FB-A7DD-4C6B-AF93-917233FF4348}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq2Ldap.ExampleCommon", "Linq2Ldap.ExampleCommon\Linq2Ldap.ExampleCommon.csproj", "{2A0451FB-A7DD-4C6B-AF93-917233FF4348}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linq2Ldap.ExampleCommon.Tests", "Linq2Ldap.ExampleCommon.Tests\Linq2Ldap.ExampleCommon.Tests.csproj", "{DB95A204-6D9E-4801-B78B-E60D1747AE3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq2Ldap.ExampleCommon.Tests", "Linq2Ldap.ExampleCommon.Tests\Linq2Ldap.ExampleCommon.Tests.csproj", "{DB95A204-6D9E-4801-B78B-E60D1747AE3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
