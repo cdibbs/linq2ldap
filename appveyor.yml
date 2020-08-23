@@ -1,5 +1,5 @@
-version: '0.5.1.{build}'
-image: Visual Studio 2017
+version: '0.5.2.{build}'
+image: Visual Studio 2019
 # https://dotnetcore.gaprogman.com/2017/06/08/continuous-integration-and-appveyor/
 branches:
   only:

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <APPVEYOR_BUILD_NUMBER Condition=" '$(APPVEYOR_BUILD_NUMBER)' == '' ">local</APPVEYOR_BUILD_NUMBER>
-    <PackageVersion>0.5.1-alpha$(APPVEYOR_BUILD_NUMBER)</PackageVersion>
+    <PackageVersion>0.5.2-alpha$(APPVEYOR_BUILD_NUMBER)</PackageVersion>
     <PackageId>Linq2Ldap.Protocols</PackageId>
     <Title>LINQ-to-LDAP wrapper for System.DirectoryServices.Protocols.</Title>
     <Description>A library that wraps System.DirectoryServices.Protocols to facilitate searching using LINQ Expressions.</Description>
@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Linq2Ldap.Core" Version="1.6.1.51" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="System.DirectoryServices.Protocols" Version="4.5.0" />
+    <PackageReference Include="Linq2Ldap.Core" Version="1.6.2.53" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="4.7.0" />
   </ItemGroup>
 </Project>

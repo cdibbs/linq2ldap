@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2020-08-22
+### Updated
+ - npm dependencies in mock LDAP server to fix security warning.
+ - Linq2Ldap.Core to latest, fixing GUID handling.
+ - all other NuGet dependencies.
+ - appveyor build image to VS 2019.
+
 ## [0.5.1] - 2020-04-21
 ### Added
  - This changelog.md file.

@@ -215,7 +215,6 @@ class MockLdapInstance {
         if (! ctrl) {
             return null;
         }
-
         var ber = new BerReader(ctrl.value);
         if (ber.readSequence()) {
             let v: any= {};
@@ -253,6 +252,5 @@ class MockLdapInstance {
         return next(new (<any>ldap).InsufficientAccessRightsError());
       }
 }
-
-const port = parseInt(process.argv[2] || "1389");
+const port = parseInt(process.argv[3] || "1389");
 new MockLdapInstance().start(port);
