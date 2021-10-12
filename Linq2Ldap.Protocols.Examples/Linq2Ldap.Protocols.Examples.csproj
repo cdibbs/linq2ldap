@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Linq2Ldap.Core" Version="1.6.2.53" />
-    <PackageReference Include="System.DirectoryServices.Protocols" Version="4.7.0" />
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
