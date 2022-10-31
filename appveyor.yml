@@ -1,5 +1,5 @@
 version: '0.5.2.{build}'
-image: Visual Studio 2019
+image: Visual Studio 2022
 # https://dotnetcore.gaprogman.com/2017/06/08/continuous-integration-and-appveyor/
 branches:
   only:
@@ -35,13 +35,13 @@ build_script:
   - cmd: dotnet publish ./Linq2Ldap.sln
 
 test_script:
-  - ps: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./ Linq2Ldap.sln /p:Exclude="[Linq2Ldap.TestCommon]*"
+  - ps: dotnet test .\Linq2Ldap.sln --collect "XPlat Code Coverage" --settings .\coverlet.runsettings /p:Exclude="[Linq2Ldap.TestCommon]*"
 
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "Linq2Ldap.Tests/coverage.opencover.xml" -f "Linq2Ldap.Protocols.Tests/coverage.opencover.xml" -U "-s" -A "-s"
+  - cmd: bash codecov.sh -f "Linq2Ldap.Tests/TestResults/*/coverage.opencover.xml" -f "Linq2Ldap.Protocols.Tests/TestResults/*/coverage.opencover.xml" -U "-s" -A "-s"
   - dotnet pack ./Linq2Ldap.Protocols/ -c Release
   - dotnet pack ./Linq2Ldap/ -c Release
 
