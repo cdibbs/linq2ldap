@@ -23,10 +23,12 @@
   "author": "Chris Dibbern <chris.dibbern@gmail.com> (https://github.com/cdibbs)",
   "license": "MIT",
   "devDependencies": {
+    "@ldapjs/controls": "^1.0.0",
     "@types/ldapjs": "^1.0.3",
+    "@types/node": "^18.11.8",
     "asn1": "^0.2.4",
-    "ldapjs": "^1.0.2",
-    "ts-node": "^9.0.0",
+    "ldapjs": "^2.3.3",
+    "ts-node": "^9.1.1",
     "typescript": "^4.0.2"
   }
 }

@@ -29,7 +29,7 @@ namespace Linq2Ldap.Protocols.IntegrationTest
             var response = conn.SendRequest(search);
             var user3 = response.Entries[0];
             Assert.NotNull(user3);
-            Assert.Equal("mail=user3@example.com, dc=example, dc=com", user3.DistinguishedName);
+            Assert.Equal("mail=user3@example.com,dc=example,dc=com", user3.DistinguishedName);
         }
 
         [Fact]

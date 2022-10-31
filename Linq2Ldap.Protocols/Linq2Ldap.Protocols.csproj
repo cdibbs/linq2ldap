@@ -18,6 +18,6 @@
   <ItemGroup>
     <PackageReference Include="Linq2Ldap.Core" Version="1.6.2.53" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.DirectoryServices.Protocols" Version="4.7.0" />
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="6.0.1" />
   </ItemGroup>
 </Project>
