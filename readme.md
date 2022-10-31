@@ -42,7 +42,10 @@ For more information, please visit the [Wiki](https://github.com/cdibbs/linq2lda
 
 ## Contributing
 
-Do you appreciate the hard work that went into this software? We accept [donations]!
+| Coin     | Address                                     
+|----------|---------------------------------------------
+| Ethereum | 0xfCdA80Be00F8907FfcD227683D9D96f7C47eC67f  
+| Bitcoin  | 33pypS6oRmgmvMwAnX5rpJAaxnqScxSALS          
 
 [banner]: https://github.com/cdibbs/linq2ldap/blob/master/resources/header.svg "The only way to discover the limits of the possible is to go beyond them into the impossible. - Arthur C. Clarke"
 [1]: https://github.com/cdibbs/linq2ldap/blob/master/Linq2Ldap/Specification.cs#L42
