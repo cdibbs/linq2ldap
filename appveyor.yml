@@ -36,8 +36,8 @@ build_script:
   - cmd: dotnet publish ./Linq2Ldap.sln
 
 test_script:
-  - ps: dotnet test .\Linq2Ldap.sln --collect "XPlat Code Coverage" --settings .\coverlet.runsettings /p:Exclude="[Linq2Ldap.TestCommon]*"
   - ps: start-sleep -seconds 600
+  - ps: dotnet test .\Linq2Ldap.sln --collect "XPlat Code Coverage" --settings .\coverlet.runsettings /p:Exclude="[Linq2Ldap.TestCommon]*"
 
 after_test:
   - ps: |
