@@ -11,7 +11,6 @@ dotnet_csproj:
   package_version: '{version}'
 
 init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
 
@@ -26,7 +25,7 @@ before_build:
   - cmd: dotnet --version
   # Start LDAP test server
   - ps: |
-      $MyProcess = Start-Process npm.cmd -ArgumentList 'run serve'
+      $MyProcess = Start-Process npm.cmd -ArgumentList 'run serve' -PassThru -NoNewWindow
       cd ..
   # Display minimal restore text
   - cmd: dotnet restore ./Linq2Ldap.sln --verbosity m
@@ -36,8 +35,7 @@ build_script:
   - cmd: dotnet publish ./Linq2Ldap.sln
 
 test_script:
-  - ps: start-sleep -seconds 600
-  - ps: dotnet test .\Linq2Ldap.sln --collect "XPlat Code Coverage" --settings .\coverlet.runsettings /p:Exclude="[Linq2Ldap.TestCommon]*"
+    - ps: dotnet test .\Linq2Ldap.sln --collect "XPlat Code Coverage" --settings .\coverlet.runsettings /p:Exclude="[Linq2Ldap.TestCommon]*"
 
 after_test:
   - ps: |
