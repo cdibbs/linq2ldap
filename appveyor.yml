@@ -27,6 +27,7 @@ before_build:
   - ps: |
       $MyProcess = Start-Process npm.cmd -ArgumentList 'run serve'
       cd ..
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # Display minimal restore text
   - cmd: dotnet restore ./Linq2Ldap.sln --verbosity m
 
