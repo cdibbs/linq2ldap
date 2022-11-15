@@ -1,5 +1,4 @@
 import ldap = require('ldapjs');
-import { getMaxListeners } from 'cluster';
 import { BerReader } from "asn1";
 
 interface Attribute {
@@ -183,8 +182,8 @@ class MockLdapInstance {
         console.log(`search: ${req.baseObject} ${req}`);
         var pageCtrl = req.controls.find(c => c.type == "1.2.840.113556.1.4.319");
         var sortCtrl = req.controls.find(c => c.type == "1.2.840.113556.1.4.473");
-        var vlvCtrl = self.getVlv(req.controls.find(c => c.type == "2.16.840.1.113730.3.4.9"));
-        console.log(vlvCtrl);
+        var ctrl = req.controls.find(c => c.type == "2.16.840.1.113730.3.4.9");
+        var vlvCtrl = self.getVlv(ctrl);
         var i = -1;
         if (pageCtrl && vlvCtrl) {
             throw new Error("Conflicting Page and VLV controls?");
@@ -214,6 +213,9 @@ class MockLdapInstance {
       getVlv(ctrl) {
         if (! ctrl) {
             return null;
+        }
+        if (! (ctrl.value instanceof Buffer)) {
+	    return ctrl.value;
         }
         var ber = new BerReader(ctrl.value);
         if (ber.readSequence()) {

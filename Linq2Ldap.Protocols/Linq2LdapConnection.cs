@@ -1,3 +1,4 @@
+using System;
 using System.DirectoryServices.Protocols;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -31,6 +32,24 @@ namespace Linq2Ldap.Protocols {
             where T : IEntry, new()
         {
             var native = LdapConnectionProxy.SendRequest(request) as SearchResponse;
+            return new LinqSearchResponse<T>(native, native?.Entries);
+        }
+
+        /// <inheritdoc />
+        public ILinqSearchResponse<T> SendRequest<T>(
+            LinqSearchRequest<T> request,
+            TimeSpan requestTimeout
+        )
+            where T : IEntry, new()
+        {
+            var native = LdapConnectionProxy.SendRequest(request, requestTimeout) as SearchResponse;
+            return new LinqSearchResponse<T>(native, native?.Entries);
+        }
+
+        /// <inheritdoc />
+        public ILinqSearchResponse<T> EndSendRequest<T>(IAsyncResult asyncResult) where T : IEntry, new()
+        {
+            var native = LdapConnectionProxy.EndSendRequest(asyncResult) as SearchResponse;
             return new LinqSearchResponse<T>(native, native?.Entries);
         }
     }

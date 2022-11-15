@@ -34,7 +34,7 @@ namespace Linq2Ldap.Protocols.IntegrationTest.Remote
             Assert.Equal(10, results.Count);
         }
 
-        [Fact]
+        [Fact(Skip = "disabled pending resolution of https://github.com/ldapjs/controls/issues/1")]
         public void PageWithVlv_RunsWithoutError()
         {
             var repo = Factory.Build("dc=example, dc=com", SearchScope.Subtree);
